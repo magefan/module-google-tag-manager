@@ -1,7 +1,7 @@
 # [Magento 2 Google Tag Manager and Google Analitics 4](https://magefan.com/) by Magefan
 
-[![Total Downloads](https://poser.pugx.org/magefan/magefan/module-google-tag-manager/downloads)](https://packagist.org/packages/magefan/magefan/module-google-tag-manager)
-[![Latest Stable Version](https://poser.pugx.org/magefan/magefan/module-google-tag-manager/v/stable)](https://packagist.org/packages/magefan/magefan/module-google-tag-manager)
+[![Total Downloads](https://poser.pugx.org/magefan/module-google-tag-manager/downloads)](https://packagist.org/packages/magefan/module-google-tag-manager)
+[![Latest Stable Version](https://poser.pugx.org/magefan/module-google-tag-manager/v/stable)](https://packagist.org/packages/magefan/module-google-tag-manager)
 
 <a href="https://www.comebackalive.in.ua/donate"><img width="830" height="208" src="https://cm.magefan.com/blog/support-ukraine.png"></a>
 
@@ -20,7 +20,7 @@
 ## Support
 If you have any issues, please [contact us](mailto:support@magefan.com)
 then if you still need help, open a bug report in GitHub's
-[issue tracker](https://github.com/magefan/magefan/module-google-tag-manager/issues).
+[issue tracker](https://github.com/magefan/module-google-tag-manager/issues).
 
 ## Need More Features?
 Please contact us to get a quote
