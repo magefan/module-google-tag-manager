@@ -1,6 +1,6 @@
 {
     "name": "magefan/module-google-tag-manager",
-    "description": "Google Tag Manager with GA4",
+    "description": "Magento 2 Google Tag Manager and Google Analitics 4",
     "type": "magento2-module",
     "license": "proprietary",
     "authors": [
