@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+/** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

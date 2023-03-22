@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+/** @var \Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button $block */
+/** @var \Magento\Framework\Escaper $escaper */
+// phpcs:ignoreFile
+?>
+<div class="pp-buttons-container">
+    <?php if ($block->getRequest()->getParam('website')) { ?>
+        <strong>
+            <?= $escaper->escapeHtml(__('Container generation is not available for website scope.')) ?>
+        </strong>
+    <?php } else { ?>
+        <button type="button" id="mf_download">
+            <?= $escaper->escapeHtml(__('Generate JSON Container & Download File')); ?>
+        </button>
+        <script>
+            require([
+                'jquery',
+                'domReady!'
+            ], function ($) {
+                $('#mf_download').on('click', function(event) {
+                    event.preventDefault;
+                    window.location='<?= $escaper->escapeUrl(
+                        $block->getUrl(
+                            'mfgoogletagmanager/container/generate',
+                            ['store_id' => (int)$block->getRequest()->getParam('store') ?: null]
+                        )
+                    )?>';
+                });
+            });
+        </script>
+    <?php } ?>
+</div>
+

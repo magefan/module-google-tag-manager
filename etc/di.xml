@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\BeginCheckoutInterface" type="Magefan\GoogleTagManager\Model\DataLayer\BeginCheckout" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Purchase" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\ViewCartInterface" type="Magefan\GoogleTagManager\Model\DataLayer\ViewCart" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\ViewItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\ViewItem" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Cart\Item" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\Order\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Order\Item" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Product\Item" />
+</config>

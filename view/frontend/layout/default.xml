@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block
+                class="Magefan\GoogleTagManager\Block\GtmCode"
+                name="mfgtm.jscode"
+                before="-"
+                template="Magefan_GoogleTagManager::js_code.phtml"
+            />
+            <block class="Magefan\GoogleTagManager\Block\DataLayer\Other" name="mfgtm.data.layer"/>
+        </referenceBlock>
+        <referenceContainer name="after.body.start">
+            <block
+                class="Magefan\GoogleTagManager\Block\GtmCode"
+                name="mfgtm.nojscode"
+                before="-"
+                template="Magefan_GoogleTagManager::no_js_code.phtml"
+            />
+        </referenceContainer>
+    </body>
+</page>
