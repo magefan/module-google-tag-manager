@@ -26,7 +26,11 @@
                     <label>Product Key</label>
                     <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
                 </field>
-                <field id="account_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public ID</label>
+                    <comment>E.g. GTM-XXXXXXX</comment>
+                </field>
+                <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account ID</label>
                     <comment><![CDATA[
                             <p>Please get the Google Tag Manager account ID from the GTM Workspace URL path. E.g.<br/>
@@ -34,17 +38,13 @@
                         ]]>
                     </comment>
                 </field>
-                <field id="container_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="container_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Container ID</label>
                     <comment><![CDATA[
                             <p>Please get the Google Tag Manager container ID from the GTM Workspace URL path. E.g.<br/>
                             <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">https://tagmanager.google.com/#/container/accounts/XXXXXXXXXX/containers/<strong>XXXXXXXXX</strong></pre></p>
                         ]]>
                     </comment>
-                </field>
-                <field id="public_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Public ID</label>
-                    <comment>E.g. GTM-XXXXXXX</comment>
                 </field>
             </group>
             <group id="analytics" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
