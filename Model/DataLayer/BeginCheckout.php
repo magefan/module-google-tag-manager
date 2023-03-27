@@ -47,11 +47,9 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
     public function get(Quote $quote): array
     {
         $items = [];
-        $itemsQty = 0;
 
         foreach ($quote->getAllVisibleItems() as $item) {
             $items[] = $this->gtmItem->get($item);
-            $itemsQty += $item->getQty() * 1;
         }
 
         return [

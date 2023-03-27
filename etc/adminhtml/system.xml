@@ -64,6 +64,10 @@
                         <field id="enable">1</field>
                     </depends>
                 </field>
+                <field id="events" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Events</label>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\EventList</frontend_model>
+                </field>
             </group>
             <group id="attributes" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product Attributes Mapping</label>
