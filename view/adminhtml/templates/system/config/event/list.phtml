@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+/** @var \Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\EventList $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
+$events = [
+    'View Product (view_item)',
+    'View Shopping Cart (view_cart)',
+    'View Checkout (begin_checkout)',
+    'Checkout Success Page (purchase)'
+];
+$eventsPlus = [
+    'Add To Cart (add_to_cart)',
+    'Remove From Cart (remove_from_cart)',
+    'Add To Wishlist (add_to_wishlist)',
+    'View Product List on category page, related/upsale/crossale products (view_item_list)',
+    'Shipping Step on Checkout Page (add_shipping_info)',
+    'Payments Step on Checkout Page (add_payment_info)'
+];
+?>
+<br/>
+<div>
+    <ul>
+        <li>
+            <?= $escaper->escapeHtml(implode('</li><li>', $events), ['li']) ?>
+        </li>
+    </ul>
+    <p <?php if (!$block->isPlusEnabled()) { ?>style="color: red"<?php } ?>>
+        <strong>
+            <?= $escaper->escapeHtml(__(!$block->isPlusEnabled() ? 'Available in GTM Plus Only' : 'GTM Plus')) ?>
+            <?php if (!$block->isPlusEnabled()) { ?>
+                (<a href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read More</a>):
+            <?php } ?>
+        </strong>
+    </p>
+    <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: red"<?php } ?>>
+        <ul>
+            <li>
+                <?= $escaper->escapeHtml(implode('</li><li>', $eventsPlus), ['li']) ?>
+            </li>
+        </ul>
+    </div>
+</div>
