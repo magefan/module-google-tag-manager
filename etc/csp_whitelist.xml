@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="mg-google" type="host">*.google.com</value>
+                <value id="mg-google-ua" type="host">*.google.com.ua</value>
+                <value id="mg-google-uk" type="host">*.google.co.uk</value>
+                <value id="mg-gstatic" type="host">*.gstatic.com</value>
+                <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
+                <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="mg-googleapis-com" type="host">*.googleapis.com</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="mg-googleanalytics" type="host">*.google-analytics.com</value>
+                <value id="mg-google-com" type="host">*.google.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="mg-google" type="host">*.google.com</value>
+                <value id="mg-google-ua" type="host">*.google.com.ua</value>
+                <value id="mg-google-uk" type="host">*.google.co.uk</value>
+                <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="mg-google" type="host">*.google.com</value>
+                <value id="mg-google-ua" type="host">*.google.com.ua</value>
+                <value id="mg-google-uk" type="host">*.google.co.uk</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>
