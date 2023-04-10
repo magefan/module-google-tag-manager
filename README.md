@@ -1,4 +1,4 @@
-# [Magento 2 Google Tag Manager and Google Analitics 4](https://magefan.com/) by Magefan
+# [Magento 2 Google Tag Manager and Google Analitics 4](https://magefan.com/magento-2-google-tag-manager) by Magefan
 
 [![Total Downloads](https://poser.pugx.org/magefan/module-google-tag-manager/downloads)](https://packagist.org/packages/magefan/module-google-tag-manager)
 [![Latest Stable Version](https://poser.pugx.org/magefan/module-google-tag-manager/v/stable)](https://packagist.org/packages/magefan/module-google-tag-manager)
