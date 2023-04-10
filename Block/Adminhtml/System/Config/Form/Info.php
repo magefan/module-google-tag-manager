@@ -28,6 +28,6 @@ class Info extends \Magefan\Community\Block\Adminhtml\System\Config\Form\Info
      */
     protected function getModuleTitle(): string
     {
-        return 'Google Tag Manager Extension';
+        return 'Google Tag Manager and Analytics Extension';
     }
 }
