@@ -21,6 +21,13 @@ $eventsPlus = [
     'Shipping Step on Checkout Page (add_shipping_info)',
     'Payments Step on Checkout Page (add_payment_info)'
 ];
+$eventsExtra = [
+    'Sign In (login)',
+    'Create an Account (sign_up)',
+    'Search (search)',
+    'Earn Virtual Currency (earn_virtual_currency)',
+    'Spend Virtual Currency (spend_virtual_currency)'
+];
 ?>
 <br/>
 <div>
@@ -41,6 +48,21 @@ $eventsPlus = [
         <ul>
             <li>
                 <?= $escaper->escapeHtml(implode('</li><li>', $eventsPlus), ['li']) ?>
+            </li>
+        </ul>
+    </div>
+    <p <?php if (!$block->isExtraEnabled()) { ?>style="color: red"<?php } ?>>
+        <strong>
+            <?= $escaper->escapeHtml(__(!$block->isExtraEnabled() ? 'Available in GTM Extra Only' : 'GTM Extra')) ?>
+            <?php if (!$block->isExtraEnabled()) { ?>
+                (<a href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read More</a>):
+            <?php } ?>
+        </strong>
+    </p>
+    <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: red"<?php } ?>>
+        <ul>
+            <li>
+                <?= $escaper->escapeHtml(implode('</li><li>', $eventsExtra), ['li']) ?>
             </li>
         </ul>
     </div>

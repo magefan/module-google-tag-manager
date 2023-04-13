@@ -88,4 +88,14 @@ class EventList extends Field
     {
         return (bool)$this->moduleManager->isEnabled('Magefan_GoogleTagManagerPlus');
     }
+
+    /**
+     * Retrieve true if GTM Extra is enabled
+     *
+     * @return bool
+     */
+    public function isExtraEnabled()
+    {
+        return (bool)$this->moduleManager->isEnabled('Magefan_GoogleTagManagerExtra');
+    }
 }
