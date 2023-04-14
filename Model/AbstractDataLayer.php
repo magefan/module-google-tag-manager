@@ -58,6 +58,11 @@ class AbstractDataLayer
      */
     protected function getCategoryNames(Product $product): array
     {
+        /* Temporary disable displaying category names,
+         * as it is optional and slows down the website speed
+         */
+        return [];
+
         $result = [];
 
         if ($productCategory = $this->getCategoryByProduct($product)) {
