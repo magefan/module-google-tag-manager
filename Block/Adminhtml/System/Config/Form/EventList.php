@@ -12,7 +12,6 @@ use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Module\Manager;
-use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 class EventList extends Field
 {
@@ -29,16 +28,14 @@ class EventList extends Field
      * @param Context $context
      * @param Manager $moduleManager
      * @param array $data
-     * @param SecureHtmlRenderer|null $secureRenderer
      */
     public function __construct(
         Context $context,
         Manager $moduleManager,
-        array $data = [],
-        ?SecureHtmlRenderer $secureRenderer = null
+        array $data = []
     ) {
         $this->moduleManager = $moduleManager;
-        parent::__construct($context, $data, $secureRenderer);
+        parent::__construct($context, $data);
     }
 
     /**
