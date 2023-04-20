@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Magefan\GoogleTagManager\Model;
 
-use Laminas\Uri\UriFactory;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Store\Model\StoreManagerInterface;
@@ -57,7 +56,6 @@ class Container
     public function generate(string $storeId = null): array
     {
         $store = $this->storeManager->getStore($storeId);
-        $uri = UriFactory::factory($store->getBaseUrl());
         $timestamp = (string)$this->dateTime->timestamp();
         $accountId = $this->config->getAccountId($storeId);
         $containerId = $this->config->getContainerId($storeId);
@@ -76,7 +74,7 @@ class Container
                     'path' => 'accounts/' . $accountId . '/containers/' . $containerId,
                     'accountId' => $accountId,
                     'containerId' => $containerId,
-                    'name' => $uri->isValid() ? $uri->getHost() : '',
+                    //'name' => '',
                     'publicId' => $publicId,
                     'usageContext' => [
                         'WEB'
