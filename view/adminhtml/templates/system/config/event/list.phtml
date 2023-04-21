@@ -7,6 +7,12 @@
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
 <?php
+if (!isset($escaper)) {
+    /* Compatability fix for old Magento versions */
+    $escaper = $block;
+}
+?>
+<?php
 $events = [
     'View Product (view_item)',
     'View Shopping Cart (view_cart)',

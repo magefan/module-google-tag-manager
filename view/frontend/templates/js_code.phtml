@@ -6,6 +6,12 @@
 /** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
+<?php
+if (!isset($escaper)) {
+    /* Compatability fix for old Magento versions */
+    $escaper = $block;
+}
+?>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

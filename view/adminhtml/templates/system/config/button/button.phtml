@@ -7,6 +7,12 @@
 /** @var \Magento\Framework\Escaper $escaper */
 // phpcs:ignoreFile
 ?>
+<?php
+if (!isset($escaper)) {
+    /* Compatability fix for old Magento versions */
+    $escaper = $block;
+}
+?>
 <div class="pp-buttons-container">
     <?php if ($block->getRequest()->getParam('website')) { ?>
         <strong>

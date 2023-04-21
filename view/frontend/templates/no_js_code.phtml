@@ -6,6 +6,12 @@
 /** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
+<?php
+if (!isset($escaper)) {
+    /* Compatability fix for old Magento versions */
+    $escaper = $block;
+}
+?>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
