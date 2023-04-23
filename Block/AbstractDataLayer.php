@@ -53,9 +53,8 @@ abstract class AbstractDataLayer extends AbstractBlock
             $dataLayer = $this->getDataLayer();
             if ($dataLayer) {
                 return '<script>
-                    require(["mfPushDataLayer"], function(mfPushDataLayer) {
-                        mfPushDataLayer(' . json_encode($dataLayer) . ');
-                    })
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push(' . json_encode($dataLayer) . ');
                 </script>';
             }
         }
