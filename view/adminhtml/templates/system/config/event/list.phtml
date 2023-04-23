@@ -43,7 +43,7 @@ $eventsExtra = [
 <div>
     <ul>
         <li>
-            <?= $escaper->escapeHtml(implode('</li><li>', $events), ['li']) ?>
+            <?= implode('</li><li>', $events) ?>
         </li>
     </ul>
     <p <?php if (!$block->isPlusEnabled()) { ?>style="color: #eb5202"<?php } ?>>
@@ -57,7 +57,7 @@ $eventsExtra = [
     <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
         <ul>
             <li>
-                <?= $escaper->escapeHtml(implode('</li><li>', $eventsPlus), ['li']) ?>
+                <?= implode('</li><li>', $eventsPlus) ?>
             </li>
         </ul>
     </div>
@@ -72,7 +72,7 @@ $eventsExtra = [
     <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
         <ul>
             <li>
-                <?= $escaper->escapeHtml(implode('</li><li>', $eventsExtra), ['li']) ?>
+                <?= implode('</li><li>', $eventsExtra) ?>
             </li>
         </ul>
     </div>
