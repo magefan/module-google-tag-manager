@@ -153,4 +153,24 @@ class AbstractDataLayer
         $price = $priceInfo->getValue();
         return $this->formatPrice($price);
     }
+
+    /**
+     * @param Product $product
+     * @param string $attributeCode
+     * @return string
+     */
+    protected function getProductAttributeValue(Product $product, ?string $attributeCode): string
+    {
+        if ($attributeCode) {
+            $result = $product->getData($attributeCode);
+            if (is_numeric($result) && 'sku' != $attributeCode) {
+                $result = $product->getResource()->getAttribute($attributeCode)->getFrontend()->getValue($product);
+            }
+            if ($result) {
+                return (string)$result;
+            }
+        }
+
+        return '';
+    }
 }

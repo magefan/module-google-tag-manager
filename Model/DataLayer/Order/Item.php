@@ -22,11 +22,12 @@ class Item extends AbstractDataLayer implements ItemInterface
         $product = $orderItem->getProduct();
         $categoryNames = $this->getCategoryNames($product);
         return array_merge(array_filter([
-            'item_id' => $product->getData($this->config->getProductAttribute()),
+            'item_id' => ($this->config->getProductAttribute() == 'sku')
+                ? $orderItem->getSku()
+                : $this->getProductAttributeValue($product, $this->config->getProductAttribute()),
             'item_name' => $orderItem->getName(),
             'discount' => $this->formatPrice((float)$orderItem->getDiscountAmount()),
-            'item_brand' => $this->config->getBrandAttribute() ?
-                $product->getData($this->config->getBrandAttribute()) : '',
+            'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
             'price' => $this->formatPrice((float)$orderItem->getPrice()),
             'quantity' => $orderItem->getQtyOrdered() * 1
         ]), $categoryNames);

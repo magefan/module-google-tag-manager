@@ -21,10 +21,9 @@ class Item extends AbstractDataLayer implements ItemInterface
     {
         $categoryNames = $this->getCategoryNames($product);
         return array_merge(array_filter([
-            'item_id' => $product->getData($this->config->getProductAttribute()),
+            'item_id' => $this->getProductAttributeValue($product, $this->config->getProductAttribute()),
             'item_name' => $product->getName(),
-            'item_brand' => $this->config->getBrandAttribute() ?
-                $product->getData($this->config->getBrandAttribute()) : '',
+            'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
             'price' => $this->getPrice($product)
         ]), $categoryNames);
     }
