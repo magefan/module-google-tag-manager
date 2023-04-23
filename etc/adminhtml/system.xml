@@ -56,7 +56,7 @@
                 <field id="measurement_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Measurement ID</label>
                     <comment><![CDATA[
-                            <p>Please get the measurement ID from the Stream details page (Google Analytics > Admin > Data Streams).</p>
+                            <p>Please get the measurement ID from the Stream details page (<a href="https://analytics.google.com/analytics/web/" title="Google Analitics" target="_blank" rel="nofollow noopener">Google Analytics</a> > Admin > Data Streams).</p>
                             <p>E.g. G-XXXXXXXXXX
                         ]]>
                     </comment>
