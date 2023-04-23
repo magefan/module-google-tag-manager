@@ -25,14 +25,18 @@ $eventsPlus = [
     'Add To Wishlist (add_to_wishlist)',
     'View Product List on category page, related/up-sell/cross-sell products (view_item_list)',
     'Shipping Step on Checkout Page (add_shipping_info)',
-    'Payments Step on Checkout Page (add_payment_info)'
+    'Payments Step on Checkout Page (add_payment_info)',
+    'Google Ads - Conversion Tracking',
+    'Google Ads - Dynamic Remarketing'
 ];
 $eventsExtra = [
     'Sign In (login)',
     'Create an Account (sign_up)',
     'Search (search)',
+    /*
     'Earn Virtual Currency (earn_virtual_currency)',
     'Spend Virtual Currency (spend_virtual_currency)'
+    */
 ];
 ?>
 <br/>
@@ -42,34 +46,39 @@ $eventsExtra = [
             <?= $escaper->escapeHtml(implode('</li><li>', $events), ['li']) ?>
         </li>
     </ul>
-    <p <?php if (!$block->isPlusEnabled()) { ?>style="color: red"<?php } ?>>
+    <p <?php if (!$block->isPlusEnabled()) { ?>style="color: #eb5202"<?php } ?>>
         <strong>
             <?= $escaper->escapeHtml(__(!$block->isPlusEnabled() ? 'Available in GTM Plus Only' : 'GTM Plus')) ?>
             <?php if (!$block->isPlusEnabled()) { ?>
-                (<a href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read More</a>):
+                (<a style="color: #eb5202; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read more</a>):
             <?php } ?>
         </strong>
     </p>
-    <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: red"<?php } ?>>
+    <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
         <ul>
             <li>
                 <?= $escaper->escapeHtml(implode('</li><li>', $eventsPlus), ['li']) ?>
             </li>
         </ul>
     </div>
-    <p <?php if (!$block->isExtraEnabled()) { ?>style="color: red"<?php } ?>>
+    <p <?php if (!$block->isExtraEnabled()) { ?>style="color: #eb5202"<?php } ?>>
         <strong>
             <?= $escaper->escapeHtml(__(!$block->isExtraEnabled() ? 'Available in GTM Extra Only' : 'GTM Extra')) ?>
             <?php if (!$block->isExtraEnabled()) { ?>
-                (<a href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read More</a>):
+                (<a style="color: #eb5202; text-decoration: underline;"  href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read more</a>):
             <?php } ?>
         </strong>
     </p>
-    <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: red"<?php } ?>>
+    <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
         <ul>
             <li>
                 <?= $escaper->escapeHtml(implode('</li><li>', $eventsExtra), ['li']) ?>
             </li>
         </ul>
     </div>
+    <?php if (!$block->isPlusEnabled() || !$block->isExtraEnabled()) { ?>
+    <button title="Upgrade" type="button" class="primary" onclick="window.open('https://magefan.com/magento-2-google-tag-manager/pricing')">
+        <span>Upgrade to GTM <?php if (!$block->isPlusEnabled()) echo 'Plus or' ?> Extra</span>
+    </button>
+    <?php } ?>
 </div>

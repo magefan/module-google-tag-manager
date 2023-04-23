@@ -81,7 +81,7 @@ class EventList extends Field
      *
      * @return bool
      */
-    public function isPlusEnabled()
+    public function isPlusEnabled(): bool
     {
         return (bool)$this->moduleManager->isEnabled('Magefan_GoogleTagManagerPlus');
     }
@@ -91,7 +91,7 @@ class EventList extends Field
      *
      * @return bool
      */
-    public function isExtraEnabled()
+    public function isExtraEnabled(): bool
     {
         return (bool)$this->moduleManager->isEnabled('Magefan_GoogleTagManagerExtra');
     }
