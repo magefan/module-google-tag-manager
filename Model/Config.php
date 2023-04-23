@@ -57,8 +57,8 @@ class Config
      */
     public function isEnabled(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId) &&
-            $this->getMeasurementId($storeId);
+        return $this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId) &&
+            $this->getPublicId($storeId);
     }
 
     /**

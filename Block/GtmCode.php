@@ -51,7 +51,7 @@ class GtmCode extends Template
      */
     protected function _toHtml(): string
     {
-        if ($this->config->isEnabled() && $this->getPublicId()) {
+        if ($this->config->isEnabled()) {
             return parent::_toHtml();
         }
 
