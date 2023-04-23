@@ -78,7 +78,7 @@ $eventsExtra = [
     </div>
     <?php if (!$block->isPlusEnabled() || !$block->isExtraEnabled()) { ?>
     <button title="Upgrade" type="button" class="primary" onclick="window.open('https://magefan.com/magento-2-google-tag-manager/pricing')">
-        <span>Upgrade to GTM <?php if (!$block->isPlusEnabled()) echo 'Plus or' ?> Extra</span>
+        <span>Upgrade to GTM <?php if (!$block->isPlusEnabled()) { echo 'Plus or'; } ?> Extra</span>
     </button>
     <?php } ?>
 </div>
