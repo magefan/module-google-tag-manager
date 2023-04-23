@@ -106,11 +106,13 @@ class Generate extends Action implements HttpGetActionInterface
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
+        /* Ability to generate JSON file even if the module is disabled.
         if (!$this->config->isEnabled()) {
             $this->messageManager
                 ->addErrorMessage(__('To generate a JSON container, please enable the extension first.'));
             return $resultRedirect->setPath($this->redirect->getRefererUrl());
         }
+        */
 
         try {
             $storeId = (string)$this->getRequest()->getParam('store_id') ?: null;

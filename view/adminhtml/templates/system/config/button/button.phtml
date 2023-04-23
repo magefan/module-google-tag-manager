@@ -22,6 +22,10 @@ if (!isset($escaper)) {
         <button type="button" id="mf_download">
             <?= $escaper->escapeHtml(__('Generate JSON Container & Download File')); ?>
         </button>
+        <p>
+            <br/>
+            <?= __('Once the JSON file is downloaded, upload it to %1 > Choose Container > Admin > Import Container.', '<a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a>') ?>
+        </p>
         <script>
             require([
                 'jquery',

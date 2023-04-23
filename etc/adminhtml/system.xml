@@ -33,7 +33,7 @@
                 <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account ID</label>
                     <comment><![CDATA[
-                            <p>Please get the Google Tag Manager account ID from the GTM Workspace URL path. E.g.<br/>
+                            <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> account ID from the GTM Workspace URL path. E.g.<br/>
                             <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">https://tagmanager.google.com/#/container/accounts/<strong>XXXXXXXXXX</strong>/containers/XXXXXXXXX</pre></p>
                         ]]>
                     </comment>
@@ -41,7 +41,7 @@
                 <field id="container_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Container ID</label>
                     <comment><![CDATA[
-                            <p>Please get the Google Tag Manager container ID from the GTM Workspace URL path. E.g.<br/>
+                            <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> container ID from the GTM Workspace URL path. E.g.<br/>
                             <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">https://tagmanager.google.com/#/container/accounts/XXXXXXXXXX/containers/<strong>XXXXXXXXX</strong></pre></p>
                         ]]>
                     </comment>
