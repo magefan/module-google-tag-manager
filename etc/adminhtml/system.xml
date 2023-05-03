@@ -28,7 +28,25 @@
                 </field>
                 <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Public ID</label>
-                    <comment>E.g. GTM-XXXXXXX</comment>
+                    <comment><![CDATA[
+                        E.g. <strong>GTM-XXXXXXX</strong><br/>
+                        Please note that we do not allow pasting the GTM JavaScript code directly for security reasons. Public ID is used to automatically insert the GTM code to your pages:
+                        <pre>
+&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
+new Date().getTime(),event:&#39;gtm.js&#39;});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.async=true;j.src=
+&#39;https://www.googletagmanager.com/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,&#39;script&#39;,&#39;dataLayer&#39;,&#39;<strong>GTM-XXXXXXX</strong>&#39;);&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;
+</pre>
+<pre>
+&lt;!-- Google Tag Manager (noscript) --&gt;
+&lt;noscript&gt;&lt;iframe src=&quot;https://www.googletagmanager.com/ns.html?id=<strong>GTM-XXXXXXX</strong>&quot;
+height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager (noscript) --&gt;
+</pre>
+                    ]]></comment>
                 </field>
                 <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account ID</label>
