@@ -18,6 +18,9 @@
                 <field id="version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Info</frontend_model>
                 </field>
+                <field id="attention" translate="label comment" type="text" sortOrder="9999" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Attention</frontend_model>
+                </field>
                 <field id="enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable Extension</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
