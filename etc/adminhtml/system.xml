@@ -104,6 +104,14 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button</frontend_model>
                 </field>
             </group>
+            <group id="customer_data" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GDPR/CCPA/LGPD (Customer Data Protection Regulation)</label>
+                <field id="protect" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Protect Customer Data</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ProtectCustomerData</frontend_model>
+                </field>
+            </group>
         </section>
     </system>
 </config>
