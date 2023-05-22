@@ -69,7 +69,7 @@ class Config
      */
     public function getAccountId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_ACCOUNT_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_ACCOUNT_ID, $storeId));
     }
 
     /**
@@ -80,7 +80,7 @@ class Config
      */
     public function getContainerId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_CONTAINER_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_CONTAINER_ID, $storeId));
     }
 
     /**
@@ -91,7 +91,7 @@ class Config
      */
     public function getPublicId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_PUBLIC_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_PUBLIC_ID, $storeId));
     }
 
     /**
@@ -113,7 +113,7 @@ class Config
      */
     public function getMeasurementId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId));
     }
 
     /**
