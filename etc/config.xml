@@ -12,10 +12,13 @@
                 <enabled>0</enabled>
                 <mfmodule>GoogleTagManager</mfmodule>
                 <mftype>1</mftype>
+            </general>
+            <web_container>
+                <enable>0</enable>
                 <account_id/>
                 <container_id/>
                 <public_id/>
-            </general>
+            </web_container>
             <analytics>
                 <enable>0</enable>
                 <measurement_id/>
