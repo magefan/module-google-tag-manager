@@ -23,6 +23,7 @@
             <attributes>
                 <product>sku</product>
                 <brand/>
+                <categories/>
             </attributes>
         </mfgoogletagmanager>
     </default>

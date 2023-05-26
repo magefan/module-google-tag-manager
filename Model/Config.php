@@ -32,6 +32,7 @@ class Config
      */
     public const XML_PATH_ATTRIBUTES_PRODUCT = 'mfgoogletagmanager/attributes/product';
     public const XML_PATH_ATTRIBUTES_BRAND = 'mfgoogletagmanager/attributes/brand';
+    public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
 
     /**
      * @var ScopeConfigInterface
@@ -136,6 +137,17 @@ class Config
     public function getBrandAttribute(string $storeId = null): string
     {
         return (string)$this->getConfig(self::XML_PATH_ATTRIBUTES_BRAND, $storeId);
+    }
+
+    /**
+     * Retrieve Magento product categories
+     *
+     * @param string|null $storeId
+     * @return string
+     */
+    public function getCategoriesAttribute(string $storeId = null): string
+    {
+        return (string)$this->getConfig(self::XML_PATH_ATTRIBUTES_CATEGORIES, $storeId);
     }
 
     /**

@@ -14,6 +14,9 @@ use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Registry;
+use Magento\Framework\App\ObjectManager;
 
 class AbstractDataLayer
 {
@@ -33,6 +36,16 @@ class AbstractDataLayer
     protected $categoryRepository;
 
     /**
+     * @var RequestInterface
+     */
+    protected $request;
+
+    /**
+     * @var Registry
+     */
+    protected $registry;
+
+    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
@@ -42,11 +55,19 @@ class AbstractDataLayer
     public function __construct(
         Config $config,
         StoreManagerInterface $storeManager,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        RequestInterface $request = null,
+        Registry $registry = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
+        $this->request = $request ?: ObjectManager::getInstance()->get(
+            RequestInterface::class
+        );
+        $this->registry = $registry ?: ObjectManager::getInstance()->get(
+            Registry::class
+        );
     }
 
     /**
@@ -58,12 +79,11 @@ class AbstractDataLayer
      */
     protected function getCategoryNames(Product $product): array
     {
-        /* Temporary disable displaying category names,
-         * as it is optional and slows down the website speed
-         */
-        return [];
-
         $result = [];
+
+        if (!$this->config->getCategoriesAttribute()) {
+            return $result;
+        }
 
         if ($productCategory = $this->getCategoryByProduct($product)) {
             $categoryIds = $productCategory->getPathIds();
@@ -91,8 +111,13 @@ class AbstractDataLayer
      */
     private function getCategoryByProduct(Product $product): ?CategoryInterface
     {
-        $productCategory = null;
+        if ('catalog_category_product' == $this->request->getFullActionName()) {
+            if ($category = $this->registry->registry('current_category')) {
+                return $category;
+            }
+        }
 
+        $productCategory = null;
         $categoryIds = $product->getCategoryIds();
 
         if ($categoryIds) {
