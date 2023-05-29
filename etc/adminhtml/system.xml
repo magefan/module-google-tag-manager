@@ -29,9 +29,18 @@
                     <label>Product Key</label>
                     <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
                 </field>
+            </group>
+            <group id="web_container" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <label>Web Container</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Public ID</label>
                     <comment><![CDATA[
+                        <div class="default_loader_mfgtm_js_example">
                         E.g. <strong>GTM-XXXXXXX</strong><br/>
                         Please note that we do not allow pasting the GTM JavaScript code directly for security reasons. Public ID is used to automatically insert the code to your pages:
                         <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">
@@ -49,6 +58,9 @@ j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.
 height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;&gt;&lt;/iframe&gt;&lt;/noscript&gt;
 &lt;!-- End Google Tag Manager (noscript) --&gt;
 </pre>
+</div>
+<div id="mfgtm_js_example"></div>
+
                     ]]></comment>
                 </field>
                 <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -118,6 +130,9 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                 <label>Export Container</label>
                 <field id="export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button</frontend_model>
+                    <depends>
+                        <field id="mfgoogletagmanager/general/loader_type" separator="|">default_loader|stape_loader</field>
+                    </depends>
                 </field>
             </group>
         </section>

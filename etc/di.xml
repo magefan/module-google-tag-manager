@@ -13,4 +13,23 @@
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Cart\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Order\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Order\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Product\Item" />
+
+    <type name="Magefan\GoogleTagManager\Model\LoaderPool">
+        <arguments>
+            <argument name="loaders" xsi:type="array">
+                <item name="default_loader" xsi:type="array">
+                    <item name="head" xsi:type="array">
+                        <item name="label" xsi:type="string">Default Body Loader</item>
+                        <item name="value" xsi:type="string">body-default-loader</item>
+                        <item name="template" xsi:type="string"></item>
+                    </item>
+                    <item name="body" xsi:type="array">
+                        <item name="label" xsi:type="string">Default Head Loader</item>
+                        <item name="value" xsi:type="string">head-default-loader</item>
+                        <item name="template" xsi:type="string"></item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>
