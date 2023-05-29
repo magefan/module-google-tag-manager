@@ -26,7 +26,11 @@
             <attributes>
                 <product>sku</product>
                 <brand/>
+                <categories/>
             </attributes>
+            <customer_data>
+                <protect>0</protect>
+            </customer_data>
         </mfgoogletagmanager>
     </default>
 </config>
