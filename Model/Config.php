@@ -168,6 +168,7 @@ class Config
         return (bool)$this->getConfig(Custom::XML_PATH_WEB_COOKIE_RESTRICTION, $storeId);
     }
 
+    /*
      * Retrieve Magento product categories
      *
      * @param string|null $storeId

@@ -26,7 +26,7 @@
                 <categories/>
             </attributes>
             <customer_data>
-                <protect>1</protect>
+                <protect>0</protect>
             </customer_data>
         </mfgoogletagmanager>
     </default>
