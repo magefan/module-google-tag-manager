@@ -10,17 +10,18 @@
         <mfgoogletagmanager>
             <general>
                 <enabled>0</enabled>
+                <loader_type/>
                 <mfmodule>GoogleTagManager</mfmodule>
                 <mftype>1</mftype>
             </general>
             <web_container>
-                <enable>0</enable>
+                <enable>1</enable>
                 <account_id/>
                 <container_id/>
                 <public_id/>
             </web_container>
             <analytics>
-                <enable>0</enable>
+                <enable>1</enable>
                 <measurement_id/>
             </analytics>
             <attributes>

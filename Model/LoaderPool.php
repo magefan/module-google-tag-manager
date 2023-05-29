@@ -20,7 +20,7 @@ class LoaderPool
     /**
      * LoaderPool constructor.
      * @param array $loaders
-//     */
+     */
     public function __construct(array $loaders)
     {
         $this->loaders = $loaders;

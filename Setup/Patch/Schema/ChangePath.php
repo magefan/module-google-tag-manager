@@ -46,8 +46,11 @@ class ChangePath implements SchemaPatchInterface
         ];
 
         foreach ($changedConfigurationFields as $oldPath => $newPath) {
-            $sql = 'UPDATE ' . $table . ' SET `path` = "' . $newPath . '" WHERE `path` = "' . $oldPath . '";';
-            $this->schemaSetup->run($sql);
+            $connection->update(
+                $table,
+                ['path' => $newPath],
+                ['path = ?' => $oldPath]
+            );
         }
 
         $this->schemaSetup->endSetup();

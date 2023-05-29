@@ -197,6 +197,15 @@ class Config
     }
 
     /**
+     * @param string|null $storeId
+     * @return int
+     */
+    public function getGTMLoaderType(string $storeId = null): string
+    {
+        return (string)$this->getConfig(self::XML_PATH_GTM_LOADER_TYPE, $storeId);
+    }
+
+    /**
      * Retrieve store config value
      *
      * @param string $path
@@ -206,14 +215,5 @@ class Config
     public function getConfig(string $path, string $storeId = null)
     {
         return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $storeId);
-    }
-
-    /**
-     * @param string|null $storeId
-     * @return int
-     */
-    public function getGTMLoaderType(string $storeId = null): string
-    {
-        return (string)$this->getConfig(self::XML_PATH_GTM_LOADER_TYPE, $storeId);
     }
 }
