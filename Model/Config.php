@@ -33,6 +33,7 @@ class Config
      */
     public const XML_PATH_ATTRIBUTES_PRODUCT = 'mfgoogletagmanager/attributes/product';
     public const XML_PATH_ATTRIBUTES_BRAND = 'mfgoogletagmanager/attributes/brand';
+    public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
 
     /**
      * Customer data protection regulation config
@@ -75,7 +76,7 @@ class Config
      */
     public function getAccountId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_ACCOUNT_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_ACCOUNT_ID, $storeId));
     }
 
     /**
@@ -86,7 +87,7 @@ class Config
      */
     public function getContainerId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_CONTAINER_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_CONTAINER_ID, $storeId));
     }
 
     /**
@@ -97,7 +98,7 @@ class Config
      */
     public function getPublicId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_PUBLIC_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_PUBLIC_ID, $storeId));
     }
 
     /**
@@ -119,7 +120,7 @@ class Config
      */
     public function getMeasurementId(string $storeId = null): string
     {
-        return (string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId);
+        return trim((string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId));
     }
 
     /**
@@ -165,6 +166,16 @@ class Config
     public function isCookieRestrictionModeEnabled(string $storeId = null)
     {
         return (bool)$this->getConfig(Custom::XML_PATH_WEB_COOKIE_RESTRICTION, $storeId);
+    }
+
+     * Retrieve Magento product categories
+     *
+     * @param string|null $storeId
+     * @return string
+     */
+    public function getCategoriesAttribute(string $storeId = null): string
+    {
+        return (string)$this->getConfig(self::XML_PATH_ATTRIBUTES_CATEGORIES, $storeId);
     }
 
     /**
