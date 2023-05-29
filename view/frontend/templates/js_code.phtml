@@ -13,9 +13,63 @@ if (!isset($escaper)) {
 }
 ?>
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','<?= $escaper->escapeHtml($block->getPublicId()) ?>');</script>
+<script>
+    function mfLoadGtm() {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','<?= $escaper->escapeHtml($block->getPublicId()) ?>');
+    }
+
+    <?php if ($block->isProtectCustomerDataEnabled()) { ?>
+    document.addEventListener('DOMContentLoaded', function () {
+        function getCookieValue(cookieName) {
+            let name = cookieName + '=';
+            let cookieSplit = document.cookie.split(';');
+
+            for (let i = 0; i < cookieSplit.length; i++) {
+                let a = cookieSplit[i];
+
+                while (a.charAt(0) === ' ') {
+                    a = a.substring(1);
+                }
+
+                if (a.indexOf(name) === 0) {
+                    return a.substring(name.length, a.length);
+                }
+            }
+            return '';
+        }
+
+        function customerDataAllowed() {
+            let cookie = getCookieValue(
+                '<?= $escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE) ?>'
+            );
+            if (cookie) {
+                cookie = JSON.parse(decodeURIComponent(cookie));
+                if (cookie[<?= $escaper->escapeHtml($block->getWebsiteId()) ?>]) {
+                    return true;
+                }
+            }
+
+            return false
+        }
+
+        if (customerDataAllowed()) {
+            mfLoadGtm();
+        } else {
+            let interval = setInterval(function () {
+                if (!customerDataAllowed()) return;
+                clearInterval(interval);
+                mfLoadGtm();
+            }, 1000);
+        }
+    });
+
+    <?php } else { ?>
+    mfLoadGtm();
+    <?php } ?>
+
+</script>
 <!-- End Google Tag Manager -->

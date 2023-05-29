@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Magefan\GoogleTagManager\Block;
 
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 use Magefan\GoogleTagManager\Model\Config;
 
@@ -42,6 +43,27 @@ class GtmCode extends Template
     public function getPublicId(): string
     {
         return $this->config->getPublicId();
+    }
+
+    /**
+     * Check if protect customer data is enabled
+     *
+     * @return bool
+     */
+    public function isProtectCustomerDataEnabled(): bool
+    {
+        return $this->config->isProtectCustomerDataEnabled();
+    }
+
+    /**
+     * Get current website ID
+     *
+     * @return int
+     * @throws NoSuchEntityException
+     */
+    public function getWebsiteId(): int
+    {
+        return (int)$this->_storeManager->getStore()->getWebsiteId();
     }
 
     /**

@@ -10,6 +10,7 @@ namespace Magefan\GoogleTagManager\Model;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Config\Model\Config\Backend\Admin\Custom;
 
 class Config
 {
@@ -33,6 +34,11 @@ class Config
     public const XML_PATH_ATTRIBUTES_PRODUCT = 'mfgoogletagmanager/attributes/product';
     public const XML_PATH_ATTRIBUTES_BRAND = 'mfgoogletagmanager/attributes/brand';
     public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
+
+    /**
+     * Customer data protection regulation config
+     */
+    public const XML_PATH_PROTECT_CUSTOMER_DATA = 'mfgoogletagmanager/customer_data/protect';
 
     /**
      * @var ScopeConfigInterface
@@ -140,6 +146,28 @@ class Config
     }
 
     /**
+     * Retrieve true if protect customer data is enabled
+     *
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isProtectCustomerDataEnabled(string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_PROTECT_CUSTOMER_DATA, $storeId) &&
+            $this->isCookieRestrictionModeEnabled($storeId);
+    }
+
+    /**
+     * Retrieve true if cookie restriction mode enabled
+     *
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isCookieRestrictionModeEnabled(string $storeId = null)
+    {
+        return (bool)$this->getConfig(Custom::XML_PATH_WEB_COOKIE_RESTRICTION, $storeId);
+    }
+
      * Retrieve Magento product categories
      *
      * @param string|null $storeId

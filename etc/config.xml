@@ -25,6 +25,9 @@
                 <brand/>
                 <categories/>
             </attributes>
+            <customer_data>
+                <protect>1</protect>
+            </customer_data>
         </mfgoogletagmanager>
     </default>
 </config>
