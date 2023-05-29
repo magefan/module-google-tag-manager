@@ -33,4 +33,3 @@ class Attention extends \Magefan\Community\Block\Adminhtml\System\Config\Form\In
         </div>';
     }
 }
-
