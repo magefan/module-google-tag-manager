@@ -159,20 +159,20 @@ class AbstractDataLayer
      * Format price
      *
      * @param float $price
-     * @return string
+     * @return float
      */
-    protected function formatPrice(float $price): string
+    protected function formatPrice(float $price): float
     {
-        return number_format($price, 2, '.', '');
+        return (float)number_format($price, 2, '.', '');
     }
 
     /**
      * Get product price
      *
      * @param Product $product
-     * @return string
+     * @return float
      */
-    protected function getPrice(Product $product): string
+    protected function getPrice(Product $product): float
     {
         $priceInfo = $product->getPriceInfo()->getPrice('final_price')->getAmount();
         $price = $priceInfo->getValue();
