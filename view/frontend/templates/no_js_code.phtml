@@ -12,9 +12,9 @@ if (!isset($escaper)) {
     $escaper = $block;
 }
 ?>
-<!-- Google Tag Manager (noscript) -->
 <?php if (!$block->isProtectCustomerDataEnabled()) { ?>
+<!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<?php } ?>
 <!-- End Google Tag Manager (noscript) -->
+<?php } ?>
