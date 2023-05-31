@@ -63,7 +63,7 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             ],
             'items_count' => count($items),
             'items_qty' => $itemsQty,
-            'coupon_code' => $quote->getCouponCode()
+            'coupon_code' => $quote->getCouponCode() ?: ''
         ];
     }
 }

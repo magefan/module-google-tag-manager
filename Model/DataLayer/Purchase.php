@@ -60,7 +60,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                     'tax' => $this->formatPrice((float)$order->getTaxAmount()),
                     'shipping' => $this->formatPrice((float)$order->getShippingAmount()),
                     'currency' => $this->getCurrentCurrencyCode(),
-                    'coupon' => $order->getCouponCode(),
+                    'coupon' => $order->getCouponCode() ?: '',
                     'items' => $items
                 ],
                 'is_virtual' => (bool)$order->getIsVirtual(),
