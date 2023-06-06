@@ -88,6 +88,7 @@ class AbstractDataLayer
         if ($productCategory = $this->getCategoryByProduct($product)) {
             $categoryIds = $productCategory->getPathIds();
             $number = 1;
+            $categoryNames = [];
             foreach ($categoryIds as $categoryId) {
                 $category = $this->categoryRepository->get($categoryId, $this->storeManager->getStore()->getId());
                 if ($category->getLevel() < 2) {
@@ -95,8 +96,11 @@ class AbstractDataLayer
                 }
 
                 $result['item_category' . (($number == 1) ? '' : $number)] = $category->getName();
+                $categoryNames[] = $category->getName();
                 $number++;
             }
+            $result['category'] = implode('/', $categoryNames);
+
         }
 
         return $result;
