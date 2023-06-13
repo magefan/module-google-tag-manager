@@ -49,15 +49,18 @@ class AbstractDataLayer
     protected $registry;
 
     /**
-     * @var
+     * @var Session
      */
     protected $session;
 
     /**
-     * @var
+     * @var GroupRepository
      */
     protected $groupRepository;
 
+    /**
+     * @var LoggerInterface
+     */
     protected $logger;
 
     /**
