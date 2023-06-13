@@ -17,6 +17,9 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\App\ObjectManager;
+use Magento\Customer\Model\Session;
+use Magento\Customer\Model\ResourceModel\GroupRepository;
+use Psr\Log\LoggerInterface;
 
 class AbstractDataLayer
 {
@@ -46,6 +49,18 @@ class AbstractDataLayer
     protected $registry;
 
     /**
+     * @var
+     */
+    protected $session;
+
+    /**
+     * @var
+     */
+    protected $groupRepository;
+
+    protected $logger;
+
+    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
@@ -57,7 +72,10 @@ class AbstractDataLayer
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
         RequestInterface $request = null,
-        Registry $registry = null
+        Registry $registry = null,
+        Session $session = null,
+        GroupRepository $groupRepository = null,
+        LoggerInterface $logger = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -67,6 +85,15 @@ class AbstractDataLayer
         );
         $this->registry = $registry ?: ObjectManager::getInstance()->get(
             Registry::class
+        );
+        $this->session = $session ?: ObjectManager::getInstance()->get(
+            Session::class
+        );
+        $this->groupRepository = $groupRepository ?: ObjectManager::getInstance()->get(
+            GroupRepository::class
+        );
+        $this->logger = $logger ?: ObjectManager::getInstance()->get(
+            LoggerInterface::class
         );
     }
 
@@ -200,6 +227,23 @@ class AbstractDataLayer
             }
         }
 
+        return '';
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    protected function getCustomerGroupCode() {
+        $customerGroupId = $this->session->getCustomerGroupId();
+        if ($customerGroupId) {
+            try {
+                $this->groupRepository->getById($customerGroupId)->getCode();
+            } catch (\Magento\Setup\Exception $e) {
+                $this->logger->critical($e->getMessage());
+            }
+        }
         return '';
     }
 }
