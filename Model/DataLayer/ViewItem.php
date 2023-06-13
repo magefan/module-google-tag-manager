@@ -56,7 +56,8 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
                 'items' => [
                     $item
                 ]
-            ]
+            ],
+            'customerGroup' => $this->getCustomerGroupCode()
         ];
     }
 }
