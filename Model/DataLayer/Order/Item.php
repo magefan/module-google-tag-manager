@@ -28,7 +28,7 @@ class Item extends AbstractDataLayer implements ItemInterface
             'item_name' => $orderItem->getName(),
             'discount' => $this->formatPrice((float)$orderItem->getDiscountAmount()),
             'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
-            'price' => $this->formatPrice((float)$orderItem->getPrice()),
+            'price' => $this->formatPrice((float)$orderItem->getPriceInclTax()),
             'quantity' => $orderItem->getQtyOrdered() * 1
         ]), $categoryNames);
     }
