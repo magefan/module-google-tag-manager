@@ -15,10 +15,11 @@
                 <mftype>1</mftype>
             </general>
             <web_container>
+                <script_content/>
+                <noscript_content/>
                 <enable>1</enable>
                 <account_id/>
                 <container_id/>
-                <public_id/>
             </web_container>
             <analytics>
                 <enable>1</enable>

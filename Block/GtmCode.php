@@ -11,7 +11,6 @@ namespace Magefan\GoogleTagManager\Block;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 use Magefan\GoogleTagManager\Model\Config;
-use Magefan\GoogleTagManager\Model\LoaderPool;
 
 class GtmCode extends Template
 {
@@ -21,61 +20,59 @@ class GtmCode extends Template
     private $config;
 
     /**
-     * @var LoaderPool
-     */
-    private $loaderPool;
-
-    /**
      * GtmCode constructor.
      * @param Template\Context $context
      * @param Config $config
-     * @param LoaderPool $loaderPool
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         Config $config,
-        LoaderPool $loaderPool,
         array $data = []
     ) {
         $this->config = $config;
-        $this->loaderPool = $loaderPool;
         parent::__construct($context, $data);
     }
 
     /**
-     * Get GTM public ID
-     *
      * @return string
      */
-    public function getPublicId(): string
+    public function getGTMScript(): string
     {
-        return $this->config->getPublicId();
+        return $this->config->getGTMScript();
     }
 
     /**
      * @return string
      */
-    public function getTemplate()
+    public function getGTMNoScript(): string
     {
-        $typeName = str_replace('_', '-', $this->config->getGTMLoaderType());
-        if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
-            $typeName = 'body-' . $typeName;
-        } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
-            $typeName = 'head-' . $typeName;
-        } else {
-            $typeName = null;
-        }
-
-        if ($typeName) {
-            $loaderTemplate = $this->loaderPool->getLoader($this->config->getGTMLoaderType(), $typeName);
-            if ($loaderTemplate) {
-                return $loaderTemplate;
-            }
-        }
-
-        return parent::getTemplate();
+        return $this->config->getGTMNoScript();
     }
+
+    /**
+     * @return string
+     */
+//    public function getTemplate()
+//    {
+//        $typeName = str_replace('_', '-', $this->config->getGTMLoaderType());
+//        if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
+//            $typeName = 'body-' . $typeName;
+//        } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
+//            $typeName = 'head-' . $typeName;
+//        } else {
+//            $typeName = null;
+//        }
+//
+//        if ($typeName) {
+//            $loaderTemplate = $this->loaderPool->getLoader($this->config->getGTMLoaderType(), $typeName);
+//            if ($loaderTemplate) {
+//                return $loaderTemplate;
+//            }
+//        }
+//
+//        return parent::getTemplate();
+//    }
 
     /**
      * Check if protect customer data is enabled
@@ -105,11 +102,20 @@ class GtmCode extends Template
      */
     protected function _toHtml(): string
     {
+        $content = '';
         if ($this->config->isEnabled()) {
-            return parent::_toHtml();
+//            parent::_toHtml();
+            if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
+                $content = $this->config->getGTMScript();
+            } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
+                $content = $this->config->getGTMNoScript();
+            } else {
+                return parent::_toHtml();
+            }
+            return $content;
         }
 
-        return '';
+        return $content;
     }
 
     /**
