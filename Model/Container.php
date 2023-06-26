@@ -111,24 +111,52 @@ class Container
      */
     private function generateTriggers(string $accountId, string $containerId, string $timestamp): array
     {
-        return [
-            [
-                'accountId' => $accountId,
-                'containerId' => $containerId,
-                'triggerId' => '162',
-                'name' => 'Magefan GTM - Configuration',
-                'type' => 'PAGEVIEW',
-                'fingerprint' => $timestamp
+        $triggers[] = [
+            'accountId' => $accountId,
+            'containerId' => $containerId,
+            'triggerId' => '162',
+            'name' => 'Magefan GTM - Configuration',
+            'type' => 'PAGEVIEW',
+            'fingerprint' => $timestamp
+        ];
+
+        $triggers[] = [
+            'accountId' => $accountId,
+            'containerId' => $containerId,
+            'triggerId' => '167',
+            'name' => 'Magefan GTM - Ecommerce',
+            'type' => 'CUSTOM_EVENT',
+            'customEventFilter' => [
+                [
+                    'type' => 'MATCH_REGEX',
+                    'parameter' => [
+                        [
+                            'type' => 'TEMPLATE',
+                            'key' => 'arg0',
+                            'value' => '{{_event}}'
+                        ],
+                        [
+                            'type' => 'TEMPLATE',
+                            'key' => 'arg1',
+                            'value' => 'view_item|view_cart|purchase|begin_checkout'
+                        ]
+                    ]
+                ]
             ],
-            [
+            'fingerprint' => $timestamp
+        ];
+
+        $triggerNames = ['View Item', 'View Cart', 'Purchase', 'Begin Checkout'];
+        foreach ($triggerNames as $key => $triggerName) {
+            $triggers[] = [
                 'accountId' => $accountId,
                 'containerId' => $containerId,
-                'triggerId' => '167',
-                'name' => 'Magefan GTM - Ecommerce',
+                'triggerId' => 168 + $key,
+                'name' => 'Magefan GTM - ' . $triggerName,
                 'type' => 'CUSTOM_EVENT',
                 'customEventFilter' => [
                     [
-                        'type' => 'MATCH_REGEX',
+                        'type' => 'EQUALS',
                         'parameter' => [
                             [
                                 'type' => 'TEMPLATE',
@@ -138,14 +166,16 @@ class Container
                             [
                                 'type' => 'TEMPLATE',
                                 'key' => 'arg1',
-                                'value' => 'view_item|view_cart|purchase|begin_checkout'
+                                'value' => strtolower(str_replace(' ', '_', $triggerName))
                             ]
                         ]
                     ]
                 ],
                 'fingerprint' => $timestamp
-            ],
-        ];
+            ];
+        }
+
+        return $triggers;
     }
 
     /**
