@@ -50,7 +50,18 @@ class GtmCode extends Template
         return $this->config->getGtmNoScript();
     }
 
+    /**
+     * @return string
+     */
+    public function getPublicId(): string
+    {
+        return $this->config->getPublicId();
+    }
 
+    /**
+     * @param string|null $storeId
+     * @return string
+     */
     public function getFormattedGtmScript(string $storeId = null): string
     {
         $partsForRemove = [
