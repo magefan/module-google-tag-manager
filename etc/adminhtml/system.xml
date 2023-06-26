@@ -39,11 +39,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 -->
-                <field id="install_gtm" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="install_gtm" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Install Google Tag Manager</label>
                     <source_model>Magefan\GoogleTagManager\Model\Config\Source\InstallGtmOptions</source_model>
                 </field>
-                <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="public_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Public ID</label>
                     <comment><![CDATA[
                         <div class="default_loader_mfgtm_js_example">
