@@ -18,12 +18,12 @@ class Config
      * General config
      */
     public const XML_PATH_EXTENSION_ENABLED = 'mfgoogletagmanager/general/enabled';
-    public const XML_PATH_INSTALL_GTM = 'mfgoogletagmanager/general/install_gtm';
 
     /**
      * Web Container config
      */
     public const XML_PATH_WEB_CONTAINER_ENABLED = 'mfgoogletagmanager/web_container/enabled';
+    public const XML_PATH_INSTALL_GTM = 'mfgoogletagmanager/web_container/install_gtm';
     public const XML_PATH_ACCOUNT_ID = 'mfgoogletagmanager/web_container/account_id';
     public const XML_PATH_CONTAINER_ID = 'mfgoogletagmanager/web_container/container_id';
     public const XML_PATH_WEB_PUBLIC_ID = 'mfgoogletagmanager/web_container/public_id';
