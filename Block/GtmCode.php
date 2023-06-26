@@ -37,42 +37,39 @@ class GtmCode extends Template
     /**
      * @return string
      */
-    public function getGTMScript(): string
+    public function getGtmScript(): string
     {
-        return $this->config->getGTMScript();
+        return $this->config->getGtmScript();
     }
 
     /**
      * @return string
      */
-    public function getGTMNoScript(): string
+    public function getGtmNoScript(): string
     {
-        return $this->config->getGTMNoScript();
+        return $this->config->getGtmNoScript();
     }
 
-    /**
-     * @return string
-     */
-//    public function getTemplate()
-//    {
-//        $typeName = str_replace('_', '-', $this->config->getGTMLoaderType());
-//        if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
-//            $typeName = 'body-' . $typeName;
-//        } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
-//            $typeName = 'head-' . $typeName;
-//        } else {
-//            $typeName = null;
-//        }
-//
-//        if ($typeName) {
-//            $loaderTemplate = $this->loaderPool->getLoader($this->config->getGTMLoaderType(), $typeName);
-//            if ($loaderTemplate) {
-//                return $loaderTemplate;
-//            }
-//        }
-//
-//        return parent::getTemplate();
-//    }
+
+    public function getFormattedGtmScript(string $storeId = null): string
+    {
+        $partsForRemove = [
+            '<!-- Google Tag Manager -->',
+            '<!-- End Google Tag Manager -->',
+            '<script>',
+            '</script>'
+        ];
+        $gtmScript = $this->getGtmScript();
+        if ($gtmScript) {
+            foreach ($partsForRemove as $part) {
+                $gtmScript = str_replace($part, '', $gtmScript);
+            }
+
+            return $gtmScript;
+        }
+
+        return '';
+    }
 
     /**
      * Check if protect customer data is enabled
@@ -96,26 +93,15 @@ class GtmCode extends Template
     }
 
     /**
-     * Init GTM datalayer
-     *
      * @return string
      */
     protected function _toHtml(): string
     {
-        $content = '';
         if ($this->config->isEnabled()) {
-//            parent::_toHtml();
-            if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
-                $content = $this->config->getGTMScript();
-            } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
-                $content = $this->config->getGTMNoScript();
-            } else {
-                return parent::_toHtml();
-            }
-            return $content;
+            return parent::_toHtml();
         }
 
-        return $content;
+        return '';
     }
 
     /**

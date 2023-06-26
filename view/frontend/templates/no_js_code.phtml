@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+/** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<?php
+if (!isset($escaper)) {
+    /* Compatability fix for old Magento versions */
+    $escaper = $block;
+}
+?>
+<?php if (!$block->isProtectCustomerDataEnabled()) { ?>
+    <!-- Google Tag Manager (noscript) -->
+    <?php if ($block->getConfig()->getInstallGtm() == 'use_public_id') { ?>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    <?php } elseif ($block->getConfig()->getInstallGtm() == 'use_head_and_body_script') { ?>
+        <?= $block->getConfig()->getGtmNoScript() ?>
+    <?php } ?>
+<?php } ?>

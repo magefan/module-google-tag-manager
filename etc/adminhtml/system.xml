@@ -29,6 +29,10 @@
                     <label>Product Key</label>
                     <frontend_model>Magefan\Community\Block\Adminhtml\System\Config\Form\ProductKeyField</frontend_model>
                 </field>
+                <field id="install_gtm" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Install Google Tag Manager</label>
+                    <source_model>Magefan\GoogleTagManager\Model\Config\Source\InstallGtmOptions</source_model>
+                </field>
             </group>
             <group id="web_container" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" >
                 <label>Web Container</label>
@@ -39,37 +43,46 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 -->
-<!--                <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">-->
-<!--                    <label>Public ID</label>-->
-<!--                    <comment><![CDATA[-->
-<!--                        <div class="default_loader_mfgtm_js_example">-->
-<!--                        E.g. <strong>GTM-XXXXXXX</strong><br/>-->
-<!--                        Please note that we do not allow pasting the GTM JavaScript code directly for security reasons. Public ID is used to automatically insert the code to your pages:-->
-<!--                        <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">-->
-<!--&lt;!&#45;&#45; Google Tag Manager &#45;&#45;&gt;-->
-<!--&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:-->
-<!--new Date().getTime(),event:&#39;gtm.js&#39;});var f=d.getElementsByTagName(s)[0],-->
-<!--j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.async=true;j.src=-->
-<!--&#39;https://www.googletagmanager.com/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);-->
-<!--})(window,document,&#39;script&#39;,&#39;dataLayer&#39;,&#39;<strong>GTM-XXXXXXX</strong>&#39;);&lt;/script&gt;-->
-<!--&lt;!&#45;&#45; End Google Tag Manager &#45;&#45;&gt;-->
-<!--</pre>-->
-<!--<pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">-->
-<!--&lt;!&#45;&#45; Google Tag Manager (noscript) &#45;&#45;&gt;-->
-<!--&lt;noscript&gt;&lt;iframe src=&quot;https://www.googletagmanager.com/ns.html?id=<strong>GTM-XXXXXXX</strong>&quot;-->
-<!--height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;&gt;&lt;/iframe&gt;&lt;/noscript&gt;-->
-<!--&lt;!&#45;&#45; End Google Tag Manager (noscript) &#45;&#45;&gt;-->
-<!--</pre>-->
-<!--</div>-->
-<!--<div id="mfgtm_js_example"></div>-->
+                <field id="public_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public ID</label>
+                    <comment><![CDATA[
+                        <div class="default_loader_mfgtm_js_example">
+                        E.g. <strong>GTM-XXXXXXX</strong><br/>
+                        Please note that we do not allow pasting the GTM JavaScript code directly for security reasons. Public ID is used to automatically insert the code to your pages:
+                        <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">
+&lt;!-- Google Tag Manager --&gt;
+&lt;script&gt;(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({&#39;gtm.start&#39;:
+new Date().getTime(),event:&#39;gtm.js&#39;});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!=&#39;dataLayer&#39;?&#39;&amp;l=&#39;+l:&#39;&#39;;j.async=true;j.src=
+&#39;https://www.googletagmanager.com/gtm.js?id=&#39;+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,&#39;script&#39;,&#39;dataLayer&#39;,&#39;<strong>GTM-XXXXXXX</strong>&#39;);&lt;/script&gt;
+&lt;!-- End Google Tag Manager --&gt;
+</pre>
+<pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">
+&lt;!-- Google Tag Manager (noscript) --&gt;
+&lt;noscript&gt;&lt;iframe src=&quot;https://www.googletagmanager.com/ns.html?id=<strong>GTM-XXXXXXX</strong>&quot;
+height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hidden&quot;&gt;&lt;/iframe&gt;&lt;/noscript&gt;
+&lt;!-- End Google Tag Manager (noscript) --&gt;
+</pre>
+</div>
+<div id="mfgtm_js_example"></div>
 
-<!--                    ]]></comment>-->
-<!--                </field>-->
+                    ]]></comment>
+                    <depends>
+                        <field id="mfgoogletagmanager/general/install_gtm">use_public_id</field>
+                    </depends>
+                </field>
                 <field id="script_content" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>GTM Script</label>
+                    <depends>
+                        <field id="mfgoogletagmanager/general/install_gtm">use_head_and_body_script</field>
+                    </depends>
                 </field>
                 <field id="noscript_content" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>GTM Noscript</label>
+                    <depends>
+                        <field id="mfgoogletagmanager/general/install_gtm">use_head_and_body_script</field>
+                    </depends>
                 </field>
                 <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account ID</label>
@@ -138,9 +151,6 @@
                 <label>Export Container</label>
                 <field id="export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button</frontend_model>
-                    <depends>
-                        <field id="mfgoogletagmanager/general/loader_type" separator="|">default_loader|stape_loader</field>
-                    </depends>
                 </field>
             </group>
         </section>
