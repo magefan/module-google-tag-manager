@@ -18,15 +18,17 @@ class Config
      * General config
      */
     public const XML_PATH_EXTENSION_ENABLED = 'mfgoogletagmanager/general/enabled';
-    public const XML_PATH_GTM_LOADER_TYPE = 'mfgoogletagmanager/general/loader_type';
 
     /**
      * Web Container config
      */
     public const XML_PATH_WEB_CONTAINER_ENABLED = 'mfgoogletagmanager/web_container/enabled';
+    public const XML_PATH_INSTALL_GTM = 'mfgoogletagmanager/web_container/install_gtm';
     public const XML_PATH_ACCOUNT_ID = 'mfgoogletagmanager/web_container/account_id';
     public const XML_PATH_CONTAINER_ID = 'mfgoogletagmanager/web_container/container_id';
     public const XML_PATH_WEB_PUBLIC_ID = 'mfgoogletagmanager/web_container/public_id';
+    public const XML_PATH_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/script_content';
+    public const XML_PATH_NO_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/noscript_content';
 
     /**
      * Analytics config
@@ -70,8 +72,7 @@ class Config
      */
     public function isEnabled(string $storeId = null): bool
     {
-        return $this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId) &&
-            $this->getPublicId($storeId);
+        return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId);
     }
 
     /**
@@ -108,14 +109,30 @@ class Config
     }
 
     /**
-     * Retrieve GTM public ID
-     *
      * @param string|null $storeId
      * @return string
      */
     public function getPublicId(string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
+    }
+
+    /**
+     * @param string|null $storeId
+     * @return string
+     */
+    public function getGtmScript(string $storeId = null): string
+    {
+        return trim((string)$this->getConfig(self::XML_PATH_SCRIPT_CONTENT, $storeId));
+    }
+
+    /**
+     * @param string|null $storeId
+     * @return string
+     */
+    public function getGtmNoScript(string $storeId = null): string
+    {
+        return trim((string)$this->getConfig(self::XML_PATH_NO_SCRIPT_CONTENT, $storeId));
     }
 
     /**
@@ -200,9 +217,9 @@ class Config
      * @param string|null $storeId
      * @return int
      */
-    public function getGTMLoaderType(string $storeId = null): string
+    public function getInstallGtm(string $storeId = null): string
     {
-        return trim((string)$this->getConfig(self::XML_PATH_GTM_LOADER_TYPE, $storeId));
+        return trim((string)$this->getConfig(self::XML_PATH_INSTALL_GTM, $storeId));
     }
 
     /**

@@ -10,11 +10,13 @@
         <mfgoogletagmanager>
             <general>
                 <enabled>0</enabled>
-                <loader_type/>
                 <mfmodule>GoogleTagManager</mfmodule>
                 <mftype>1</mftype>
+                <install_gtm>use_public_id</install_gtm>
             </general>
             <web_container>
+                <script_content/>
+                <noscript_content/>
                 <enable>1</enable>
                 <account_id/>
                 <container_id/>

@@ -11,7 +11,6 @@ namespace Magefan\GoogleTagManager\Block;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Element\Template;
 use Magefan\GoogleTagManager\Model\Config;
-use Magefan\GoogleTagManager\Model\LoaderPool;
 
 class GtmCode extends Template
 {
@@ -21,31 +20,37 @@ class GtmCode extends Template
     private $config;
 
     /**
-     * @var LoaderPool
-     */
-    private $loaderPool;
-
-    /**
      * GtmCode constructor.
      * @param Template\Context $context
      * @param Config $config
-     * @param LoaderPool $loaderPool
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
         Config $config,
-        LoaderPool $loaderPool,
         array $data = []
     ) {
         $this->config = $config;
-        $this->loaderPool = $loaderPool;
         parent::__construct($context, $data);
     }
 
     /**
-     * Get GTM public ID
-     *
+     * @return string
+     */
+    public function getGtmScript(): string
+    {
+        return $this->config->getGtmScript();
+    }
+
+    /**
+     * @return string
+     */
+    public function getGtmNoScript(): string
+    {
+        return $this->config->getGtmNoScript();
+    }
+
+    /**
      * @return string
      */
     public function getPublicId(): string
@@ -54,27 +59,27 @@ class GtmCode extends Template
     }
 
     /**
+     * @param string|null $storeId
      * @return string
      */
-    public function getTemplate()
+    public function getFormattedGtmScript(string $storeId = null): string
     {
-        $typeName = str_replace('_', '-', $this->config->getGTMLoaderType());
-        if ('mfgtm.nojscode'  === $this->getNameInLayout()) {
-            $typeName = 'body-' . $typeName;
-        } elseif ('mfgtm.jscode' === $this->getNameInLayout()) {
-            $typeName = 'head-' . $typeName;
-        } else {
-            $typeName = null;
-        }
-
-        if ($typeName) {
-            $loaderTemplate = $this->loaderPool->getLoader($this->config->getGTMLoaderType(), $typeName);
-            if ($loaderTemplate) {
-                return $loaderTemplate;
+        $partsForRemove = [
+            '<!-- Google Tag Manager -->',
+            '<!-- End Google Tag Manager -->',
+            '<script>',
+            '</script>'
+        ];
+        $gtmScript = $this->getGtmScript();
+        if ($gtmScript) {
+            foreach ($partsForRemove as $part) {
+                $gtmScript = str_replace($part, '', $gtmScript);
             }
+
+            return $gtmScript;
         }
 
-        return parent::getTemplate();
+        return '';
     }
 
     /**
@@ -99,8 +104,6 @@ class GtmCode extends Template
     }
 
     /**
-     * Init GTM datalayer
-     *
      * @return string
      */
     protected function _toHtml(): string

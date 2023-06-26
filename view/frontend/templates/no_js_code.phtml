@@ -13,8 +13,12 @@ if (!isset($escaper)) {
 }
 ?>
 <?php if (!$block->isProtectCustomerDataEnabled()) { ?>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <?php if ($block->getConfig()->getInstallGtm() == 'use_public_id') { ?>
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"
+                          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+    <?php } elseif ($block->getConfig()->getInstallGtm() == 'use_head_and_body_script') { ?>
+        <?= $block->getConfig()->getGtmNoScript() ?>
+    <?php } ?>
 <?php } ?>
