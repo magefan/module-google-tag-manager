@@ -236,7 +236,7 @@ class AbstractDataLayer
     protected function getCustomerGroupCode(): string
     {
         if (null === $this->customerGroupCode) {
-            $this->customerGroupCode = '';
+            $this->customerGroupCode = 'Guest';
             $customerGroupId = $this->session->getCustomerGroupId();
             if ($customerGroupId) {
                 try {

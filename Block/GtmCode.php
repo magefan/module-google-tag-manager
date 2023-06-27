@@ -39,7 +39,22 @@ class GtmCode extends Template
      */
     public function getGtmScript(): string
     {
-        return $this->config->getGtmScript();
+        $partsForRemove = [
+            '<!-- Google Tag Manager -->',
+            '<!-- End Google Tag Manager -->',
+            '<script>',
+            '</script>'
+        ];
+        $gtmScript = $this->config->getGtmScript();
+        if ($gtmScript) {
+            foreach ($partsForRemove as $part) {
+                $gtmScript = str_replace($part, '', $gtmScript);
+            }
+
+            return $gtmScript;
+        }
+
+        return '';
     }
 
     /**
@@ -56,30 +71,6 @@ class GtmCode extends Template
     public function getPublicId(): string
     {
         return $this->config->getPublicId();
-    }
-
-    /**
-     * @param string|null $storeId
-     * @return string
-     */
-    public function getFormattedGtmScript(string $storeId = null): string
-    {
-        $partsForRemove = [
-            '<!-- Google Tag Manager -->',
-            '<!-- End Google Tag Manager -->',
-            '<script>',
-            '</script>'
-        ];
-        $gtmScript = $this->getGtmScript();
-        if ($gtmScript) {
-            foreach ($partsForRemove as $part) {
-                $gtmScript = str_replace($part, '', $gtmScript);
-            }
-
-            return $gtmScript;
-        }
-
-        return '';
     }
 
     /**

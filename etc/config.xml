@@ -12,9 +12,9 @@
                 <enabled>0</enabled>
                 <mfmodule>GoogleTagManager</mfmodule>
                 <mftype>1</mftype>
-                <install_gtm>use_public_id</install_gtm>
             </general>
             <web_container>
+                <install_gtm>use_public_id</install_gtm>
                 <script_content/>
                 <noscript_content/>
                 <enable>1</enable>

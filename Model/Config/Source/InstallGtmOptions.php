@@ -26,8 +26,8 @@ class InstallGtmOptions implements OptionSourceInterface
     public function toOptionArray(): array
     {
         if ($this->options === null) {
-            $this->options[] = ['value' => 'use_public_id', 'label' => __('Using Public ID')];
-            $this->options[] = ['value' => 'use_head_and_body_script', 'label' => __('Using Head Script and Body Noscript')];
+            $this->options[] = ['value' => 'use_public_id', 'label' => __('Public ID')];
+            $this->options[] = ['value' => 'use_head_and_body_script', 'label' => __('Head Script and Body Noscript')];
         }
 
         return $this->options;

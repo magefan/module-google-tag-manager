@@ -73,8 +73,8 @@ class Config
     public function isEnabled(string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId) && (
-            $this->getPublicId($storeId)
-                || $this->getGtmScript($storeId)
+            ($this->getPublicId($storeId) && 'use_public_id' === $this->getInstallGtm($storeId))
+                || ($this->getGtmScript($storeId) && 'use_head_and_body_script' === $this->getInstallGtm($storeId))
             );
     }
 
