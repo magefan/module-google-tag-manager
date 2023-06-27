@@ -19,7 +19,6 @@ use Magento\Framework\Registry;
 use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
-use Psr\Log\LoggerInterface;
 
 class AbstractDataLayer
 {
@@ -59,9 +58,9 @@ class AbstractDataLayer
     protected $groupRepository;
 
     /**
-     * @var LoggerInterface
+     * @var string
      */
-    protected $logger;
+    protected $customerGroupCode;
 
     /**
      * AbstractDataLayer constructor.
@@ -77,8 +76,7 @@ class AbstractDataLayer
         RequestInterface $request = null,
         Registry $registry = null,
         Session $session = null,
-        GroupRepository $groupRepository = null,
-        LoggerInterface $logger = null
+        GroupRepository $groupRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -94,9 +92,6 @@ class AbstractDataLayer
         );
         $this->groupRepository = $groupRepository ?: ObjectManager::getInstance()->get(
             GroupRepository::class
-        );
-        $this->logger = $logger ?: ObjectManager::getInstance()->get(
-            LoggerInterface::class
         );
     }
 
@@ -238,15 +233,21 @@ class AbstractDataLayer
      * @throws NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function getCustomerGroupCode() {
-        $customerGroupId = $this->session->getCustomerGroupId();
-        if ($customerGroupId) {
-            try {
-                $this->groupRepository->getById($customerGroupId)->getCode();
-            } catch (\Magento\Setup\Exception $e) {
-                $this->logger->critical($e->getMessage());
+    protected function getCustomerGroupCode(): string
+    {
+        if (null === $this->customerGroupCode) {
+            $this->customerGroupCode = '';
+            $customerGroupId = $this->session->getCustomerGroupId();
+            if ($customerGroupId) {
+                try {
+                    $group = $this->groupRepository->getById($customerGroupId);
+                    $this->customerGroupCode = (string)$group->getCode();
+                } catch (NoSuchEntityException $e) {
+                    /* Do nothing */
+                }
             }
         }
-        return '';
+
+        return $this->customerGroupCode;
     }
 }
