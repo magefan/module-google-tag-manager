@@ -72,10 +72,7 @@ class Config
      */
     public function isEnabled(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId) && (
-            ($this->getPublicId($storeId) && 'use_public_id' === $this->getInstallGtm($storeId))
-                || ($this->getGtmScript($storeId) && 'use_head_and_body_script' === $this->getInstallGtm($storeId))
-            );
+        return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId);
     }
 
     /**
@@ -117,7 +114,21 @@ class Config
      */
     public function getPublicId(string $storeId = null): string
     {
-        return trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
+        $result =  trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
+
+        if (!$result) {
+            if ($gtmScript = $this->getGtmScript($storeId)) {
+                $pattern = '/GTM-[A-Z0-9]+/';
+                $matches = [];
+                if (preg_match($pattern, $gtmScript, $matches)) {
+                    if (isset($matches[0])) {
+                        return (string)$matches[0];
+                    }
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**

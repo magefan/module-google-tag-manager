@@ -124,7 +124,7 @@ class Generate extends Action implements HttpGetActionInterface
                 'rm' => true
             ];
             $this->fileFactory->create(
-                sprintf($this->config->getPublicId() . '_%s.json', $this->dateTime->date('Y-m-d_H-i-s')),
+                sprintf('GTM' . '_%s.json', $this->dateTime->date('Y-m-d_H-i-s')),
                 $fileContent,
                 DirectoryList::MEDIA,
                 'application/json'
