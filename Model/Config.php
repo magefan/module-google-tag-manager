@@ -51,7 +51,7 @@ class Config
     /**
      * Speed optimization config
      */
-    public const XML_PATH_SPEED_OPTIMIZATION_ENABLED = 'mffacebookpixel/page_speed_optimization/enabled';
+    public const XML_PATH_SPEED_OPTIMIZATION_ENABLED = 'mfgoogletagmanager/page_speed_optimization/enabled';
 
     /**
      * @var ScopeConfigInterface
