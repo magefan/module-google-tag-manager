@@ -31,6 +31,9 @@
                 <brand/>
                 <categories/>
             </attributes>
+            <page_speed_optimization>
+                <enabled>0</enabled>
+            </page_speed_optimization>
             <customer_data>
                 <protect>0</protect>
             </customer_data>

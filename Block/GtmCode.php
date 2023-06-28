@@ -113,4 +113,14 @@ class GtmCode extends Template
     {
         return $this->config;
     }
+
+    /**
+     * Retrieve true if speed optimization is enabled
+     *
+     * @return bool
+     */
+    public function isSpeedOptimizationEnabled(): bool
+    {
+        return (bool)$this->config->isSpeedOptimizationEnabled();
+    }
 }
