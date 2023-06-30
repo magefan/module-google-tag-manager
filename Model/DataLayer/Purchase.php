@@ -52,7 +52,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                 $items[] = $this->gtmItem->get($item);
             }
 
-            return [
+            return $this->eventWrap([
                 'event' => 'purchase',
                 'ecommerce' => [
                     'transaction_id' => $order->getIncrementId(),
@@ -65,9 +65,8 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                 ],
                 'is_virtual' => (bool)$order->getIsVirtual(),
                 'shipping_description' => $order->getShippingDescription(),
-                'customer_is_guest' => (bool)$order->getCustomerIsGuest(),
-                'customerGroup' => $this->getCustomerGroupCode()
-            ];
+                'customer_is_guest' => (bool)$order->getCustomerIsGuest()
+            ]);
         }
 
         return [];

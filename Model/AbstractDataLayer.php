@@ -255,4 +255,48 @@ class AbstractDataLayer
 
         return $this->customerGroupCode;
     }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function eventWrap(array $data): array
+    {
+        if (empty($data)) {
+            return $data;
+        }
+
+        $data = $this->addCustomerGroup($data);
+        $data = $this->addMfUniqueEventId($data);
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function addCustomerGroup(array $data): array
+    {
+        if (!isset($data['customerGroup'])) {
+            $data['customerGroup'] = $this->getCustomerGroupCode();
+        }
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function addMfUniqueEventId(array $data): array
+    {
+
+        $hash = md5(json_encode($data) . microtime());
+        $event = isset($data['event']) ? $data['event'] : 'event';
+        $eventId = $event . '_' . $hash;
+
+        $data['magefanUniqueEventId'] = $eventId;
+
+        return $data;
+    }
 }
