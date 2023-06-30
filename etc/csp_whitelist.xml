@@ -13,6 +13,9 @@
                 <value id="mg-google" type="host">*.google.com</value>
                 <value id="mg-google-ua" type="host">*.google.com.ua</value>
                 <value id="mg-google-uk" type="host">*.google.co.uk</value>
+                <value id="mg-google-nl" type="host">*.google.nl</value>
+                <value id="mg-google-be" type="host">*.google.be</value>
+                <value id="mg-google-de" type="host">*.google.de</value>
                 <value id="mg-gstatic" type="host">*.gstatic.com</value>
                 <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
@@ -35,6 +38,9 @@
                 <value id="mg-google" type="host">*.google.com</value>
                 <value id="mg-google-ua" type="host">*.google.com.ua</value>
                 <value id="mg-google-uk" type="host">*.google.co.uk</value>
+                <value id="mg-google-nl" type="host">*.google.nl</value>
+                <value id="mg-google-be" type="host">*.google.be</value>
+                <value id="mg-google-de" type="host">*.google.de</value>
                 <value id="mg-gstatic-com" type="host">*.gstatic.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
             </values>
@@ -49,6 +55,9 @@
                 <value id="mg-google" type="host">*.google.com</value>
                 <value id="mg-google-ua" type="host">*.google.com.ua</value>
                 <value id="mg-google-uk" type="host">*.google.co.uk</value>
+                <value id="mg-google-nl" type="host">*.google.nl</value>
+                <value id="mg-google-be" type="host">*.google.be</value>
+                <value id="mg-google-de" type="host">*.google.de</value>
             </values>
         </policy>
     </policies>
