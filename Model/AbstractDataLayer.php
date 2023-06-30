@@ -220,6 +220,11 @@ class AbstractDataLayer
             if (is_numeric($result) && 'sku' != $attributeCode) {
                 $result = $product->getResource()->getAttribute($attributeCode)->getFrontend()->getValue($product);
             }
+
+            if (is_array($result)) {
+                $result = implode(', ', $result);
+            }
+            
             if ($result) {
                 return (string)$result;
             }
