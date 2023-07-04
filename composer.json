@@ -1,6 +1,6 @@
 {
     "name": "magefan/module-google-tag-manager",
-    "description": "Magento 2 Google Tag Manager and Google Analitics 4",
+    "description": "Magento 2 Google Tag Manager and Google Analytics 4",
     "type": "magento2-module",
     "license": "proprietary",
     "authors": [
@@ -9,7 +9,7 @@
             "email": "support@magefan.com"
         }
     ],
-    "version": "2.3.0",
+    "version": "2.3.1",
     "require": {
         "magefan/module-community" : ">=2.1.16"
     },
