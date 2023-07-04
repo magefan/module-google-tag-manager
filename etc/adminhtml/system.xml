@@ -169,7 +169,7 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                 <label>Page Speed Optimization</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable Deferred Script Load</label>
-                    <comment>If enabled Facebook Pixel JavaScript will be loaded only after users first click, scroll, or mouse touch. It is recommended to keep it enabled for better page speed performance.</comment>
+                    <comment>If enabled Google Tag Manager JavaScript will be loaded only after users first click, scroll, or mouse touch. You can enable it for better page speed performance.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
