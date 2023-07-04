@@ -44,6 +44,11 @@ class ProductAttribute implements OptionSourceInterface
         if ($this->options === null) {
             $this->options = [];
 
+            $this->options[] = [
+                'value' => 'entity_id',
+                'label' => 'Product ID'
+            ];
+
             $attributeCollection = $this->attributeCollectionFactory->create();
             $attributeCollection->addVisibleFilter()
                 ->setOrder('frontend_label', 'ASC');

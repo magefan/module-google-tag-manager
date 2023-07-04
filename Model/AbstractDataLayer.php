@@ -217,7 +217,7 @@ class AbstractDataLayer
     {
         if ($attributeCode) {
             $result = $product->getData($attributeCode);
-            if (is_numeric($result) && 'sku' != $attributeCode) {
+            if (is_numeric($result) && !in_array($attributeCode, ['sku', 'entity_id'])) {
                 $result = $product->getResource()->getAttribute($attributeCode)->getFrontend()->getValue($product);
             }
 
