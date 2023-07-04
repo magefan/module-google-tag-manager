@@ -49,6 +49,11 @@ class Config
     public const XML_PATH_PROTECT_CUSTOMER_DATA = 'mfgoogletagmanager/customer_data/protect';
 
     /**
+     * Speed optimization config
+     */
+    public const XML_PATH_SPEED_OPTIMIZATION_ENABLED = 'mfgoogletagmanager/page_speed_optimization/enabled';
+
+    /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
@@ -246,5 +251,16 @@ class Config
     public function getConfig(string $path, string $storeId = null)
     {
         return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $storeId);
+    }
+
+    /**
+     * Retrieve true if speed optimization is enabled
+     *
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isSpeedOptimizationEnabled(string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_SPEED_OPTIMIZATION_ENABLED, $storeId);
     }
 }

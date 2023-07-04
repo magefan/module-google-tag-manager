@@ -165,6 +165,14 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                     <comment><![CDATA[<strong class="colorRed">Warning!</strong> Enabling this option may cause the performance impact.]]></comment>
                 </field>
             </group>
+            <group id="page_speed_optimization" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Page Speed Optimization</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Deferred Script Load</label>
+                    <comment>If enabled Facebook Pixel JavaScript will be loaded only after users first click, scroll, or mouse touch. It is recommended to keep it enabled for better page speed performance.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
             <group id="customer_data" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GDPR/CCPA/LGPD (Customer Data Protection Regulation)</label>
                 <field id="protect" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
