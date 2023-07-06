@@ -14,7 +14,7 @@ if (!isset($escaper)) {
 ?>
 <!-- Google Tag Manager -->
 <script>
-    <?php if ($block->isSpeedOptimizationEnabled()) { ?>
+    <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
         document.addEventListener('scroll', mfGtmUserActionDetect);
         document.addEventListener('mousemove', mfGtmUserActionDetect);
         document.addEventListener('touchstart', mfGtmUserActionDetect);
