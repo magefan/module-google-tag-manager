@@ -65,7 +65,8 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                 ],
                 'is_virtual' => (bool)$order->getIsVirtual(),
                 'shipping_description' => $order->getShippingDescription(),
-                'customer_is_guest' => (bool)$order->getCustomerIsGuest()
+                'customer_is_guest' => (bool)$order->getCustomerIsGuest(),
+                'customer_identifier' => hash('sha256', (string)$order->getCustomerEmail()),
             ]);
         }
 
