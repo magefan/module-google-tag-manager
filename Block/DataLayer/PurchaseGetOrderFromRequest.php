@@ -8,6 +8,9 @@ namespace Magefan\GoogleTagManager\Block\DataLayer;
 
 use Magefan\GoogleTagManager\Block\DataLayer\Purchase;
 
+/**
+ * Custom Block For 2c2p payment method
+ */
 class PurchaseGetOrderFromRequest extends Purchase
 {
     /**
