@@ -56,7 +56,14 @@ class Purchase extends AbstractDataLayer
      */
     protected function getDataLayer(): array
     {
-        $order = $this->checkoutSession->getLastRealOrder();
+        $order = $this->getOrder();
         return $this->purchase->get($order);
+    }
+
+    /**
+     * @return \Magento\Sales\Model\Order
+     */
+    protected function getOrder() {
+        return $this->checkoutSession->getLastRealOrder();
     }
 }
