@@ -10,7 +10,7 @@
         <mfgoogletagmanager>
             <general>
                 <enabled>0</enabled>
-                <mfmodule>GoogleTagManager</mfmodule>
+<!--                <mfmodule>GoogleTagManager</mfmodule>-->
                 <mftype>1</mftype>
             </general>
             <web_container>

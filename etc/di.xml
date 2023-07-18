@@ -13,4 +13,5 @@
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Cart\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Order\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Order\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Product\Item" />
+    <preference for="Magefan\GoogleTagManager\Api\DataLayer\SessionManagerInterface" type="Magefan\GoogleTagManager\Model\DataLayer\SessionManager" />
 </config>
