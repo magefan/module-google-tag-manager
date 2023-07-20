@@ -64,8 +64,8 @@ class Purchase
      * @param string $requester
      * @return array|mixed
      */
-    public function aroundGet(Subject $subject, $proceed, Order $order,string $requester = '') {
-        if ($this->isTransactionIdUniqueForRequester($requester, (string)$order->getIncrementId())) {
+    public function aroundGet(Subject $subject, $proceed, Order $order, string $requester = '') {
+        if ($this->isTransactionIdUniqueForRequester($requester, $order)) {
             $this->logTransaction($order, $requester);
             return $proceed($order, $requester);
         }
@@ -79,11 +79,13 @@ class Purchase
      * @param string $transactionId
      * @return bool
      */
-    protected function isTransactionIdUniqueForRequester(string $requester, string $transactionId): bool {
+    protected function isTransactionIdUniqueForRequester(string $requester, Order $order): bool {
         $transactionsForRequesterByTransactionId = $this->transactionCollectionFactory->create()->addFieldToFilter(
             'requester', $requester
         )->addFieldToFilter(
-            'transaction_id', $transactionId
+            'transaction_id', (string)$order->getIncrementId()
+        )->addFieldToFilter(
+            'store_id', (int)$order->getStoreId()
         );
 
         if (count($transactionsForRequesterByTransactionId)) {

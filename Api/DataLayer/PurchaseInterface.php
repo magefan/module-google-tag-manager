@@ -17,8 +17,9 @@ interface PurchaseInterface
      * Get GTM datalayer
      *
      * @param Order $order
+     * @param string $requester
      * @return array
      * @throws NoSuchEntityException
      */
-    public function get(Order $order,string $requester = ''): array;
+    public function get(Order $order, string $requester = ''): array;
 }
