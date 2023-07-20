@@ -20,5 +20,5 @@ interface PurchaseInterface
      * @return array
      * @throws NoSuchEntityException
      */
-    public function get(Order $order, string $requester = ''): array;
+    public function get(Order $order,string $requester = ''): array;
 }
