@@ -81,9 +81,9 @@ class Purchase
      */
     protected function isTransactionIdUniqueForRequester(string $requester, string $transactionId): bool {
         $transactionsForRequesterByTransactionId = $this->transactionCollectionFactory->create()->addFieldToFilter(
-            'requester', ['eq' => $requester]
+            'requester', $requester
         )->addFieldToFilter(
-            'transaction_id', ['eq' => $transactionId]
+            'transaction_id', $transactionId
         );
 
         if (count($transactionsForRequesterByTransactionId)) {
