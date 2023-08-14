@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="magefan_gtm_transaction">
+        <column xsi:type="int"      name="id" identity="true"  unsigned="true" nullable="false" padding="10" comment="ID"/>
+        <column xsi:type="varchar"  name="transaction_id"    nullable="false" default=" " comment="Transaction Id"/>
+        <column xsi:type="int"      name="store_id"     nullable="false" default="0" comment="Store Id"/>
+        <column xsi:type="varchar"  name="requester"    nullable="false" default=" " comment="Requester"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="TRANSACTION_ID_LINK_REFERENCE" indexType="btree">
+            <column name="transaction_id"/>
+        </index>
+        <index referenceId="STORE_ID_LINK_REFERENCE" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="REQUESTER_LINK_REFERENCE" indexType="btree">
+            <column name="requester"/>
+        </index>
+    </table>
+</schema>
