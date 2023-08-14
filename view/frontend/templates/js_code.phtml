@@ -97,7 +97,7 @@ if (!isset($escaper)) {
             'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','<?= $escaper->escapeHtml($block->getPublicId()) ?>');
         <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
-        <?= $block->getGtmScript(); ?>
+            <?= $block->getGtmScript(); ?>
         <?php } ?>
     }
 
