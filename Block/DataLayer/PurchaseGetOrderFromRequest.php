@@ -16,7 +16,8 @@ class PurchaseGetOrderFromRequest extends Purchase
     /**
      * @return \Magento\Sales\Model\Order|null
      */
-    protected function getOrder() {
+    protected function getOrder()
+    {
         $order = $this->getOrderFactory()->create()->loadByIncrementId($this->getOrderId());
 
         if (!$order->getId()) {
@@ -28,7 +29,8 @@ class PurchaseGetOrderFromRequest extends Purchase
     /**
      * @return mixed
      */
-    protected function getOrderFactory() {
+    protected function getOrderFactory()
+    {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         return $objectManager->get(\Magento\Sales\Model\OrderFactory::class);
     }
@@ -36,7 +38,8 @@ class PurchaseGetOrderFromRequest extends Purchase
     /**
      * @return string
      */
-    protected function getOrderId() {
+    protected function getOrderId()
+    {
         $request = $this->getRequest();
 
         if ($request) {

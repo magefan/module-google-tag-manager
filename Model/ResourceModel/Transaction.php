@@ -21,4 +21,3 @@ class Transaction extends AbstractDb
         $this->_init('magefan_gtm_transaction', 'id');
     }
 }
-

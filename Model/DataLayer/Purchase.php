@@ -44,7 +44,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
     /**
      * @inheritDoc
      */
-    public function get(Order $order,string $requester = ''): array
+    public function get(Order $order, string $requester = ''): array
     {
         if ($order) {
             $items = [];

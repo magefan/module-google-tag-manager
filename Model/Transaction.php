@@ -21,4 +21,3 @@ class Transaction extends AbstractModel
         $this->_init(\Magefan\GoogleTagManager\Model\ResourceModel\Transaction::class);
     }
 }
-

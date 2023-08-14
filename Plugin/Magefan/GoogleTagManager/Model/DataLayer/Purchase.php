@@ -49,8 +49,7 @@ class Purchase
         TransactionFactory $transactionFactory,
         TransactionRepository $transactionRepository,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->transactionCollectionFactory = $transactionCollectionFactory;
         $this->transactionFactory = $transactionFactory;
         $this->transactionRepository = $transactionRepository;
@@ -64,12 +63,12 @@ class Purchase
      * @param string $requester
      * @return array|mixed
      */
-    public function aroundGet(Subject $subject, $proceed, Order $order, string $requester = '') {
+    public function aroundGet(Subject $subject, $proceed, Order $order, string $requester = '')
+    {
         if ($this->isTransactionIdUniqueForRequester($requester, $order)) {
             $this->logTransaction($order, $requester);
             return $proceed($order, $requester);
-        }
-        else {
+        } else {
             return [];
         }
     }
@@ -79,13 +78,17 @@ class Purchase
      * @param string $transactionId
      * @return bool
      */
-    protected function isTransactionIdUniqueForRequester(string $requester, Order $order): bool {
+    protected function isTransactionIdUniqueForRequester(string $requester, Order $order): bool
+    {
         $transactionsForRequesterByTransactionId = $this->transactionCollectionFactory->create()->addFieldToFilter(
-            'requester', $requester
+            'requester',
+            $requester
         )->addFieldToFilter(
-            'transaction_id', (string)$order->getIncrementId()
+            'transaction_id',
+            (string)$order->getIncrementId()
         )->addFieldToFilter(
-            'store_id', (int)$order->getStoreId()
+            'store_id',
+            (int)$order->getStoreId()
         );
 
         if (count($transactionsForRequesterByTransactionId)) {
@@ -100,7 +103,8 @@ class Purchase
      * @param string $requester
      * @return void
      */
-    protected function logTransaction(Order $order, string $requester) {
+    protected function logTransaction(Order $order, string $requester)
+    {
         $transactionModel = $this->transactionFactory->create();
 
         $transactionModel->setTransactionId((string)$order->getIncrementId());
@@ -109,11 +113,9 @@ class Purchase
 
         try {
             $this->transactionRepository->save($transactionModel);
-        }
-        catch (CouldNotSaveException $e) {
+        } catch (CouldNotSaveException $e) {
             $this->logger->log("Magefan_GoogleTagManager error while logging transaction id: " . $order->getIncrementId()
-                . ' and requester: ' . $requester
-            );
+                . ' and requester: ' . $requester);
         }
     }
 }
