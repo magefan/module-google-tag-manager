@@ -119,21 +119,21 @@ class Config
      */
     public function getPublicId(string $storeId = null): string
     {
-        $result =  trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
-
-        if (!$result) {
+        if ('use_public_id' === $this->getInstallGtm()) {
+            return trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
+        } else {
             if ($gtmScript = $this->getGtmScript($storeId)) {
                 $pattern = '/GTM-[A-Z0-9]+/';
                 $matches = [];
                 if (preg_match($pattern, $gtmScript, $matches)) {
                     if (isset($matches[0])) {
-                        return (string)$matches[0];
+                        return trim((string)$matches[0]);
                     }
                 }
             }
         }
 
-        return $result;
+        return '';
     }
 
     /**

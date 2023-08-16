@@ -6,9 +6,9 @@
 
 declare(strict_types=1);
 
-namespace Magefan\GoogleTagManager\Plugin\Magefan\GoogleTagManager\Model\DataLayer;
+namespace Magefan\GoogleTagManager\Plugin\Magefan\GoogleTagManager\Api\DataLayer;
 
-use Magefan\GoogleTagManager\Model\DataLayer\Purchase as Subject;
+use Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface as Subject;
 use Magefan\GoogleTagManager\Model\ResourceModel\Transaction\CollectionFactory as TransactionCollectionFactory;
 use Magefan\GoogleTagManager\Model\TransactionFactory;
 use Magefan\GoogleTagManager\Model\TransactionRepository;
@@ -16,7 +16,7 @@ use Magento\Sales\Model\Order;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Psr\Log\LoggerInterface;
 
-class Purchase
+class PurchaseInterface
 {
     /**
      * @var TransactionCollectionFactory
