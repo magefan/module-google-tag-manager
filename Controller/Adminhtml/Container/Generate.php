@@ -103,6 +103,11 @@ class Generate extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
+        //clear echo current buffer
+        if (function_exists('ob_get_clean')) {
+            ob_get_clean();
+        }
+
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
