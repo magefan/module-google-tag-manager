@@ -20,6 +20,19 @@ Improve store performance tracking with no-effort.
   * [Magefan Community Extension](https://github.com/magefan/module-community) >= v2.1.13. Please install this extension first if you use installation via FTP.
   * **Note** that extension is free only for the Magento Community (Open Source) Edition. For Magento EE, ECE, B2B you need to purchase the license at magefan.com.
 
+## Editions & Pricing
+  
+<a href="[https://magefan.com/magento2-blog-extension/pricing](https://magefan.com/magento-2-google-tag-manager/pricing)">
+          <img
+            src="https://cm.magefan.com/wysiwyg/products/magento-google-tag-manager-pricing.png"
+            alt="Editions and Pricing for Magento 2 Google Tag Manager" />
+        </a>
+<a href="[https://magefan.com/magento2-blog-extension/pricing](https://magefan.com/magento-2-google-tag-manager/pricing)">
+          <img
+            src="https://cm.magefan.com/wysiwyg/products/google-tag-manager-extension-pricing.png"
+            alt="Editions and Pricing for Magento 2 Google Tag Manager" />
+        </a>
+        
 ## Benefits
 * No source code editing 
 * Easier GTM tags implementation
