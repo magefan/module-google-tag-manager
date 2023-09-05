@@ -13,7 +13,7 @@
 
 Improve store performance tracking with no-effort. 
 
-<a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://magefan.com/media/wysiwyg/download-now_1.png"></a>
+<a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a><a href="https://magefan.com/magento-2-google-tag-manager#live-demo"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/magefan-live-demo.png"></a>
 
 ## Requirements
   * Magento Community 2.2.0-2.4.x (CE, EE, ECE, B2B)
