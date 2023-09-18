@@ -63,6 +63,11 @@ class AbstractDataLayer
     protected $customerGroupCode;
 
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'other';
+
+    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
@@ -70,13 +75,13 @@ class AbstractDataLayer
      * @param CategoryRepositoryInterface $categoryRepository
      */
     public function __construct(
-        Config $config,
-        StoreManagerInterface $storeManager,
+        Config                      $config,
+        StoreManagerInterface       $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        RequestInterface $request = null,
-        Registry $registry = null,
-        Session $session = null,
-        GroupRepository $groupRepository = null
+        RequestInterface            $request = null,
+        Registry                    $registry = null,
+        Session                     $session = null,
+        GroupRepository             $groupRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -93,6 +98,24 @@ class AbstractDataLayer
         $this->groupRepository = $groupRepository ?: ObjectManager::getInstance()->get(
             GroupRepository::class
         );
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getEcommPageType(): string
+    {
+        return $this->ecommPageType;
+    }
+
+    /**
+     * @param string $ecommPageType
+     * @return void
+     */
+    public function setEcommPageType(string $ecommPageType): void
+    {
+        $this->ecommPageType = $ecommPageType;
     }
 
     /**
@@ -224,7 +247,7 @@ class AbstractDataLayer
             if (is_array($result)) {
                 $result = implode(', ', $result);
             }
-            
+
             if ($result) {
                 return (string)$result;
             }
@@ -268,6 +291,7 @@ class AbstractDataLayer
 
         $data = $this->addCustomerGroup($data);
         $data = $this->addMfUniqueEventId($data);
+        $data = $this->addEcommPageType($data);
 
         return $data;
     }
@@ -296,6 +320,15 @@ class AbstractDataLayer
         $eventId = $event . '_' . $hash;
 
         $data['magefanUniqueEventId'] = $eventId;
+
+        return $data;
+    }
+
+    protected function addEcommPageType(array $data): array
+    {
+        if (!isset($data['ecomm_pagetype'])) {
+            $data['ecomm_pagetype'] = $this->getEcommPageType();
+        }
 
         return $data;
     }

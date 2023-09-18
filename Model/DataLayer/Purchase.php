@@ -24,6 +24,11 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
     private $gtmItem;
 
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'purchase';
+
+    /**
      * Purchase constructor.
      *
      * @param Config $config
@@ -61,7 +66,9 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                     'shipping' => $this->formatPrice((float)$order->getShippingAmount()),
                     'currency' => $this->getCurrentCurrencyCode(),
                     'coupon' => $order->getCouponCode() ?: '',
-                    'items' => $items
+                    'items' => $items,
+                    'customer_email' => $order->getCustomerEmail(),
+                    'customer_phone' => $order->getBillingAddress() ? $order->getBillingAddress()->getTelephone() : ''
                 ],
                 'is_virtual' => (bool)$order->getIsVirtual(),
                 'shipping_description' => $order->getShippingDescription(),
