@@ -9,7 +9,7 @@
 
 <img align="right" width="120" height="120" src="https://cm.magefan.com/catalog/product/cache/28b407cef1668fd0bdd6f36db3e8e2f0/i/c/icon-google-tag-manager.jpg">
 
-[Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager)  is a solution for better store performance tracking that eliminates any actions requried with the your website source code. It allows you to specify the GTM and GA4 tracking IDs in the admin panel, then export the preset tracking tags, import them into your GTM account and get better reporting on various actions in your store. 
+[Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager)  is a solution for better store performance tracking that eliminates any actions required with your website source code. It allows you to specify the GTM and GA4 tracking IDs in the admin panel, then export the preset tracking tags, import them into your GTM account and get better reporting on various actions in your store. 
 
 Improve store performance tracking with no-effort. 
 
@@ -18,7 +18,7 @@ Improve store performance tracking with no-effort.
 ## Requirements
   * Magento Community 2.2.0-2.4.x (CE, EE, ECE, B2B)
   * [Magefan Community Extension](https://github.com/magefan/module-community) >= v2.1.13. Please install this extension first if you use installation via FTP.
-  * **Note** that extension is free only for the Magento Community (Open Source) Edition. For Magento EE, ECE, B2B you need to purchase the license at magefan.com.
+  * **Note** that the extension is free only for the Magento Community (Open Source) Edition. For Magento EE, ECE, B2B you need to purchase the license at magefan.com.
 
 ## Editions & Pricing
   
