@@ -24,6 +24,11 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
     private $gtmItem;
 
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'purchase';
+
+    /**
      * Purchase constructor.
      *
      * @param Config $config
