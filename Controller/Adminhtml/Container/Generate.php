@@ -121,6 +121,10 @@ class Generate extends Action implements HttpGetActionInterface
 
         try {
             $storeId = (string)$this->getRequest()->getParam('store_id') ?: null;
+            if (!$storeId) {
+                $storeId = (string)$this->getRequest()->getParam('mf_generate_website_id') ?: null;
+            }
+
             $container = $this->container->generate($storeId);
 
             $fileContent = [
