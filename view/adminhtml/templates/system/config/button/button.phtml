@@ -33,7 +33,7 @@ if (!isset($escaper)) {
                         'mfgoogletagmanager/container/generate',
                         [
                             'store_id' => (int)$block->getRequest()->getParam('store') ?: null,
-                            'mf_generate_website_id' => (int)$block->getRequest()->getParam('website') ?: null
+                            'website_id' => (int)$block->getRequest()->getParam('website') ?: null
                         ]
                     )
                 )?>';

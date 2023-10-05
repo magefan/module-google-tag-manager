@@ -21,6 +21,7 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 use Psr\Log\LoggerInterface;
 use Magefan\GoogleTagManager\Model\Config;
 use Magefan\GoogleTagManager\Model\Container;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Generate extends Action implements HttpGetActionInterface
 {
@@ -67,6 +68,11 @@ class Generate extends Action implements HttpGetActionInterface
     private $container;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * Generate constructor.
      *
      * @param Context $context
@@ -77,6 +83,7 @@ class Generate extends Action implements HttpGetActionInterface
      * @param RedirectInterface $redirect
      * @param Config $config
      * @param Container $container
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         Context $context,
@@ -86,7 +93,8 @@ class Generate extends Action implements HttpGetActionInterface
         LoggerInterface $logger,
         RedirectInterface $redirect,
         Config $config,
-        Container $container
+        Container $container,
+        StoreManagerInterface $storeManager
     ) {
         $this->resultRawFactory = $resultRawFactory;
         $this->fileFactory = $fileFactory;
@@ -95,6 +103,7 @@ class Generate extends Action implements HttpGetActionInterface
         $this->redirect = $redirect;
         $this->config = $config;
         $this->container = $container;
+        $this->storeManager = $storeManager;
         parent::__construct($context);
     }
 
@@ -121,8 +130,8 @@ class Generate extends Action implements HttpGetActionInterface
 
         try {
             $storeId = (string)$this->getRequest()->getParam('store_id') ?: null;
-            if (!$storeId) {
-                $storeId = (string)$this->getRequest()->getParam('mf_generate_website_id') ?: null;
+            if (!$storeId && ($websiteId = ((string)$this->getRequest()->getParam('website_id') ?: null))) {
+                $storeId = $this->storeManager->getWebsite($websiteId)->getDefaultStore()->getId();
             }
 
             $container = $this->container->generate($storeId);

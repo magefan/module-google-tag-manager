@@ -11,7 +11,6 @@ namespace Magefan\GoogleTagManager\Model;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Config\Model\Config\Backend\Admin\Custom;
-use Magento\Framework\App\RequestInterface;
 
 class Config
 {
@@ -60,22 +59,14 @@ class Config
     private $scopeConfig;
 
     /**
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
      * Config constructor.
      *
      * @param ScopeConfigInterface $scopeConfig
-     * @param RequestInterface $request
      */
     public function __construct(
-        ScopeConfigInterface $scopeConfig,
-        RequestInterface $request
+        ScopeConfigInterface $scopeConfig
     ) {
         $this->scopeConfig = $scopeConfig;
-        $this->request = $request;
     }
 
     /**
@@ -259,8 +250,7 @@ class Config
      */
     public function getConfig(string $path, string $storeId = null)
     {
-        $scope = $this->request->getParam('mf_generate_website_id') ? ScopeInterface::SCOPE_WEBSITE : ScopeInterface::SCOPE_STORE;
-        return $this->scopeConfig->getValue($path, $scope, $storeId);
+        return $this->scopeConfig->getValue($path,  ScopeInterface::SCOPE_STORE, $storeId);
     }
 
     /**
