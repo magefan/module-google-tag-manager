@@ -250,7 +250,7 @@ class Config
      */
     public function getConfig(string $path, string $storeId = null)
     {
-        return $this->scopeConfig->getValue($path,  ScopeInterface::SCOPE_STORE, $storeId);
+        return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $storeId);
     }
 
     /**
