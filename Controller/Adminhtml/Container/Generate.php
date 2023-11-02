@@ -128,7 +128,7 @@ class Generate extends Action implements HttpGetActionInterface
                 'value' => json_encode($container, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT),
                 'rm' => true
             ];
-            $this->fileFactory->create(
+            return $this->fileFactory->create(
                 sprintf('GTM' . '_%s.json', $this->dateTime->date('Y-m-d_H-i-s')),
                 $fileContent,
                 DirectoryList::MEDIA,
@@ -139,8 +139,5 @@ class Generate extends Action implements HttpGetActionInterface
             $this->messageManager->addErrorMessage(__('Something went wrong while generating the file.'));
             return $resultRedirect->setPath($this->redirect->getRefererUrl());
         }
-
-        $resultRaw = $this->resultRawFactory->create();
-        return $resultRaw;
     }
 }
