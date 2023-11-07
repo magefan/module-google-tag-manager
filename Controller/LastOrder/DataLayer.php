@@ -73,13 +73,12 @@ class DataLayer extends \Magento\Framework\App\Action\Action
             try {
                 $order = $this->orderRepository->get($orderId);
             } catch (\NoSuchElementException $e) {
+                $order = null;
             }
             if ($order && $order->getEntityId()) {
                 $dataLayer = $this->purchaseDataLayer->get($order);
                 if ($dataLayer) {
-                    $result = $this->jsonResultFactory->create();
                     $result->setData($dataLayer);
-                    return $result;
                 }
             }
         }
