@@ -38,6 +38,13 @@ class Log
      */
     protected $logger;
 
+    /**
+     * Log constructor.
+     * @param TransactionCollectionFactory $transactionCollectionFactory
+     * @param TransactionFactory $transactionFactory
+     * @param TransactionRepository $transactionRepository
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         TransactionCollectionFactory $transactionCollectionFactory,
         TransactionFactory $transactionFactory,
