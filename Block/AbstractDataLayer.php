@@ -47,7 +47,7 @@ abstract class AbstractDataLayer extends AbstractBlock
      *
      * @return string
      */
-    protected function _toHtml(): string
+    public function toHtml(): string
     {
         if ($this->config->isEnabled()) {
             $dataLayer = $this->getDataLayer();
