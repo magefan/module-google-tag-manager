@@ -10,7 +10,6 @@ namespace Magefan\GoogleTagManager\Model;
 
 use Magefan\GoogleTagManager\Model\ResourceModel\Transaction as ResourceTransaction;
 use Magefan\GoogleTagManager\Model\TransactionFactory;
-use Magefan\GoogleTagManager\Model\Transaction;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 

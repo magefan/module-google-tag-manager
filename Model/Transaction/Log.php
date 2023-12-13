@@ -11,7 +11,7 @@ namespace Magefan\GoogleTagManager\Model\Transaction;
 use Magefan\GoogleTagManager\Model\ResourceModel\Transaction\CollectionFactory as TransactionCollectionFactory;
 use Magefan\GoogleTagManager\Model\TransactionFactory;
 use Magefan\GoogleTagManager\Model\TransactionRepository;
-use Magento\Sales\Model\Order;
+use Magento\Sales\Api\Data\OrderInterface as Order;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Psr\Log\LoggerInterface;
 
@@ -62,7 +62,7 @@ class Log
      * @param string $requester
      * @return void
      */
-    public function logTransaction(\Magento\Sales\Api\Data\OrderInterface $order, string $requester)
+    public function logTransaction(Order $order, string $requester)
     {
         $transactionModel = $this->transactionFactory->create();
 
@@ -76,5 +76,30 @@ class Log
             $this->logger->log("Magefan_GoogleTagManager error while logging transaction id: " . $order->getIncrementId()
                 . ' and requester: ' . $requester);
         }
+    }
+
+    /**
+     * @param Order $order
+     * @param string $requester
+     * @return void
+     */
+    public function isTransactionUnique(Order $order, string $requester): bool
+    {
+        $transactionsForRequesterByTransactionId = $this->transactionFactory->create()->getCollection()->addFieldToFilter(
+            'requester',
+            $requester
+        )->addFieldToFilter(
+            'transaction_id',
+            (string)$order->getIncrementId()
+        )->addFieldToFilter(
+            'store_id',
+            (int)$order->getStoreId()
+        );
+
+        if (count($transactionsForRequesterByTransactionId)) {
+            return false;
+        }
+
+        return true;
     }
 }
