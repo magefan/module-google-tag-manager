@@ -15,6 +15,7 @@ use Magefan\GoogleTagManager\Model\TransactionRepository;
 use Magento\Sales\Model\Order;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Psr\Log\LoggerInterface;
+use Magefan\GoogleTagManager\Model\Transaction\Log;
 
 class PurchaseInterface
 {
@@ -24,36 +25,21 @@ class PurchaseInterface
     protected $transactionCollectionFactory;
 
     /**
-     * @var TransactionFactory
+     * @var Log
      */
-    protected $transactionFactory;
+    protected $transactionLogger;
 
     /**
-     * @var TransactionRepository
-     */
-    protected $transactionRepository;
-
-    /**
-     * @var LoggerInterface
-     */
-    protected $logger;
-
-    /**
+     * PurchaseInterface constructor.
      * @param TransactionCollectionFactory $transactionCollectionFactory
-     * @param TransactionFactory $transactionFactory
-     * @param TransactionRepository $transactionRepository
-     * @param LoggerInterface $logger
+     * @param Log $transactionLogger
      */
     public function __construct(
         TransactionCollectionFactory $transactionCollectionFactory,
-        TransactionFactory $transactionFactory,
-        TransactionRepository $transactionRepository,
-        LoggerInterface $logger
+        Log $transactionLogger
     ) {
         $this->transactionCollectionFactory = $transactionCollectionFactory;
-        $this->transactionFactory = $transactionFactory;
-        $this->transactionRepository = $transactionRepository;
-        $this->logger = $logger;
+        $this->transactionLogger = $transactionLogger;
     }
 
     /**
@@ -66,7 +52,7 @@ class PurchaseInterface
     public function aroundGet(Subject $subject, $proceed, Order $order, string $requester = '')
     {
         if ($this->isTransactionIdUniqueForRequester($requester, $order)) {
-            $this->logTransaction($order, $requester);
+            $this->transactionLogger->logTransaction($order, $requester);
             return $proceed($order, $requester);
         } else {
             return [];
@@ -96,26 +82,5 @@ class PurchaseInterface
         }
 
         return true;
-    }
-
-    /**
-     * @param Order $order
-     * @param string $requester
-     * @return void
-     */
-    protected function logTransaction(Order $order, string $requester)
-    {
-        $transactionModel = $this->transactionFactory->create();
-
-        $transactionModel->setTransactionId((string)$order->getIncrementId());
-        $transactionModel->setStoreId((int)$order->getStoreId());
-        $transactionModel->setRequester($requester);
-
-        try {
-            $this->transactionRepository->save($transactionModel);
-        } catch (CouldNotSaveException $e) {
-            $this->logger->log("Magefan_GoogleTagManager error while logging transaction id: " . $order->getIncrementId()
-                . ' and requester: ' . $requester);
-        }
     }
 }
