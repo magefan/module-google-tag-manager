@@ -34,5 +34,4 @@ class InfoServerContainer extends InfoPlan
     {
         return 'Server Container option is available in <strong>Extra</strong> plan only.';
     }
-
 }

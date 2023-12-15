@@ -95,8 +95,7 @@ class ContainerGenerate extends Action implements HttpGetActionInterface
         Config                $config,
         Container             $container,
         StoreManagerInterface $storeManager
-    )
-    {
+    ) {
         $this->resultRawFactory = $resultRawFactory;
         $this->fileFactory = $fileFactory;
         $this->dateTime = $dateTime;

@@ -34,6 +34,4 @@ class InfoGoogleAds extends InfoPlan
     {
         return 'Google Ads options are available in <strong>Plus or Extra</strong> plans only.';
     }
-
-
 }

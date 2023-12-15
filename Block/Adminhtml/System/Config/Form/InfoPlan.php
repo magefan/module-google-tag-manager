@@ -13,17 +13,17 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
     /**
      * @return string
      */
-    protected abstract function getMinPlan(): string;
+    abstract protected function getMinPlan(): string;
 
     /**
      * @return string
      */
-    protected abstract function getSectionId(): string;
+    abstract protected function getSectionId(): string;
 
     /**
      * @return string
      */
-    protected abstract function getText(): string;
+    abstract protected function getText(): string;
 
 
     /**
@@ -78,5 +78,4 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
 
         return $html;
     }
-
 }
