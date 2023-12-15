@@ -22,10 +22,37 @@
                 <container_id/>
                 <public_id/>
             </web_container>
+            <server_container>
+                <enabled>0</enabled>
+                <public_id/>
+                <account_id/>
+                <container_id/>
+                <tag_server_url/>
+            </server_container>
             <analytics>
                 <enable>1</enable>
                 <measurement_id/>
+                <measurement_protocol>
+                    <measurement_enabled/>
+                    <api_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                    <headless_storefront/>
+                </measurement_protocol>
             </analytics>
+            <ads>
+                <tag_id/>
+                <conversion>
+                    <enable>0</enable>
+                    <purchase>
+                        <conversion_id/>
+                        <conversion_label/>
+                    </purchase>
+                </conversion>
+                <remarketing>
+                    <enable>0</enable>
+                    <conversion_id/>
+                    <conversion_label/>
+                </remarketing>
+            </ads>
             <attributes>
                 <product>sku</product>
                 <brand/>
