@@ -14,28 +14,22 @@ if (!isset($escaper)) {
 }
 ?>
 <div class="pp-buttons-container">
-    <button type="button" id="mf_download">
+    <button type="button" id="mf_download_<?= $block->escapeHtml($block->getConteinderType()) ?>">
         <?= $escaper->escapeHtml(__('Generate JSON Container & Download File')); ?>
     </button>
     <p>
         <br/>
-        <?= __('Once the JSON file is downloaded, upload it to %1 > Choose Container > Admin > Import Container.', '<a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a>') ?>
+        <?= __('Once the JSON file is downloaded, upload it to %1 > Choose %2 Container > Admin > Import Container.', '<a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a>', ucfirst($block->getConteinderType())) ?>
     </p>
     <script>
         require([
             'jquery',
             'domReady!'
         ], function ($) {
-            $('#mf_download').on('click', function(event) {
+            $('#mf_download_<?= $block->escapeHtml($block->getConteinderType()) ?>').on('click', function(event) {
                 event.preventDefault;
                 window.location='<?= $escaper->escapeUrl(
-                    $block->getUrl(
-                        'mfgoogletagmanager/container/generate',
-                        [
-                            'store_id' => (int)$block->getRequest()->getParam('store') ?: null,
-                            'website_id' => (int)$block->getRequest()->getParam('website') ?: null
-                        ]
-                    )
+                    $block->getContainerGenerateUrl()
                 )?>';
             });
         });

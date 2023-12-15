@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Magefan\GoogleTagManager\Controller\Adminhtml\Container;
+namespace Magefan\GoogleTagManager\Controller\Adminhtml;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -20,10 +20,10 @@ use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Psr\Log\LoggerInterface;
 use Magefan\GoogleTagManager\Model\Config;
-use Magefan\GoogleTagManager\Model\Container;
+use Magefan\GoogleTagManager\Api\ContainerInterface as Container;
 use Magento\Store\Model\StoreManagerInterface;
 
-class Generate extends Action implements HttpGetActionInterface
+class ContainerGenerate extends Action implements HttpGetActionInterface
 {
     /**
      * Authorization level of a basic admin session
@@ -86,16 +86,17 @@ class Generate extends Action implements HttpGetActionInterface
      * @param StoreManagerInterface $storeManager
      */
     public function __construct(
-        Context $context,
-        RawFactory $resultRawFactory,
-        FileFactory $fileFactory,
-        DateTime $dateTime,
-        LoggerInterface $logger,
-        RedirectInterface $redirect,
-        Config $config,
-        Container $container,
+        Context               $context,
+        RawFactory            $resultRawFactory,
+        FileFactory           $fileFactory,
+        DateTime              $dateTime,
+        LoggerInterface       $logger,
+        RedirectInterface     $redirect,
+        Config                $config,
+        Container             $container,
         StoreManagerInterface $storeManager
-    ) {
+    )
+    {
         $this->resultRawFactory = $resultRawFactory;
         $this->fileFactory = $fileFactory;
         $this->dateTime = $dateTime;

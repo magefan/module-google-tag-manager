@@ -11,8 +11,9 @@ namespace Magefan\GoogleTagManager\Model;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Magento\Store\Model\StoreManagerInterface;
+use Magefan\GoogleTagManager\Api\ContainerInterface;
 
-class Container
+class WebContainer implements ContainerInterface
 {
     /**
      * @var StoreManagerInterface

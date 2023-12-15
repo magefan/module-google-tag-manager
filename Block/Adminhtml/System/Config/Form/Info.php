@@ -18,7 +18,7 @@ class Info extends \Magefan\Community\Block\Adminhtml\System\Config\Form\Info
     protected function getModuleUrl(): string
     {
         return 'https://mage' .
-            'fan.com/magento2-extensions?utm_source=gtm_config&utm_medium=link&utm_campaign=regular';
+            'fan.com/magento-2-google-tag-manager?utm_source=gtm_config&utm_medium=link&utm_campaign=regular';
     }
 
     /**

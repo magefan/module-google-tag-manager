@@ -17,26 +17,25 @@ use Psr\Log\LoggerInterface;
 
 class Log
 {
-
     /**
      * @var TransactionCollectionFactory
      */
-    protected $transactionCollectionFactory;
+    private $transactionCollectionFactory;
 
     /**
      * @var TransactionFactory
      */
-    protected $transactionFactory;
+    private $transactionFactory;
 
     /**
      * @var TransactionRepository
      */
-    protected $transactionRepository;
+    private $transactionRepository;
 
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     /**
      * Log constructor.

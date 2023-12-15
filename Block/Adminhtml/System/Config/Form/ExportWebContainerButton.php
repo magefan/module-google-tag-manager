@@ -11,23 +11,19 @@ namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
-class Button extends Field
+class ExportWebContainerButton extends Field
 {
-    public const BUTTON_TEMPLATE = 'system/config/button/button.phtml';
+    /**
+     * Path to template file in theme.
+     *
+     * @var string
+     */
+    protected $_template = 'Magefan_GoogleTagManager::system/config/button/export-container-button.phtml';
 
     /**
-     * Set template to itself
-     *
-     * @return $this
+     * @var string
      */
-    protected function _prepareLayout(): Button
-    {
-        parent::_prepareLayout();
-        if (!$this->getTemplate()) {
-            $this->setTemplate(static::BUTTON_TEMPLATE);
-        }
-        return $this;
-    }
+    protected $conteinerType = 'web';
 
     /**
      * Render button
@@ -51,5 +47,27 @@ class Button extends Field
     protected function _getElementHtml(AbstractElement $element): string
     {
         return $this->_toHtml();
+    }
+
+    /**
+     * @return string
+     */
+    public function getConteinderType()
+    {
+        return $this->conteinerType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContainerGenerateUrl()
+    {
+        return $this->getUrl(
+            'mfgoogletagmanager/webContainer/generate',
+            [
+                'store_id' => (int)$this->getRequest()->getParam('store') ?: null,
+                'website_id' => (int)$this->getRequest()->getParam('website') ?: null
+            ]
+        );
     }
 }

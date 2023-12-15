@@ -47,30 +47,30 @@ $eventsExtra = [
             <?= implode('</li><li>', $events) ?>
         </li>
     </ul>
-    <p <?php if (!$block->isPlusEnabled()) { ?>style="color: #eb5202"<?php } ?>>
+    <p <?php if (!$block->isPlusEnabled()) { ?>style="color: #ef672f"<?php } ?>>
         <strong>
-            <?= $escaper->escapeHtml(__(!$block->isPlusEnabled() ? 'Available in GTM Plus Only' : 'GTM Plus')) ?>
+            <?= $escaper->escapeHtml(__(!$block->isPlusEnabled() ? 'Available in Plus or Extra plans only' : 'GTM Plus')) ?>
             <?php if (!$block->isPlusEnabled()) { ?>
-                (<a style="color: #eb5202; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read more</a>):
+                (<a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">read more</a>):
             <?php } ?>
         </strong>
     </p>
-    <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
+    <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: #ef672f"<?php } ?>>
         <ul>
             <li>
                 <?= implode('</li><li>', $eventsPlus) ?>
             </li>
         </ul>
     </div>
-    <p <?php if (!$block->isExtraEnabled()) { ?>style="color: #eb5202"<?php } ?>>
+    <p <?php if (!$block->isExtraEnabled()) { ?>style="color: #ef672f"<?php } ?>>
         <strong>
-            <?= $escaper->escapeHtml(__(!$block->isExtraEnabled() ? 'Available in GTM Extra Only' : 'GTM Extra')) ?>
+            <?= $escaper->escapeHtml(__(!$block->isExtraEnabled() ? 'Available in Extra plan only' : 'GTM Extra')) ?>
             <?php if (!$block->isExtraEnabled()) { ?>
-                (<a style="color: #eb5202; text-decoration: underline;"  href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read more</a>):
+                (<a style="color: #ef672f; text-decoration: underline;"  href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">read more</a>):
             <?php } ?>
         </strong>
     </p>
-    <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: #eb5202"<?php } ?>>
+    <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: #ef672f"<?php } ?>>
         <ul>
             <li>
                 <?= implode('</li><li>', $eventsExtra) ?>
@@ -79,7 +79,7 @@ $eventsExtra = [
     </div>
     <?php if (!$block->isPlusEnabled() || !$block->isExtraEnabled()) { ?>
     <button title="Upgrade" type="button" class="primary" onclick="window.open('https://magefan.com/magento-2-google-tag-manager/pricing')">
-        <span>Upgrade to GTM <?php if (!$block->isPlusEnabled()) { echo 'Plus or'; } ?> Extra</span>
+        <span>Upgrade to <?php if (!$block->isPlusEnabled()) { echo 'Plus or'; } ?> Extra plan</span>
     </button>
     <?php } ?>
 </div>

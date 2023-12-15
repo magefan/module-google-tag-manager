@@ -127,6 +127,58 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                     </comment>
                 </field>
             </group>
+            <group id="server_container" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <label>Server Container (GTM Extra)</label>
+                <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoServerContainer</frontend_model>
+                </field>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Server Container</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="public_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Public ID</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                        <div class="default_loader_mfgtm_js_example">
+                        E.g. <strong>GTM-XXXXXXX</strong><br/>
+                    ]]></comment>
+                </field>
+                <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account ID</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                            <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> account ID from the GTM Workspace URL path. E.g.<br/>
+                            <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">https://tagmanager.google.com/#/container/accounts/<strong>XXXXXXXXXX</strong>/containers/XXXXXXXXX</pre></p>
+                        ]]>
+                    </comment>
+                </field>
+                <field id="container_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Container ID</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                            <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> container ID from the GTM Workspace URL path. E.g.<br/>
+                            <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">https://tagmanager.google.com/#/container/accounts/XXXXXXXXXX/containers/<strong>XXXXXXXXX</strong></pre></p>
+                        ]]>
+                    </comment>
+                </field>
+                <field id="tag_server_url" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tag Server Url</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[
+                            E.g. <strong>https://server.domain</strong><br/>
+                        ]]>
+                    </comment>
+                </field>
+            </group>
             <group id="analytics" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Google Analytics 4</label>
                 <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -148,6 +200,123 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                     <label>Events</label>
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\EventList</frontend_model>
                 </field>
+                <group id="measurement_protocol" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Measurement Protocol /GA4 Server Side Tracking (GTM Extra)</label>
+                    <attribute type="expanded">1</attribute>
+
+                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoMeasurementProtocol</frontend_model>
+                    </field>
+
+                    <field id="measurement_enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[
+                         The <a href="https://developers.google.com/analytics/devguides/collection/protocol/ga4" target="_blank" rel="nofollow noopener" title="Measurement Protocol (Google Analytics 4)">Google Analytics Measurement Protocol</a> enables server-side GA4 tracking.
+                    ]]>
+                        </comment>
+                    </field>
+                    <field id="api_secret" translate="label comment" type='obscure' sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Secret</label>
+                        <!--                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>-->
+                        <comment><![CDATA[
+                          Required. An API Secret that is generated through the Google Analytics UI.<br/>
+
+To create a new secret, navigate in the
+<a href="https://analytics.google.com/analytics/web/" title="Google Analitics" target="_blank" rel="nofollow noopener">Google Analytics</a> > Admin > Data Streams > choose your stream > Measurement Protocol > Create.
+                    ]]>
+                        </comment>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="measurement_enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="headless_storefront" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Headless Storefront</label>
+                        <comment><![CDATA[ Please enable this option if you have a PWA storefront.]]>
+                        </comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="measurement_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+            <group id="ads" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Ads (GTM Plus)</label>
+                <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoGoogleAds</frontend_model>
+                </field>
+
+                <field id="tag_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tag ID</label>
+                    <comment><![CDATA[
+                            <p>This option is required if you would like to use Google Ads. <a href="https://support.google.com/tagmanager/answer/12002338#Tag" title="Where to find Tag ID?" target="_blank" rel="nofollow noopener">Where to find Tag ID?</a></p>
+                            <p>E.g. AW-XXXXXXXXXXX
+                        ]]>
+                    </comment>
+                </field>
+                <group id="conversion" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Conversion Tracking</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <group id="purchase" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <attribute type="expanded">1</attribute>
+                        <label>Purchase</label>
+                        <field id="conversion_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Conversion ID</label>
+                            <comment><![CDATA[
+                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion ID">Where to find Conversion ID?</a>
+                                ]]>
+                            </comment>
+                            <depends>
+                                <field id="enable">1</field>
+                            </depends>
+                        </field>
+                        <field id="conversion_label" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <label>Conversion Label</label>
+                            <comment><![CDATA[
+                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion Label">Where to find Conversion Label?</a>
+                                ]]>
+                            </comment>
+                            <depends>
+                                <field id="enable">1</field>
+                            </depends>
+                        </field>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </group>
+                </group>
+                <group id="remarketing" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remarketing</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="conversion_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Conversion ID</label>
+                        <comment><![CDATA[
+                                <a href="https://support.google.com/tagmanager/answer/6106960" target="_blank" rel="nofollow noopener" title="Where to find Google Dynamic Remarketing Conversion ID">Where to find Conversion ID?</a>
+                                ]]>
+                        </comment>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="conversion_label" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Conversion Label</label>
+                        <comment><![CDATA[
+                                <a href="https://support.google.com/tagmanager/answer/6106960" target="_blank" rel="nofollow noopener" title="Where to find Google Dynamic Remarketing Conversion Label">Where to find Conversion Label?</a>
+                                ]]>
+                        </comment>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
             </group>
             <group id="attributes" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product Attributes Mapping</label>
@@ -182,9 +351,19 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                 </field>
             </group>
             <group id="container" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Export Container</label>
+                <label>Export Web Container</label>
                 <field id="export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button</frontend_model>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ExportWebContainerButton</frontend_model>
+                </field>
+            </group>
+
+            <group id="servercontainer" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Export Server Container</label>
+                <depends>
+                    <field id="mfgoogletagmanager/server_container/enabled">1</field>
+                </depends>
+                <field id="export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ExportServerContainerButton</frontend_model>
                 </field>
             </group>
         </section>

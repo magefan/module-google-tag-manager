@@ -16,4 +16,9 @@
     <type name="Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface">
         <plugin name="Plugin_Magefan_GoogleTagManager_Api_DataLayer_PurchaseInterface" type="Magefan\GoogleTagManager\Plugin\Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface" sortOrder="10" disabled="false"/>
     </type>
+    <type name="Magefan\GoogleTagManager\Controller\Adminhtml\WebContainer\Generate">
+        <arguments>
+            <argument name="container" xsi:type="object">Magefan\GoogleTagManager\Model\WebContainer</argument>
+        </arguments>
+    </type>
 </config>
