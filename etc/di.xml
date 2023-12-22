@@ -13,6 +13,7 @@
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Cart\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Order\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Order\Item" />
     <preference for="Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface" type="Magefan\GoogleTagManager\Model\DataLayer\Product\Item" />
+    <preference for="Magefan\GoogleTagManager\Api\Transaction\LogInterface" type="Magefan\GoogleTagManager\Model\Transaction\Log" />
     <type name="Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface">
         <plugin name="Plugin_Magefan_GoogleTagManager_Api_DataLayer_PurchaseInterface" type="Magefan\GoogleTagManager\Plugin\Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface" sortOrder="10" disabled="false"/>
     </type>

@@ -11,11 +11,13 @@ namespace Magefan\GoogleTagManager\Model\Transaction;
 use Magefan\GoogleTagManager\Model\ResourceModel\Transaction\CollectionFactory as TransactionCollectionFactory;
 use Magefan\GoogleTagManager\Model\TransactionFactory;
 use Magefan\GoogleTagManager\Model\TransactionRepository;
+use Magefan\GoogleTagManager\Api\Transaction\LogInterface;
+use Magento\Sales\Model\OrderFactory;
 use Magento\Sales\Api\Data\OrderInterface as Order;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Psr\Log\LoggerInterface;
 
-class Log
+class Log implements LogInterface
 {
     /**
      * @var TransactionCollectionFactory
@@ -33,36 +35,46 @@ class Log
     private $transactionRepository;
 
     /**
+     * @var OrderFactory
+     */
+    private $orderFactory;
+
+    /**
      * @var LoggerInterface
      */
     private $logger;
 
+
     /**
-     * Log constructor.
      * @param TransactionCollectionFactory $transactionCollectionFactory
      * @param TransactionFactory $transactionFactory
      * @param TransactionRepository $transactionRepository
+     * @param OrderFactory $orderFactory
      * @param LoggerInterface $logger
      */
     public function __construct(
         TransactionCollectionFactory $transactionCollectionFactory,
         TransactionFactory $transactionFactory,
         TransactionRepository $transactionRepository,
+        OrderFactory $orderFactory,
         LoggerInterface $logger
     ) {
         $this->transactionCollectionFactory = $transactionCollectionFactory;
         $this->transactionFactory = $transactionFactory;
         $this->transactionRepository = $transactionRepository;
+        $this->orderFactory = $orderFactory;
         $this->logger = $logger;
     }
 
     /**
-     * @param Order $order
+     * @param mixed $order
      * @param string $requester
      * @return void
      */
-    public function logTransaction(Order $order, string $requester)
+    public function logTransaction($order, string $requester)
     {
+        $order = $this->getOrder($order);
+
         $transactionModel = $this->transactionFactory->create();
 
         $transactionModel->setTransactionId((string)$order->getIncrementId());
@@ -78,18 +90,20 @@ class Log
     }
 
     /**
-     * @param Order $order
+     * @param mixed $order
      * @param string $requester
-     * @return void
+     * @return bool
      */
-    public function isTransactionUnique(Order $order, string $requester): bool
+    public function isTransactionUnique($order, string $requester): bool
     {
+        $order = $this->getOrder($order);
+
         $transactionsForRequesterByTransactionId = $this->transactionFactory->create()->getCollection()->addFieldToFilter(
             'requester',
             $requester
         )->addFieldToFilter(
             'transaction_id',
-            (string)$order->getIncrementId()
+            $order->getIncrementId()
         )->addFieldToFilter(
             'store_id',
             (int)$order->getStoreId()
@@ -100,5 +114,26 @@ class Log
         }
 
         return true;
+    }
+
+    /**
+     * @param $order
+     * @return Order
+     * @throws \Exception
+     */
+    private function getOrder($order): Order
+    {
+        if (is_object()) {
+            if (!($order instanceof Order)) {
+                throw new \Exception('Object is not instance of OrderInterface.');
+            }
+        } else {
+            $order = $this->orderFactory->create()->loadByIncrementId((string)$order);
+            if (!$order->getId()) {
+                throw new \Exception('Order with such ID does not exist.');
+            }
+        }
+
+        return $order;
     }
 }

@@ -202,6 +202,9 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                 </field>
                 <group id="measurement_protocol" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Measurement Protocol /GA4 Server Side Tracking (GTM Extra)</label>
+                    <depends>
+                        <field id="mfgoogletagmanager/server_container/enabled">0</field>
+                    </depends>
                     <attribute type="expanded">1</attribute>
 
                     <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

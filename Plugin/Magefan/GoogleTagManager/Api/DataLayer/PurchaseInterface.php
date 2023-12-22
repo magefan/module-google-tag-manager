@@ -11,7 +11,7 @@ namespace Magefan\GoogleTagManager\Plugin\Magefan\GoogleTagManager\Api\DataLayer
 use Magefan\GoogleTagManager\Api\DataLayer\PurchaseInterface as Subject;
 use Magefan\GoogleTagManager\Model\TransactionFactory;
 use Magento\Sales\Model\Order;
-use Magefan\GoogleTagManager\Model\Transaction\Log as TransactionLog;
+use Magefan\GoogleTagManager\Api\Transaction\LogInterface as TransactionLog;
 
 class PurchaseInterface
 {
@@ -30,6 +30,7 @@ class PurchaseInterface
     }
 
     /**
+     * Prevent double purchase tracking by the same requester
      * @param Subject $subject
      * @param $proceed
      * @param Order $order
