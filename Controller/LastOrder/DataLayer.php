@@ -4,6 +4,8 @@
  * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
  */
 
+declare(strict_types=1);
+
 namespace Magefan\GoogleTagManager\Controller\LastOrder;
 
 use Magento\Framework\App\Action\Context;

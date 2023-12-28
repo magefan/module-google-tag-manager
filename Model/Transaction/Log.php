@@ -123,7 +123,7 @@ class Log implements LogInterface
      */
     private function getOrder($order): Order
     {
-        if (is_object()) {
+        if (is_object($order)) {
             if (!($order instanceof Order)) {
                 throw new \Exception('Object is not instance of OrderInterface.');
             }

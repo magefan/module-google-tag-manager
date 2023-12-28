@@ -35,7 +35,7 @@
                 <measurement_protocol>
                     <measurement_enabled/>
                     <api_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
-                    <headless_storefront/>
+
                 </measurement_protocol>
             </analytics>
             <ads>
@@ -53,6 +53,10 @@
                     <conversion_label/>
                 </remarketing>
             </ads>
+            <server_side_tracking>
+                <headless_storefront>0</headless_storefront>
+                <track_missing_purchase_events_only>1</track_missing_purchase_events_only>
+            </server_side_tracking>
             <attributes>
                 <product>sku</product>
                 <brand/>

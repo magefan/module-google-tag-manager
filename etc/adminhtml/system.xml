@@ -202,9 +202,6 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                 </field>
                 <group id="measurement_protocol" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Measurement Protocol /GA4 Server Side Tracking (GTM Extra)</label>
-                    <depends>
-                        <field id="mfgoogletagmanager/server_container/enabled">0</field>
-                    </depends>
                     <attribute type="expanded">1</attribute>
 
                     <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -218,10 +215,12 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                          The <a href="https://developers.google.com/analytics/devguides/collection/protocol/ga4" target="_blank" rel="nofollow noopener" title="Measurement Protocol (Google Analytics 4)">Google Analytics Measurement Protocol</a> enables server-side GA4 tracking.
                     ]]>
                         </comment>
+                        <depends>
+                            <field id="mfgoogletagmanager/server_container/enabled">0</field>
+                        </depends>
                     </field>
                     <field id="api_secret" translate="label comment" type='obscure' sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>API Secret</label>
-                        <!--                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>-->
                         <comment><![CDATA[
                           Required. An API Secret that is generated through the Google Analytics UI.<br/>
 
@@ -232,15 +231,7 @@ To create a new secret, navigate in the
                         <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                         <depends>
                             <field id="measurement_enabled">1</field>
-                        </depends>
-                    </field>
-                    <field id="headless_storefront" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Headless Storefront</label>
-                        <comment><![CDATA[ Please enable this option if you have a PWA storefront.]]>
-                        </comment>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <depends>
-                            <field id="measurement_enabled">1</field>
+                            <field id="mfgoogletagmanager/server_container/enabled">0</field>
                         </depends>
                     </field>
                 </group>
@@ -320,6 +311,24 @@ To create a new secret, navigate in the
                         </depends>
                     </field>
                 </group>
+            </group>
+            <group id="server_side_tracking" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Server Side Tracking (GTM Extra)</label>
+                <field id="headless_storefront" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Headless Storefront</label>
+                    <comment><![CDATA[ Please select "Yes" if you have a PWA storefront.]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="track_missing_purchase_events_only" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Track Missing Purchase Events Only</label>
+                    <comment><![CDATA[ Please select "Yes" if you would like to use GA4 Measurement Protocol or GTM Server Container to track missing purchase events only.]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="headless_storefront">0</field>
+                    </depends>
+                </field>
             </group>
             <group id="attributes" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Product Attributes Mapping</label>
