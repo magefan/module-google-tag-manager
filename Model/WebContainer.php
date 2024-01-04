@@ -86,7 +86,22 @@ class WebContainer implements ContainerInterface
                 ],
                 'tag' => $isAnalyticsEnabled ? $this->generateTags($accountId, $containerId, $timestamp, $storeId) : [],
                 'trigger' => $isAnalyticsEnabled ? $this->generateTriggers($accountId, $containerId, $timestamp) : [],
-                'variable' => [],
+                'variable' => [
+                    [
+                        'accountId' => $accountId,
+                        'containerId' => $containerId,
+                        'variableId' => '692',
+                        'name' => 'Magefan Constant Measurement ID',
+                        'type' => 'c',
+                        'parameter' => [
+                            [
+                                'type' => 'TEMPLATE',
+                                'key' => 'value',
+                                'value' => $this->config->getMeasurementId($storeId)
+                            ],
+                        ]
+                    ]
+                ],
                 'builtInVariable' => $isAnalyticsEnabled ? [
                     [
                         'accountId' => $accountId,
@@ -200,22 +215,33 @@ class WebContainer implements ContainerInterface
                 'containerId' => $containerId,
                 'tagId' => '163',
                 'name' => 'Magefan GA4 - Configuration',
-                'type' => 'gaawc',
+                'type' => 'googtag',
                 'parameter' => [
                     [
-                        'type' => 'BOOLEAN',
-                        'key' => 'sendPageView',
-                        'value' => 'true'
-                    ],
-                    [
-                        'type' => 'BOOLEAN',
-                        'key' => 'enableSendToServerContainer',
-                        'value' => 'false'
-                    ],
-                    [
                         'type' => 'TEMPLATE',
-                        'key' => 'measurementId',
-                        'value' => $this->config->getMeasurementId($storeId)
+                        'key' => 'tagId',
+                        'value' => '{{Magefan Constant Measurement ID}}'
+                    ],
+                    [
+                        'type' => 'LIST',
+                        'key' => 'configSettingsTable',
+                        'list' => [
+                            [
+                                'type' => 'MAP',
+                                'map' => [
+                                    [
+                                        'type' => 'TEMPLATE',
+                                        'key' => 'parameter',
+                                        'value' => 'send_page_view'
+                                    ],
+                                    [
+                                        'type' => 'TEMPLATE',
+                                        'key' => 'parameterValue',
+                                        'value' => 'true'
+                                    ]
+                                ]
+                            ]
+                        ]
                     ]
                 ],
                 'fingerprint' => $timestamp,
@@ -253,9 +279,9 @@ class WebContainer implements ContainerInterface
                         'value' => '{{Event}}'
                     ],
                     [
-                        'type' => 'TAG_REFERENCE',
-                        'key' => 'measurementId',
-                        'value' => 'Magefan GA4 - Configuration'
+                        'type' => 'TEMPLATE',
+                        'key' => 'measurementIdOverride',
+                        'value' => '{{Magefan Constant Measurement ID}}'
                     ]
                 ],
                 'fingerprint' => $timestamp,
