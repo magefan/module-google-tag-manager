@@ -91,7 +91,7 @@ class WebContainer implements ContainerInterface
                         'accountId' => $accountId,
                         'containerId' => $containerId,
                         'variableId' => '692',
-                        'name' => 'Magefan Constant Measurement ID',
+                        'name' => 'Magefan GA4 - Measurement ID',
                         'type' => 'c',
                         'parameter' => [
                             [
@@ -220,7 +220,7 @@ class WebContainer implements ContainerInterface
                     [
                         'type' => 'TEMPLATE',
                         'key' => 'tagId',
-                        'value' => '{{Magefan Constant Measurement ID}}'
+                        'value' => '{{Magefan GA4 - Measurement ID}}'
                     ],
                     [
                         'type' => 'LIST',
@@ -281,7 +281,7 @@ class WebContainer implements ContainerInterface
                     [
                         'type' => 'TEMPLATE',
                         'key' => 'measurementIdOverride',
-                        'value' => '{{Magefan Constant Measurement ID}}'
+                        'value' => '{{Magefan GA4 - Measurement ID}}'
                     ]
                 ],
                 'fingerprint' => $timestamp,
