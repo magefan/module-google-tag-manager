@@ -62,6 +62,11 @@
                 <brand/>
                 <categories/>
             </attributes>
+            <events>
+                <purchase>
+                    <tax_enabled>1</tax_enabled>
+                </purchase>
+            </events>
             <page_speed_optimization>
                 <enabled>0</enabled>
             </page_speed_optimization>

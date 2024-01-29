@@ -44,6 +44,11 @@ class Config
     public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
 
     /**
+     * Events config
+     */
+    public const XML_PATH_EVENTS_PURCHASE_TAX_ENABLED = 'mfgoogletagmanager/events/purchase/tax_enabled';
+
+    /**
      * Customer data protection regulation config
      */
     public const XML_PATH_PROTECT_CUSTOMER_DATA = 'mfgoogletagmanager/customer_data/protect';
@@ -174,6 +179,15 @@ class Config
     public function getMeasurementId(string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId));
+    }
+
+    /**
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isPurchaseTaxEnabled(string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_EVENTS_PURCHASE_TAX_ENABLED, $storeId);
     }
 
     /**

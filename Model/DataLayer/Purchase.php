@@ -77,4 +77,18 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
 
         return [];
     }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function eventWrap(array $data): array
+    {
+        $data = parent::eventWrap($data);
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            unset($data['ecommerce']['tax']);
+        }
+
+        return $data;
+    }
 }
