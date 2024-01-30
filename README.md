@@ -178,8 +178,6 @@ The code is licensed under [EULA](https://magefan.com/end-user-license-agreement
 ### [Magento 2 Google Extensions](https://magefan.com/magento-2-extensions/google-extensions)
 
   * [Magento 2 Google Indexing API](https://magefan.com/magento-2-google-indexing-api)
-  * [Magento 2 Google Analytics 4 Extension](https://magefan.com/magento-2-google-analytics-4)
-  * [Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager)
   * [Magento 2 Google Shopping Feed](https://magefan.com/magento-2-google-shopping-feed-extension)
   * [Magento 2 Google Customer Reviews](https://magefan.com/magento-2-google-customer-reviews)
 
