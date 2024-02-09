@@ -39,7 +39,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
 
         $html = '';
         $html .= '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">';
-        $html .= $this->getText() . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
+        $html .= $this->getText() . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">Read more</a>.';
         $html .= '</div>';
 
         $html .= '<script>
@@ -66,7 +66,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                                         text: "Upgrade Plan Now",
                                         class: "action primary accept",
                                         click: function () {
-                                            window.open("https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular");
+                                            window.open("https://magefan.com/magento-2-google-tag-manager/pricing");
                                         }
                                     }]
                                 });
