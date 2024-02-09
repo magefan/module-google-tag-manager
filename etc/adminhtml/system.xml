@@ -346,6 +346,7 @@ To create a new secret, navigate in the
                     <comment><![CDATA[<strong class="colorRed">Warning!</strong> Enabling this option may cause the performance impact.]]></comment>
                 </field>
             </group>
+            <!--
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>
                 <group id="purchase" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -357,6 +358,7 @@ To create a new secret, navigate in the
                     </field>
                 </group>
             </group>
+            -->
             <group id="page_speed_optimization" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Page Speed Optimization</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
