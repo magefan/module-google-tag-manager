@@ -52,7 +52,7 @@ abstract class AbstractDataLayer extends AbstractBlock
         if ($this->config->isEnabled()) {
             $dataLayer = $this->getDataLayer();
             if ($dataLayer) {
-                //style for always be display none,since some sliders add class that makes script be display flex/block
+                //style always should be displayed none, since some sliders add a class that makes the script display flex/block
                 return '<script style="display: none;">
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push(' . json_encode($dataLayer) . ');
