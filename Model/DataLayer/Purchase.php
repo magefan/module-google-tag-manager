@@ -61,7 +61,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                 'event' => 'purchase',
                 'ecommerce' => [
                     'transaction_id' => $order->getIncrementId(),
-                    'value' => $this->formatPrice((float)$order->getGrandTotal()),
+                    'value' => $this->getOrderValue($order),
                     'tax' => $this->formatPrice((float)$order->getTaxAmount()),
                     'shipping' => $this->formatPrice((float)$order->getShippingAmount()),
                     'currency' => $this->getCurrentCurrencyCode(),
@@ -79,16 +79,17 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
     }
 
     /**
-     * @param array $data
-     * @return array
+     * @param $order
+     * @return float
      */
-    protected function eventWrap(array $data): array
+    protected function getOrderValue($order): float
     {
-        $data = parent::eventWrap($data);
+        $orderValue = (float)$order->getGrandTotal();
+
         if (!$this->config->isPurchaseTaxEnabled()) {
-            unset($data['ecommerce']['tax']);
+            $orderValue -= $order->getTaxAmount();
         }
 
-        return $data;
+        return $this->formatPrice($orderValue);
     }
 }
