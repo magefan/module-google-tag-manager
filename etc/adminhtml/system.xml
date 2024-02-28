@@ -350,9 +350,14 @@ To create a new secret, navigate in the
                 <label>Events</label>
                 <group id="purchase" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Purchase</label>
+                    <field id="shipping_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Include Shipping In Purchase Value</label>
+                        <comment>If enabled, shipping amount will be included into purchase value (the monetary value of the event).</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
                     <field id="tax_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Include Tax</label>
-                        <comment>If enabled, tax will be sent to Google Tag Manager and GA4.</comment>
+                        <label>Include Tax In Purchase Value</label>
+                        <comment>If enabled, TAX price amount will be included into purchase value (the monetary value of the event).</comment>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
                 </group>

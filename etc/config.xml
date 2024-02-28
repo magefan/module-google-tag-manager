@@ -64,6 +64,7 @@
             </attributes>
             <events>
                 <purchase>
+                    <shipping_enabled>1</shipping_enabled>
                     <tax_enabled>1</tax_enabled>
                 </purchase>
             </events>

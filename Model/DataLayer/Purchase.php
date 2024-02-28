@@ -90,6 +90,10 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
             $orderValue -= $order->getTaxAmount();
         }
 
+        if (!$this->config->isPurchaseShippingEnabled()) {
+            $orderValue -= $order->getShippingAmount();
+        }
+
         return $this->formatPrice($orderValue);
     }
 }
