@@ -31,7 +31,7 @@ if (!isset($escaper)) {
     <?php } ?>
 
     <?php if ($block->isProtectCustomerDataEnabled()) { ?>
-    document.addEventListener('DOMContentLoaded', function () {
+    (function () {
         function getCookieValue(cookieName) {
             let name = cookieName + '=';
             let cookieSplit = document.cookie.split(';');
@@ -75,7 +75,7 @@ if (!isset($escaper)) {
                 mfLoadGtm();
             }, 1000);
         }
-    });
+    })();
 
     <?php } else { ?>
         window.mfGtmUserCookiesAllowed = true;
@@ -89,6 +89,16 @@ if (!isset($escaper)) {
 
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
+
+        <?php if ($block->isProtectCustomerDataEnabled()) { ?>
+            function gtag() { dataLayer.push(arguments); };
+            gtag('consent', 'update', {
+                ad_user_data: 'granted',
+                ad_personalization: 'granted',
+                ad_storage: 'granted',
+                analytics_storage: 'granted'
+            });
+        <?php } ?>
 
         <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
