@@ -31,6 +31,17 @@ if (!isset($escaper)) {
     <?php } ?>
 
     <?php if ($block->isProtectCustomerDataEnabled()) { ?>
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'wait_for_update': 500,
+    });
+
     (function () {
         function getCookieValue(cookieName) {
             let name = cookieName + '=';
@@ -91,7 +102,6 @@ if (!isset($escaper)) {
         window.mfGTMTriedToLoad = true;
 
         <?php if ($block->isProtectCustomerDataEnabled()) { ?>
-            function gtag() { dataLayer.push(arguments); };
             gtag('consent', 'update', {
                 ad_user_data: 'granted',
                 ad_personalization: 'granted',
