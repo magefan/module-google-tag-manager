@@ -83,6 +83,17 @@ class GtmCode extends Template
         return $this->config->isProtectCustomerDataEnabled();
     }
 
+
+    /**
+     * Retrieve true if gtm script should be loaded before customer provice consent.
+     *
+     * @return bool
+     */
+    public function isLoadBeforeConsent(): bool
+    {
+        return $this->config->isLoadBeforeConsent();
+    }
+
     /**
      * Get current website ID
      *

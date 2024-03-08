@@ -377,6 +377,15 @@ To create a new secret, navigate in the
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ProtectCustomerData</frontend_model>
                 </field>
+                <field id="load_before_consent" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Load GTM Script Before Consent</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set to "Yes" Google Tag Manager JavaScript will be loaded before the customer provide consent.
+                        It will still be waiting for consent for sending user data related to advertising and analytics.</comment>
+                    <depends>
+                        <field id="protect">1</field>
+                    </depends>
+                </field>
             </group>
             <group id="container" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Export Web Container</label>

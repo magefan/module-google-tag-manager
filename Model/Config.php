@@ -53,6 +53,7 @@ class Config
      * Customer data protection regulation config
      */
     public const XML_PATH_PROTECT_CUSTOMER_DATA = 'mfgoogletagmanager/customer_data/protect';
+    public const XML_PATH_LOAD_BEFORE_CONSENT = 'mfgoogletagmanager/customer_data/load_before_consent';
 
     /**
      * Speed optimization config
@@ -233,6 +234,19 @@ class Config
         return (bool)$this->getConfig(self::XML_PATH_PROTECT_CUSTOMER_DATA, $storeId) &&
             $this->isCookieRestrictionModeEnabled($storeId);
     }
+
+    /**
+     * Retrieve true if gtm script should be loaded before customer provice consent.
+     *
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isLoadBeforeConsent(string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_LOAD_BEFORE_CONSENT, $storeId) &&
+            $this->isCookieRestrictionModeEnabled($storeId);
+    }
+
 
     /**
      * Retrieve true if cookie restriction mode enabled
