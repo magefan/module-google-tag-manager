@@ -53,7 +53,6 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             $items[] = $this->gtmItem->get($item);
             $itemsQty += $item->getQty() * 1;
         }
-
         return $this->eventWrap([
             'event' => 'view_cart',
             'ecommerce' => [
@@ -63,7 +62,8 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             ],
             'items_count' => count($items),
             'items_qty' => $itemsQty,
-            'coupon_code' => $quote->getCouponCode() ?: ''
+            'coupon_code' => $quote->getCouponCode() ?: '',
+            'customer_identifier' => hash('sha256', (string)$quote->getCustomerEmail())
         ]);
     }
 }
