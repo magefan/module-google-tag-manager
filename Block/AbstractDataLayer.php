@@ -52,10 +52,12 @@ abstract class AbstractDataLayer extends AbstractBlock
         if ($this->config->isEnabled()) {
             $dataLayer = $this->getDataLayer();
             if ($dataLayer) {
+                $json = json_encode($dataLayer);
+                $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
                 //style always should be displayed none, since some sliders add a class that makes the script display flex/block
                 return '<script style="display: none;">
                     window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push(' . json_encode($dataLayer) . ');
+                    window.dataLayer.push(' . $json . ');
                 </script>';
             }
         }

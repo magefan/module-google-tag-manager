@@ -86,22 +86,7 @@ class WebContainer implements ContainerInterface
                 ],
                 'tag' => $isAnalyticsEnabled ? $this->generateTags($accountId, $containerId, $timestamp, $storeId) : [],
                 'trigger' => $isAnalyticsEnabled ? $this->generateTriggers($accountId, $containerId, $timestamp) : [],
-                'variable' => [
-                    [
-                        'accountId' => $accountId,
-                        'containerId' => $containerId,
-                        'variableId' => '692',
-                        'name' => 'Magefan GA4 - Measurement ID',
-                        'type' => 'c',
-                        'parameter' => [
-                            [
-                                'type' => 'TEMPLATE',
-                                'key' => 'value',
-                                'value' => $this->config->getMeasurementId($storeId)
-                            ],
-                        ]
-                    ]
-                ],
+                'variable' => $isAnalyticsEnabled ? $this->generateVariable($accountId, $containerId, $timestamp, $storeId) : [],
                 'builtInVariable' => $isAnalyticsEnabled ? [
                     [
                         'accountId' => $accountId,
@@ -282,6 +267,11 @@ class WebContainer implements ContainerInterface
                         'type' => 'TEMPLATE',
                         'key' => 'measurementIdOverride',
                         'value' => '{{Magefan GA4 - Measurement ID}}'
+                    ],
+                    [
+                        "type"=>"TEMPLATE",
+                        "key"=>"eventSettingsVariable",
+                        "value"=>"{{Magefan GA4 - User ID}}"
                     ]
                 ],
                 'fingerprint' => $timestamp,
@@ -298,4 +288,59 @@ class WebContainer implements ContainerInterface
             ]
         ];
     }
+    private function generateVariable(
+        string $accountId,
+        string $containerId,
+        string $timestamp,
+        string $storeId = null
+    ): array{
+        return [
+            [
+                'accountId' => $accountId,
+                'containerId' => $containerId,
+                'variableId' => '692',
+                'name' => 'Magefan GA4 - Measurement ID',
+                'type' => 'c',
+                'parameter' => [
+                    [
+                        'type' => 'TEMPLATE',
+                        'key' => 'value',
+                        'value' => $this->config->getMeasurementId($storeId)
+                    ],
+                ]
+            ],
+            [
+                'accountId' => $accountId,
+                'containerId' => $containerId,
+                'variableId'=>'43',
+                'name'=>'Magefan GA4 - User ID',
+                'type'=>'gtes',
+                'parameter'=>[
+                    [
+                        'type'=>'LIST',
+                        'key'=>'eventSettingsTable',
+                        'list'=>[
+                            [
+                                'type'=>'MAP',
+                                'map'=>[
+                                    [
+                                        'type'=>'TEMPLATE',
+                                        'key'=>'parameter',
+                                        'value'=>'user_id'
+                                    ],
+                                    [
+                                        'type'=>'TEMPLATE',
+                                        'key'=>'parameterValue',
+                                        'value'=>'{{Magefan DLV - Customer Email Hash}}'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                'fingerprint' => $timestamp
+            ]
+        ];
+    }
+
 }

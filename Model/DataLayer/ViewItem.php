@@ -13,6 +13,7 @@ use Magefan\GoogleTagManager\Model\Config;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magefan\GoogleTagManager\Model\AbstractDataLayer;
+use Magento\Customer\Model\Session;
 use Magento\Store\Model\StoreManagerInterface;
 use Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface;
 
@@ -22,6 +23,10 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
      * @var ItemInterface
      */
     private $gtmItem;
+    /**
+     * @var
+     */
+    protected $session;
 
     /**
      * ViewItem constructor.
@@ -35,9 +40,11 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
         Config $config,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        ItemInterface $gtmItem
+        ItemInterface $gtmItem,
+        Session $session
     ) {
         $this->gtmItem = $gtmItem;
+        $this->session = $session;
         parent::__construct($config, $storeManager, $categoryRepository);
     }
 
@@ -56,7 +63,8 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
                 'items' => [
                     $item
                 ]
-            ]
+            ],
+            'customer_identifiertest' => hash('sha256', (string)$this->session->getCustomer()->getEmail())
         ]);
     }
 }

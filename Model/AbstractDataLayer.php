@@ -19,6 +19,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
+use function PHPUnit\Framework\isEmpty;
 
 class AbstractDataLayer
 {
@@ -292,7 +293,7 @@ class AbstractDataLayer
         $data = $this->addCustomerGroup($data);
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
-
+        $data = $this->addCustomerIdentifier($data);
         return $data;
     }
 
@@ -330,6 +331,14 @@ class AbstractDataLayer
             $data['ecomm_pagetype'] = $this->getEcommPageType();
         }
 
+        return $data;
+    }
+
+    protected function addCustomerIdentifier(array $data): array
+    {
+        if (!isset($data['customer_identifier'])) {
+            $data['customer_identifier'] = 'getMfGtmCustomerIdentifier()';
+        }
         return $data;
     }
 }

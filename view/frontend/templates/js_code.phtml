@@ -12,27 +12,35 @@ if (!isset($escaper)) {
     $escaper = $block;
 }
 ?>
+
 <!-- Google Tag Manager -->
 <script>
-    <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
+        'use strict';
+
+        <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
         document.addEventListener('scroll', mfGtmUserActionDetect);
         document.addEventListener('mousemove', mfGtmUserActionDetect);
         document.addEventListener('touchstart', mfGtmUserActionDetect);
-        function mfGtmUserActionDetect()
-        {
+
+        function mfGtmUserActionDetect() {
             document.removeEventListener('scroll', mfGtmUserActionDetect);
             document.removeEventListener('mousemove', mfGtmUserActionDetect);
             document.removeEventListener('touchstart', mfGtmUserActionDetect);
             window.mfGtmUserActionDetected = true;
             mfLoadGtm();
         }
-    <?php } else { ?>
+        <?php } else { ?>
         window.mfGtmUserActionDetected = true;
-    <?php } ?>
+        <?php } ?>
 
-    <?php if ($block->isProtectCustomerDataEnabled()) { ?>
+        <?php if ($block->isProtectCustomerDataEnabled()) { ?>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            console.log(arguments);
+            dataLayer.push(arguments);
+        }
+
         gtag('consent', 'default', {
             'ad_user_data': 'denied',
             'ad_personalization': 'denied',
@@ -42,8 +50,8 @@ if (!isset($escaper)) {
         });
 
         <?php if ($block->isLoadBeforeConsent()) { ?>
-            window.mfGtmLoadBeforeCookieAllowed = true;
-            mfLoadGtm();
+        window.mfGtmLoadBeforeCookieAllowed = true;
+        mfLoadGtm();
         <?php } ?>
 
         (function () {
@@ -79,8 +87,7 @@ if (!isset($escaper)) {
                 return false
             }
 
-            function grantConsent()
-            {
+            function grantConsent() {
                 window.mfGtmUserCookiesAllowed = true;
                 <?php if ($block->isProtectCustomerDataEnabled()) { ?>
                 gtag('consent', 'update', {
@@ -105,28 +112,71 @@ if (!isset($escaper)) {
             }
         })();
 
-    <?php } else { ?>
+        <?php } else { ?>
         window.mfGtmUserCookiesAllowed = true;
         mfLoadGtm();
-    <?php } ?>
-
-
-    function mfLoadGtm() {
-        if (!window.mfGtmUserActionDetected) return false;
-        if (!window.mfGtmLoadBeforeCookieAllowed && !window.mfGtmUserCookiesAllowed) return false;
-
-        if (window.mfGTMTriedToLoad) return;
-        window.mfGTMTriedToLoad = true;
-
-        <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
-        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','<?= $escaper->escapeHtml($block->getPublicId()) ?>');
-        <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
-            <?= $block->getGtmScript(); ?>
         <?php } ?>
-    }
+
+
+        require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
+            function updateMfGtmCustomerIdentifier(data) {
+                if (data.mf_gtm_customer_identifier) {
+                    localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                }
+            }
+            let customerData = customer.get('customer');
+
+            customerData.subscribe(function (data) {
+                updateMfGtmCustomerIdentifier(data);
+            }.bind(this));
+            updateMfGtmCustomerIdentifier(customerData());
+        });
+
+        /* Hyva code */
+        function mfHyvaGtmSetCustomerIdentifier(event) {
+            let data, j;
+            let sections = event.detail.data;
+            for (j in sections) {
+                data = sections[j];
+                if (data.mf_gtm_customer_identifier) {
+                    localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                    return;
+                }
+            }
+        }
+        window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
+        /* End Hyva code */
+
+
+        function getMfGtmCustomerIdentifier() {
+            return localStorage.getItem("mf_gtm_customer_identifier");
+        }
+
+        function mfLoadGtm() {
+            if (!window.mfGtmUserActionDetected) return false;
+            if (!window.mfGtmLoadBeforeCookieAllowed && !window.mfGtmUserCookiesAllowed) return false;
+
+            if (window.mfGTMTriedToLoad) return;
+            window.mfGTMTriedToLoad = true;
+
+            <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', '<?= $escaper->escapeHtml($block->getPublicId()) ?>');
+            <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
+            <?= $block->getGtmScript(); ?>
+            <?php } ?>
+        }
 </script>
 <!-- End Google Tag Manager -->
+
