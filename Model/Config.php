@@ -231,8 +231,7 @@ class Config
      */
     public function isProtectCustomerDataEnabled(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_PROTECT_CUSTOMER_DATA, $storeId) &&
-            $this->isCookieRestrictionModeEnabled($storeId);
+        return (bool)$this->getConfig(self::XML_PATH_PROTECT_CUSTOMER_DATA, $storeId);
     }
 
     /**
@@ -243,8 +242,8 @@ class Config
      */
     public function isLoadBeforeConsent(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_LOAD_BEFORE_CONSENT, $storeId) &&
-            $this->isCookieRestrictionModeEnabled($storeId);
+        return $this->getConfig(self::XML_PATH_LOAD_BEFORE_CONSENT, $storeId) ||
+            !$this->isCookieRestrictionModeEnabled($storeId);
     }
 
 

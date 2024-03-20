@@ -95,6 +95,16 @@ class GtmCode extends Template
     }
 
     /**
+     * Retrieve true if cookie restriction mode enabled
+     *
+     * @return bool
+     */
+    public function isCookieRestrictionModeEnabled()
+    {
+        return $this->config->isCookieRestrictionModeEnabled();
+    }
+
+    /**
      * Get current website ID
      *
      * @return int

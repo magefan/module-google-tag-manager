@@ -373,15 +373,29 @@ To create a new secret, navigate in the
             <group id="customer_data" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>GDPR/CCPA/LGPD (Customer Data Protection Regulation)</label>
                 <field id="protect" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Protect Customer Data</label>
+                    <label>Enable Google Consent Mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ProtectCustomerData</frontend_model>
+                    <comment><![CDATA[
+                            <p>If set to "Yes" Google Tag Manager Extension will set consent as "denied" by default for measurement capabilities. For example:
+                            <pre style="border: 1px dashed #5f5f5f;padding: 5px;background: #f4f4f4;">
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied',
+  'analytics_storage': 'denied'
+  ...
+  wait_for_update: 2000
+});
+</pre>
+Lear more about <a href="https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced" target="_blank" title="Google Consent Mode">Google Consent Mode</a>.<br/>
+This option is also compatible with Google Consent Mode V2.
+                        ]]>
+                    </comment>
                 </field>
                 <field id="load_before_consent" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Load GTM Script Before Consent</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <comment>If set to "Yes" Google Tag Manager JavaScript will be loaded before the customer provide consent.
-                        It will still be waiting for consent for sending user data related to advertising and analytics.</comment>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ProtectCustomerData</frontend_model>
                     <depends>
                         <field id="protect">1</field>
                     </depends>
