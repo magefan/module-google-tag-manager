@@ -9,7 +9,7 @@
             "email": "support@magefan.com"
         }
     ],
-    "version": "2.5.3",
+    "version": "2.5.4",
     "require": {
         "magefan/module-community" : ">=2.1.18"
     },
