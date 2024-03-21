@@ -15,7 +15,7 @@ use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Store\Model\StoreManagerInterface;
 use Magefan\GoogleTagManager\Api\DataLayer\Order\ItemInterface;
-
+use Magento\Sales\Model\OrderFactory;
 class Purchase extends AbstractDataLayer implements PurchaseInterface
 {
     /**
@@ -27,6 +27,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
      * @var string
      */
     protected $ecommPageType = 'purchase';
+    private $orderFactory;
 
     /**
      * Purchase constructor.
@@ -40,9 +41,11 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
         Config $config,
         StoreManagerInterface $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        ItemInterface $gtmItem
+        ItemInterface $gtmItem,
+        OrderFactory $orderFactory
     ) {
         $this->gtmItem = $gtmItem;
+        $this->orderFactory = $orderFactory;
         parent::__construct($config, $storeManager, $categoryRepository);
     }
 
@@ -55,6 +58,24 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
             $items = [];
             foreach ($order->getAllVisibleItems() as $item) {
                 $items[] = $this->gtmItem->get($item);
+            }
+
+            $customerId = $order->getCustomerId();
+            $orders = $this->orderFactory->create()->getCollection()
+                ->addFieldToFilter('customer_id', $customerId)
+                ->addFieldToFilter('entity_id', ['neq' => $order->getId()])
+                ->setOrder('created_at', 'DESC');
+            $mfGTM_new_customer = true;
+            if ($orders->getSize() > 0){
+                $lastOrder = $orders->getFirstItem();
+                $lastOrderDate = $lastOrder->getCreatedAt();
+                $currentDate = date('Y-m-d H:i:s');
+                $lastOrderDateTime = strtotime($lastOrderDate);
+                $currentDateTime = strtotime($currentDate);
+                $daysDiff = floor(($currentDateTime - $lastOrderDateTime) / (60 * 60 * 24));
+                if ($daysDiff < 540) {
+                    $mfGTM_new_customer = false;
+                }
             }
 
             return $this->eventWrap([
@@ -72,6 +93,7 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
                 'shipping_description' => $order->getShippingDescription(),
                 'customer_is_guest' => (bool)$order->getCustomerIsGuest(),
                 'customer_identifier' => hash('sha256', (string)$order->getCustomerEmail()),
+                'new_customer' => $mfGTM_new_customer
             ]);
         }
 
