@@ -37,10 +37,6 @@
                     <api_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
 
                 </measurement_protocol>
-                <custom_dimensions_and_metrics>
-                    <custom_dimensions/>
-                    <custom_metrics/>
-                </custom_dimensions_and_metrics>
             </analytics>
             <ads>
                 <tag_id/>
