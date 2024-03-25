@@ -235,6 +235,22 @@ To create a new secret, navigate in the
                         </depends>
                     </field>
                 </group>
+                <group id="custom_dimensions_and_metrics" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Dimensions And Metrics (GTM Extra)</label>
+                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" >
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoCustomDimensionsAndMetrics</frontend_model>
+                    </field>
+                    <field id="custom_dimensions" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom Dimensions</label>
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    </field>
+                    <field id="custom_metrics" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Custom Metrics</label>
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomMetrics</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    </field>
+                </group>
             </group>
             <group id="ads" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Google Ads (GTM Plus)</label>
