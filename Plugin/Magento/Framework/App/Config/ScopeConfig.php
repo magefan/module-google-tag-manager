@@ -48,8 +48,8 @@ class ScopeConfig
         $scopeCode = null
     )
     {
-        if (in_array($path,self::PATHS)) {
-            if ($this->config->isEnabled() && !$this->config->isGoogleAnalyticsAndAdWordsEnabled()) {
+        if (in_array($path, self::PATHS)) {
+            if ($this->config->isEnabled() && !$this->config->isThirdPartyGaEnabled()) {
                 $result = '0';
             }
         }

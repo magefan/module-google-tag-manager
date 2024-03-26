@@ -59,7 +59,7 @@ class Config
      * Speed optimization config
      */
     public const XML_PATH_SPEED_OPTIMIZATION_ENABLED = 'mfgoogletagmanager/page_speed_optimization/enabled';
-    public const XML_PATH_GOOGLE_ANALYTICS_AND_ADWORDS = 'mfgoogletagmanager/google_analytics_and_adwords/enabled';
+    public const XML_PATH_THIRD_PARTY_GA = 'mfgoogletagmanager/third_party_ga/enabled';
 
     /**
      * @var ScopeConfigInterface
@@ -306,8 +306,8 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isGoogleAnalyticsAndAdWordsEnabled(string $storeId = null): bool
+    public function isThirdPartyGaEnabled(string $storeId = null): bool
     {
-        return (bool)$this->getConfig(self::XML_PATH_GOOGLE_ANALYTICS_AND_ADWORDS, $storeId);
+        return (bool)$this->getConfig(self::XML_PATH_THIRD_PARTY_GA, $storeId);
     }
 }
