@@ -59,6 +59,7 @@ class Config
      * Speed optimization config
      */
     public const XML_PATH_SPEED_OPTIMIZATION_ENABLED = 'mfgoogletagmanager/page_speed_optimization/enabled';
+    public const XML_PATH_GOOGLE_ANALYTICS_AND_ADWORDS = 'mfgoogletagmanager/google_analytics_and_adwords/enabled';
 
     /**
      * @var ScopeConfigInterface
@@ -299,5 +300,14 @@ class Config
     public function isSpeedOptimizationEnabled(string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_SPEED_OPTIMIZATION_ENABLED, $storeId);
+    }
+
+    /**
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isGoogleAnalyticsAndAdWordsEnabled(string $storeId = null): bool
+    {
+        return (bool)$this->getConfig(self::XML_PATH_GOOGLE_ANALYTICS_AND_ADWORDS, $storeId);
     }
 }

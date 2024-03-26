@@ -71,6 +71,9 @@
             <page_speed_optimization>
                 <enabled>0</enabled>
             </page_speed_optimization>
+            <google_analytics_and_adwords>
+                <enabled>0</enabled>
+            </google_analytics_and_adwords>
             <customer_data>
                 <protect>0</protect>
                 <load_before_consent>0</load_before_consent>

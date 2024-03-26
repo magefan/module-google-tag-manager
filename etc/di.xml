@@ -22,4 +22,9 @@
             <argument name="container" xsi:type="object">Magefan\GoogleTagManager\Model\WebContainer</argument>
         </arguments>
     </type>
+
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="Plugin_Magefan_GoogleTagManager_ScopeConfigInterface" type="Magefan\GoogleTagManager\Plugin\Magento\Framework\App\Config\ScopeConfig" sortOrder="10" disabled="false"/>
+    </type>
+
 </config>
