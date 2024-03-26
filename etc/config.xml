@@ -63,10 +63,10 @@
                 <categories/>
             </attributes>
             <events>
-                <purchase>
+                <price_tracking>
                     <shipping_enabled>1</shipping_enabled>
                     <tax_enabled>1</tax_enabled>
-                </purchase>
+                </price_tracking>
             </events>
             <page_speed_optimization>
                 <enabled>0</enabled>

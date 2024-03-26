@@ -58,12 +58,25 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             'event' => 'view_cart',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->formatPrice((float)$quote->getGrandTotal()),
+                'value' => $this->getOrderValue($quote),
                 'items' => $items
             ],
             'items_count' => count($items),
             'items_qty' => $itemsQty,
             'coupon_code' => $quote->getCouponCode() ?: ''
         ]);
+    }
+    protected function getOrderValue($quote): float
+    {
+        $quoteValue = (float)$quote->getGrandTotal();
+        if (!$this->config->isTrackTaxEnabled()) {
+            $quoteValue -= (float)$quote->getShippingAddress()->getTaxAmount();
+        }
+
+        if (!$this->config->isTrackShippingEnabled()) {
+            $quoteValue -= $quote->getShippingAddress()->getShippingAmount();
+        }
+
+        return $this->formatPrice($quoteValue);
     }
 }

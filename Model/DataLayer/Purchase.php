@@ -86,11 +86,11 @@ class Purchase extends AbstractDataLayer implements PurchaseInterface
     {
         $orderValue = (float)$order->getGrandTotal();
 
-        if (!$this->config->isPurchaseTaxEnabled()) {
+        if (!$this->config->isTrackTaxEnabled()) {
             $orderValue -= $order->getTaxAmount();
         }
 
-        if (!$this->config->isPurchaseShippingEnabled()) {
+        if (!$this->config->isTrackShippingEnabled()) {
             $orderValue -= $order->getShippingAmount();
         }
 

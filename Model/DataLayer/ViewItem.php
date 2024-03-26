@@ -52,11 +52,21 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
             'event' => 'view_item',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->getPrice($product),
+                'value' => $this->getOrderValue($product),
                 'items' => [
                     $item
                 ]
             ]
         ]);
+    }
+    protected function getOrderValue($product): float
+    {
+        $productValue = $this->getPrice($product);
+
+        if (!$this->config->isTrackTaxEnabled()) {
+            $productValue = $product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue('tax');
+        }
+
+        return $this->formatPrice($productValue);
     }
 }
