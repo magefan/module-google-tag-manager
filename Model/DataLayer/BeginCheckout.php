@@ -56,23 +56,10 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
             'event' => 'begin_checkout',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->getOrderValue($quote),
+                'value' => $this->getQuoteValue($quote),
                 'coupon' => $quote->getCouponCode() ?: '',
                 'items' => $items
             ]
         ]);
-    }
-    protected function getOrderValue($quote): float
-    {
-        $quoteValue = (float)$quote->getGrandTotal();
-        if (!$this->config->isTrackTaxEnabled()) {
-            $quoteValue -= (float)$quote->getShippingAddress()->getTaxAmount();
-        }
-
-        if (!$this->config->isTrackShippingEnabled()) {
-            $quoteValue -= $quote->getShippingAddress()->getShippingAmount();
-        }
-
-        return $this->formatPrice($quoteValue);
     }
 }

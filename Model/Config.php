@@ -46,8 +46,8 @@ class Config
     /**
      * Events config
      */
-    public const XML_PATH_EVENTS_PURCHASE_TAX_ENABLED = 'mfgoogletagmanager/events/price_tracking/tax_enabled';
-    public const XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED = 'mfgoogletagmanager/events/price_tracking/shipping_enabled';
+    public const XML_PATH_EVENTS_PURCHASE_TAX_ENABLED = 'mfgoogletagmanager/events/purchase/tax_enabled';
+    public const XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED = 'mfgoogletagmanager/events/purchase/shipping_enabled';
 
     /**
      * Customer data protection regulation config
@@ -187,7 +187,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isTrackTaxEnabled(string $storeId = null): bool
+    public function isPurchaseTaxEnabled(string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EVENTS_PURCHASE_TAX_ENABLED, $storeId);
     }
@@ -196,7 +196,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isTrackShippingEnabled(string $storeId = null): bool
+    public function isPurchaseShippingEnabled(string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED, $storeId);
     }

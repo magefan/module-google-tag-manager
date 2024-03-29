@@ -47,26 +47,15 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
     public function get(Product $product): array
     {
         $item = $this->gtmItem->get($product);
-
         return $this->eventWrap([
             'event' => 'view_item',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->getOrderValue($product),
+                'value' => $this->getProductValue($product),
                 'items' => [
                     $item
                 ]
             ]
         ]);
-    }
-    protected function getOrderValue($product): float
-    {
-        $productValue = $this->getPrice($product);
-
-        if (!$this->config->isTrackTaxEnabled()) {
-            $productValue = $product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue('tax');
-        }
-
-        return $this->formatPrice($productValue);
     }
 }

@@ -348,8 +348,8 @@ To create a new secret, navigate in the
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>
-                <group id="price_tracking" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Price Tracking</label>
+                <group id="purchase" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Purchase</label>
                     <field id="shipping_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Include Shipping In Purchase Value</label>
                         <comment>If enabled, shipping amount will be included into purchase value (the monetary value of the event).</comment>
