@@ -64,8 +64,8 @@
             </attributes>
             <events>
                 <purchase>
-                    <shipping_enabled>1</shipping_enabled>
-                    <tax_enabled>1</tax_enabled>
+                    <shipping_enabled>0</shipping_enabled>
+                    <tax_enabled>0</tax_enabled>
                 </purchase>
             </events>
             <page_speed_optimization>

@@ -232,6 +232,65 @@ class AbstractDataLayer
     }
 
     /**
+     * @param $product
+     * @return float
+     */
+    protected function getProductValue($product): float
+    {
+        $value = $this->getPrice($product);
+
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            $value = $product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue('tax');
+        }
+
+        return $this->formatPrice($value);
+    }
+
+    /**
+     * @param $quote
+     * @return float
+     */
+    protected function getQuoteValue($quote): float
+    {
+        $quoteValue = (float)$quote->getGrandTotal();
+        $address = $quote->getShippingAddress() ?: $quote->getBillingAddress();
+
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            $quoteValue -= (float)$address->getTaxAmount();
+        }
+
+        if (!$this->config->isPurchaseShippingEnabled()) {
+            $quoteValue -= (float)$address->getShippingAmount();
+        }
+
+        return $this->formatPrice($quoteValue);
+    }
+
+    /**
+     * @param $quoteItem
+     * @return float
+     */
+    protected function getQuoteItemValue($quoteItem): float
+    {
+        //fix for magento 2.3.2 - module-quote/Model/Quote/Item/Processor.php prepareItem does not set price to quote item
+        $quoteItemValue = $quoteItem->getPriceInclTax();
+        if (!$quoteItemValue && ($quoteItemProduct = $quoteItem->getProduct())) {
+            $quoteItemValue = (float)$quoteItemProduct->getPrice();
+        }
+
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            $quoteItemValue -= (float)$quoteItem->getTaxAmount();
+        }
+
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            $quoteItemValue -= (float)$quoteItem->getAddress()->getShippingAmount();
+        }
+
+        return $this->formatPrice($quoteItemValue);
+    }
+
+
+    /**
      * @param Product $product
      * @param string $attributeCode
      * @return string

@@ -56,7 +56,7 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
             'event' => 'begin_checkout',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->formatPrice((float)$quote->getGrandTotal()),
+                'value' => $this->getQuoteValue($quote),
                 'coupon' => $quote->getCouponCode() ?: '',
                 'items' => $items
             ],
