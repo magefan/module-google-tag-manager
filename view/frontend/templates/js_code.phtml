@@ -126,6 +126,38 @@ if (!isset($escaper)) {
         mfLoadGtm();
     <?php } ?>
 
+    require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
+        function updateMfGtmCustomerIdentifier(data) {
+            if (data.mf_gtm_customer_identifier) {
+                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+            }
+        }
+        let customerData = customer.get('customer');
+
+        customerData.subscribe(function (data) {
+            updateMfGtmCustomerIdentifier(data);
+        }.bind(this));
+        updateMfGtmCustomerIdentifier(customerData());
+    });
+
+    /* Hyva code */
+    function mfHyvaGtmSetCustomerIdentifier(event) {
+        let data, j;
+        let sections = event.detail.data;
+        for (j in sections) {
+            data = sections[j];
+            if (data.mf_gtm_customer_identifier) {
+                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                return;
+            }
+        }
+    }
+    window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
+    /* End Hyva code */
+
+    function getMfGtmCustomerIdentifier() {
+        return localStorage.getItem("mf_gtm_customer_identifier") ? localStorage.getItem("mf_gtm_customer_identifier") : null;
+    }
 
     function mfLoadGtm() {
         if (!window.mfGtmUserActionDetected) return false;

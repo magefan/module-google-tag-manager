@@ -292,6 +292,7 @@ class AbstractDataLayer
         $data = $this->addCustomerGroup($data);
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
+        $data = $this->addCustomerIdentifier($data);
 
         return $data;
     }
@@ -330,6 +331,18 @@ class AbstractDataLayer
             $data['ecomm_pagetype'] = $this->getEcommPageType();
         }
 
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function addCustomerIdentifier(array $data): array
+    {
+        if (empty($data['customer_identifier'])) {
+            $data['customer_identifier'] = 'getMfGtmCustomerIdentifier()';
+        }
         return $data;
     }
 }

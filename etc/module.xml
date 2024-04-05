@@ -9,6 +9,7 @@
 	<module name="Magefan_GoogleTagManager">
         <sequence>
             <module name="Magefan_Community" />
+            <module name="Magento_Customer"/>
         </sequence>
     </module>
 </config>
