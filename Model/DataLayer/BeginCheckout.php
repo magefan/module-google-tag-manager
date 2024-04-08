@@ -47,16 +47,19 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
     public function get(Quote $quote): array
     {
         $items = [];
+        $value = 0;
 
-        foreach ($quote->getAllVisibleItems() as $item) {
-            $items[] = $this->gtmItem->get($item);
+        foreach ($quote->getAllVisibleItems() as $quoteItem) {
+            $item = $this->gtmItem->get($quoteItem);
+            $items[] = $item;
+            $value += $item['price'] * $item['quantity'];
         }
 
         return $this->eventWrap([
             'event' => 'begin_checkout',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->getQuoteValue($quote),
+                'value' => $this->formatPrice($value),
                 'coupon' => $quote->getCouponCode() ?: '',
                 'items' => $items
             ],

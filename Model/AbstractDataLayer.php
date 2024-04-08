@@ -220,7 +220,7 @@ class AbstractDataLayer
 
     /**
      * Get product price
-     *
+     * @deprecated
      * @param Product $product
      * @return float
      */
@@ -237,58 +237,15 @@ class AbstractDataLayer
      */
     protected function getProductValue($product): float
     {
-        $value = $this->getPrice($product);
-
+        $priceInfo = $product->getPriceInfo()->getPrice('final_price')->getAmount();
         if (!$this->config->isPurchaseTaxEnabled()) {
-            $value = $product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue('tax');
+            $value = $priceInfo->getValue('tax');
+        } else {
+            $value = $priceInfo->getValue();
         }
 
         return $this->formatPrice($value);
     }
-
-    /**
-     * @param $quote
-     * @return float
-     */
-    protected function getQuoteValue($quote): float
-    {
-        $quoteValue = (float)$quote->getGrandTotal();
-        $address = $quote->getShippingAddress() ?: $quote->getBillingAddress();
-
-        if (!$this->config->isPurchaseTaxEnabled()) {
-            $quoteValue -= (float)$address->getTaxAmount();
-        }
-
-        if (!$this->config->isPurchaseShippingEnabled()) {
-            $quoteValue -= (float)$address->getShippingAmount();
-        }
-
-        return $this->formatPrice($quoteValue);
-    }
-
-    /**
-     * @param $quoteItem
-     * @return float
-     */
-    protected function getQuoteItemValue($quoteItem): float
-    {
-        //fix for magento 2.3.2 - module-quote/Model/Quote/Item/Processor.php prepareItem does not set price to quote item
-        $quoteItemValue = $quoteItem->getPriceInclTax();
-        if (!$quoteItemValue && ($quoteItemProduct = $quoteItem->getProduct())) {
-            $quoteItemValue = (float)$quoteItemProduct->getPrice();
-        }
-
-        if (!$this->config->isPurchaseTaxEnabled()) {
-            $quoteItemValue -= (float)$quoteItem->getTaxAmount();
-        }
-
-        if (!$this->config->isPurchaseTaxEnabled()) {
-            $quoteItemValue -= (float)$quoteItem->getAddress()->getShippingAmount();
-        }
-
-        return $this->formatPrice($quoteItemValue);
-    }
-
 
     /**
      * @param Product $product
