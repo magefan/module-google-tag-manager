@@ -71,6 +71,9 @@
             <page_speed_optimization>
                 <enabled>0</enabled>
             </page_speed_optimization>
+            <third_party_ga>
+                <enabled>0</enabled>
+            </third_party_ga>
             <customer_data>
                 <protect>0</protect>
                 <load_before_consent>0</load_before_consent>
