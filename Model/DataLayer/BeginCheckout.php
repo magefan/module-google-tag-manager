@@ -19,6 +19,11 @@ use Magento\Store\Model\StoreManagerInterface;
 class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
 {
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'checkout';
+
+    /**
      * @var ItemInterface
      */
     private $gtmItem;

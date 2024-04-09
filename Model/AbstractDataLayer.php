@@ -106,6 +106,36 @@ class AbstractDataLayer
      */
     public function getEcommPageType(): string
     {
+        if ('other' === $this->ecommPageType) {
+            $fullActionName = $this->request->getFullActionName();
+            switch ($fullActionName) {
+                case 'cms_index_index':
+                    $this->ecommPageType = 'home';
+                    break;
+                case 'catalog_category_view':
+                    $this->ecommPageType = 'category';
+                    break;
+                case 'catalog_product_view':
+                    $this->ecommPageType = 'product';
+                    break;
+                case 'checkout_cart_index':
+                    $this->ecommPageType = 'cart';
+                    break;
+                case 'checkout_index_index':
+                    $this->ecommPageType = 'checkout';
+                    break;
+                case 'contact_index_index':
+                    $this->ecommPageType = 'contact';
+                    break;
+                case 'catalogsearch_result_index':
+                    $this->ecommPageType = 'searchresults';
+                    break;
+                case 'cms_page_view':
+                    $this->ecommPageType = 'cmspage';
+                    break;
+            }
+        }
+
         return $this->ecommPageType;
     }
 

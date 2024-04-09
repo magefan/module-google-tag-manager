@@ -19,6 +19,11 @@ use Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface;
 class ViewItem extends AbstractDataLayer implements ViewItemInterface
 {
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'product';
+
+    /**
      * @var ItemInterface
      */
     private $gtmItem;
