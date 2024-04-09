@@ -59,7 +59,7 @@ if (!isset($escaper)) {
             mfLoadGtm();
         <?php } ?>
 
-        <?php if ($this->isCookieRestrictionModeEnabled()) { ?>
+        <?php if ($block->isCookieRestrictionModeEnabled()) { ?>
         (function () {
             function getCookieValue(cookieName) {
                 let name = cookieName + '=';

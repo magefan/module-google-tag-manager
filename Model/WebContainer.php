@@ -301,7 +301,7 @@ class WebContainer implements ContainerInterface
         string $containerId,
         string $timestamp,
         string $storeId = null
-    ): array{
+    ): array {
         return [
             [
                 'accountId' => $accountId,

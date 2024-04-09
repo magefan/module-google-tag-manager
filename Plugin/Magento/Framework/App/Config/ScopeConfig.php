@@ -4,6 +4,7 @@ namespace Magefan\GoogleTagManager\Plugin\Magento\Framework\App\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magefan\GoogleTagManager\Model\Config;
+
 class ScopeConfig
 {
     /**
@@ -27,8 +28,7 @@ class ScopeConfig
      */
     public function __construct(
         Config $config
-    )
-    {
+    ) {
         $this->config = $config;
     }
 
@@ -46,8 +46,7 @@ class ScopeConfig
         $path,
         $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
         $scopeCode = null
-    )
-    {
+    ) {
         if (in_array($path, self::PATHS)) {
             if ($this->config->isEnabled() && !$this->config->isThirdPartyGaEnabled()) {
                 $result = '0';
