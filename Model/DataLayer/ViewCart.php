@@ -19,6 +19,11 @@ use Magento\Store\Model\StoreManagerInterface;
 class ViewCart extends AbstractDataLayer implements ViewCartInterface
 {
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'cart';
+
+    /**
      * @var ItemInterface
      */
     private $gtmItem;
@@ -48,22 +53,26 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
     {
         $items = [];
         $itemsQty = 0;
+        $value = 0;
 
-        foreach ($quote->getAllVisibleItems() as $item) {
-            $items[] = $this->gtmItem->get($item);
-            $itemsQty += $item->getQty() * 1;
+        foreach ($quote->getAllVisibleItems() as $quoteItem) {
+            $item = $this->gtmItem->get($quoteItem);
+            $items[] = $item;
+            $itemsQty += $item['quantity'];
+            $value += $item['price'] * $item['quantity'];
         }
 
         return $this->eventWrap([
             'event' => 'view_cart',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->formatPrice((float)$quote->getGrandTotal()),
+                'value' => $this->formatPrice($value),
                 'items' => $items
             ],
             'items_count' => count($items),
             'items_qty' => $itemsQty,
-            'coupon_code' => $quote->getCouponCode() ?: ''
+            'coupon_code' => $quote->getCouponCode() ?: '',
+            'customer_identifier' => $quote->getCustomerEmail() ? hash('sha256', (string)$quote->getCustomerEmail()) : ''
         ]);
     }
 }

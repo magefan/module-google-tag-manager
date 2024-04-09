@@ -106,6 +106,36 @@ class AbstractDataLayer
      */
     public function getEcommPageType(): string
     {
+        if ('other' === $this->ecommPageType) {
+            $fullActionName = $this->request->getFullActionName();
+            switch ($fullActionName) {
+                case 'cms_index_index':
+                    $this->ecommPageType = 'home';
+                    break;
+                case 'catalog_category_view':
+                    $this->ecommPageType = 'category';
+                    break;
+                case 'catalog_product_view':
+                    $this->ecommPageType = 'product';
+                    break;
+                case 'checkout_cart_index':
+                    $this->ecommPageType = 'cart';
+                    break;
+                case 'checkout_index_index':
+                    $this->ecommPageType = 'checkout';
+                    break;
+                case 'contact_index_index':
+                    $this->ecommPageType = 'contact';
+                    break;
+                case 'catalogsearch_result_index':
+                    $this->ecommPageType = 'searchresults';
+                    break;
+                case 'cms_page_view':
+                    $this->ecommPageType = 'cmspage';
+                    break;
+            }
+        }
+
         return $this->ecommPageType;
     }
 
@@ -220,7 +250,7 @@ class AbstractDataLayer
 
     /**
      * Get product price
-     *
+     * @deprecated
      * @param Product $product
      * @return float
      */
@@ -229,6 +259,22 @@ class AbstractDataLayer
         $priceInfo = $product->getPriceInfo()->getPrice('final_price')->getAmount();
         $price = $priceInfo->getValue();
         return $this->formatPrice($price);
+    }
+
+    /**
+     * @param $product
+     * @return float
+     */
+    protected function getProductValue($product): float
+    {
+        $priceInfo = $product->getPriceInfo()->getPrice('final_price')->getAmount();
+        if (!$this->config->isPurchaseTaxEnabled()) {
+            $value = $priceInfo->getValue('tax');
+        } else {
+            $value = $priceInfo->getValue();
+        }
+
+        return $this->formatPrice($value);
     }
 
     /**
@@ -292,6 +338,7 @@ class AbstractDataLayer
         $data = $this->addCustomerGroup($data);
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
+        $data = $this->addCustomerIdentifier($data);
 
         return $data;
     }
@@ -330,6 +377,18 @@ class AbstractDataLayer
             $data['ecomm_pagetype'] = $this->getEcommPageType();
         }
 
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function addCustomerIdentifier(array $data): array
+    {
+        if (empty($data['customer_identifier'])) {
+            $data['customer_identifier'] = 'getMfGtmCustomerIdentifier()';
+        }
         return $data;
     }
 }

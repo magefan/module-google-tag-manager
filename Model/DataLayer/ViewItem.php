@@ -19,6 +19,11 @@ use Magefan\GoogleTagManager\Api\DataLayer\Product\ItemInterface;
 class ViewItem extends AbstractDataLayer implements ViewItemInterface
 {
     /**
+     * @var string
+     */
+    protected $ecommPageType = 'product';
+
+    /**
      * @var ItemInterface
      */
     private $gtmItem;
@@ -47,12 +52,11 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
     public function get(Product $product): array
     {
         $item = $this->gtmItem->get($product);
-
         return $this->eventWrap([
             'event' => 'view_item',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->getPrice($product),
+                'value' => $this->getProductValue($product),
                 'items' => [
                     $item
                 ]
