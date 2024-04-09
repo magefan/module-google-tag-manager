@@ -374,7 +374,7 @@ To create a new secret, navigate in the
                 <label>Third-Party Google Analytics and AdWords</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable</label>
-                    <comment>If enabled Magefan Google Tag Manager Extension will not prevent the execution of default Magento and custom javascripts for Google Analytics, AdWords, and GTM. Please note that this can lead to event duplications and double tracking.</comment>
+                    <comment>If disabled, Magefan Google Tag Manager Extension prevents the execution of default Magento and custom JavaScripts for Google Analytics, AdWords, and GTM. Please note that enabling this option can lead to event duplications and double tracking.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>

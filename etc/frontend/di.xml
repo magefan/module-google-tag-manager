@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
+        <plugin name="Plugin_Magefan_GoogleTagManager_ScopeConfigInterface" type="Magefan\GoogleTagManager\Plugin\Magento\Framework\App\Config\ScopeConfig" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Customer\CustomerData\Customer">
+        <plugin name="Magefan_GoogleTagManager_Plugin_Magento_Customer_CustomerData_Customer" type="Magefan\GoogleTagManager\Plugin\Magento\Customer\CustomerData\Customer" sortOrder="10" disabled="false"/>
+    </type>
+</config>

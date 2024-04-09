@@ -22,10 +22,4 @@
             <argument name="container" xsi:type="object">Magefan\GoogleTagManager\Model\WebContainer</argument>
         </arguments>
     </type>
-    <type name="Magento\Framework\App\Config\ScopeConfigInterface">
-        <plugin name="Plugin_Magefan_GoogleTagManager_ScopeConfigInterface" type="Magefan\GoogleTagManager\Plugin\Magento\Framework\App\Config\ScopeConfig" sortOrder="10" disabled="false"/>
-    </type>
-    <type name="Magento\Customer\CustomerData\Customer">
-        <plugin name="Magefan_GoogleTagManager_Plugin_Magento_Customer_CustomerData_Customer" type="Magefan\GoogleTagManager\Plugin\Magento\Customer\CustomerData\Customer" sortOrder="10" disabled="false"/>
-    </type>
 </config>
