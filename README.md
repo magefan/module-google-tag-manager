@@ -24,12 +24,7 @@ Improve store performance tracking with no-effort.
   
 <a href="https://magefan.com/magento-2-google-tag-manager/pricing">
           <img
-            src="https://cm.magefan.com/wysiwyg/products/magento-google-tag-manager-pricing.png"
-            alt="Editions and Pricing for Magento 2 Google Tag Manager" />
-        </a>
-<a href="https://magefan.com/magento-2-google-tag-manager/pricing">
-          <img
-            src="https://cm.magefan.com/wysiwyg/products/google-tag-manager-extension-pricing.png"
+            src="https://cm.magefan.com/wysiwyg/products/google-tag-manager-pricing-min.png"
             alt="Editions and Pricing for Magento 2 Google Tag Manager" />
         </a>
         
@@ -41,7 +36,7 @@ Improve store performance tracking with no-effort.
 
 ## Features
 
-* **Implement tracking tags easier**
+### Implement tracking tags easier
 
 Enabling Google Tag Manager tags in your Magento website usually requires you to get the GTM tracking code and implement it into your website source code. Not only is it hard for non-technical people, but time-consuming for developers. 
 
@@ -53,13 +48,13 @@ Magefan Google Tag Manager for Magento 2 allows you to insert tracking IDs in th
 </p>
 
 
-* **Import/export tracking tags**
+### Import/export tracking tags
 
 Once the tracking IDs are implemented in your website, you need to create different events and variables in the Google Tag Manager Account. But not with our Magento 2 Google Tag Manager Extension.
 
 You can generate JSON container with all the essential tags and then import it into your GTM account. Et Voila! You have all your tags created for you.
 
-* **Monitor customer behaviour**
+### Monitor customer behaviour
 
 Tracking customers’ behaviour in your store allows you to see the patterns and bottlenecks that appear in the customer’s journey. Check what products customers view the most, add to their cart, purchase and abandon. 
 
@@ -69,14 +64,13 @@ Once you have this data, you’ll be able to tweak your marketing strategy and i
   <img width="853" height="425" src="https://cm.magefan.com/catalog/magento-2-google-tag-manager-event-tracking.png">
 </p>
 
-* **Track checkout performance**
+### Track checkout performance
 
 Checkout step is one of the most important steps in the customers’ journey and, as it often appears, one where customers get stuck. Although you have implemented the best practices to improve checkout, our GTM Extension for Magento will make it better. 
 
 Get insights into the checkout performance by tracking vital events - begin_checkout, add_shipping_info, add_billing_info, and purchase.
 
-
-* **Track product performance**
+### Track product performance
 
 What are your biggest traffic and revenue generators? Use this Magento 2 Google Tag Manager extension to track data on what products get the most views, are purchased, added to the cart, wishlist and removed from the cart the most often. 
 
@@ -86,11 +80,11 @@ Establish a strategy that allows you to increase conversions and promote product
   <img width="853" height="425" src="https://cm.magefan.com/catalog/product-performance-report-in-google-analytics.png">
 </p>
 
-* **Enable dynamic remarketing**
+### Enable dynamic remarketing
 
 If you want to provide more personalized ads and drive people, who already visited your website, back, use Magento 2 Google Tag Manager extension for dynamic remarketing. Our Extension support dynamic remarketing to help you display products and service customers viewed the last time they visited your website.
 
-* **Monitor custom blocks**
+### Monitor custom blocks
 
 Have you implemented related, cross-sell and up-sell products but don’t know if they are performing as expected? Track product views in custom blocks with Magento 2 GTM extension and improve your sales strategy accordingly. 
 
@@ -201,6 +195,7 @@ The code is licensed under [EULA](https://magefan.com/end-user-license-agreement
 
 ### [Magento 2 Marketing Automation Extensions](https://magefan.com/magento-2-extensions/magento-marketing-automation)
 
+* [Magento 2 Product Labels Extension](https://magefan.com/magento-2-product-labels)
 * [Magento 2 Dynamic Categories](https://magefan.com/magento-2-dynamic-categories)
 * [Magento 2 CMS Display Rules Extension](https://magefan.com/magento-2-cms-display-rules-extension)
 * [Magento 2 Automatic Related Products](https://magefan.com/magento-2-automatic-related-products)
