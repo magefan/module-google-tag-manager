@@ -318,8 +318,8 @@ class WebContainer implements ContainerInterface
                 ]
             ],
             [
-                'accountId' => $this->accountId,
-                'containerId' => $this->containerId,
+                'accountId' => $accountId,
+                'containerId' => $containerId,
                 'variableId' => '256',
                 'name' => 'Magefan DLV - Customer Email Hash',
                 'type' => 'v',
