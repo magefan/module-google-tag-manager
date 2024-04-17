@@ -318,6 +318,32 @@ class WebContainer implements ContainerInterface
                 ]
             ],
             [
+                'accountId' => $this->accountId,
+                'containerId' => $this->containerId,
+                'variableId' => '256',
+                'name' => 'Magefan DLV - Customer Email Hash',
+                'type' => 'v',
+                'parameter' => [
+                    [
+                        'type' => 'INTEGER',
+                        'key' => 'dataLayerVersion',
+                        'value' => '2'
+                    ],
+                    [
+                        'type' => 'BOOLEAN',
+                        'key' => 'setDefaultValue',
+                        'value' => 'false'
+                    ],
+                    [
+                        'type' => 'TEMPLATE',
+                        'key' => 'name',
+                        'value' => 'customer_identifier'
+                    ]
+                ],
+                'fingerprint' => $timestamp,
+                'formatValue' => (object)[]
+            ],
+            [
                 'accountId' => $accountId,
                 'containerId' => $containerId,
                 'variableId'=>'43',
