@@ -21,7 +21,7 @@ class Item extends AbstractDataLayer implements ItemInterface
     {
         $product = $quoteItem->getProduct();
         $categoryNames = $this->getCategoryNames($product);
-        return array_merge(array_filter([
+        return array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')
                 ? $quoteItem->getSku()
                 : $this->getProductAttributeValue($product, $this->config->getProductAttribute()),
@@ -31,7 +31,7 @@ class Item extends AbstractDataLayer implements ItemInterface
             'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
             'price' => $this->getValue($quoteItem),
             'quantity' => $quoteItem->getQty() * 1
-        ]), $categoryNames);
+        ], $categoryNames);
     }
 
     /**
