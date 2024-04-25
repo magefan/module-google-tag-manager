@@ -28,6 +28,11 @@
                 <account_id/>
                 <container_id/>
                 <tag_server_url/>
+                <preview>
+                    <enabled>0</enabled>
+                    <secret/>
+                    <allow_ips/>
+                </preview>
             </server_container>
             <analytics>
                 <enable>1</enable>

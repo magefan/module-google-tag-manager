@@ -12,7 +12,7 @@ if (!isset($escaper)) {
     $escaper = $block;
 }
 ?>
-<?php if (!$block->isProtectCustomerDataEnabled() || $block->isLoadBeforeConsent()) { ?>
+<?php if ($block->getPublicId() && (!$block->isProtectCustomerDataEnabled() || $block->isLoadBeforeConsent())) { ?>
     <!-- Google Tag Manager (noscript) -->
     <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?= $escaper->escapeHtml($block->getPublicId()) ?>"

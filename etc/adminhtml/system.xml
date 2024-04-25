@@ -178,6 +178,35 @@ height=&quot;0&quot; width=&quot;0&quot; style=&quot;display:none;visibility:hid
                         ]]>
                     </comment>
                 </field>
+
+                <group id="preview" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Debug View / Preview</label>
+                    <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="secret" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" >
+                        <label>X-Gtm-Server-Preview HTTP Header (optional)</label>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                        <comment><![CDATA[
+                                You can get the X-Gtm-Server-Preview value in the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> container >
+                                Preview > &#10247; > Send requests manually.<br/>
+                                This value is used for debugging and the ability to view events in the preview mode of Google Tag Manager.<br/>
+                                <strong>Important!</strong> This value is changed by Google from time-to-time, before preview, please double check if the value is correct.
+                            ]]>
+                        </comment>
+                    </field>
+                    <field id="allow_ips" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Allowed IPs (comma separated)</label>
+                        <comment>Leave empty for access from any location.</comment>
+                        <backend_model>Magento\Developer\Model\Config\Backend\AllowedIps</backend_model>
+                        <depends>
+                            <field id="enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
             </group>
             <group id="analytics" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Google Analytics 4</label>
