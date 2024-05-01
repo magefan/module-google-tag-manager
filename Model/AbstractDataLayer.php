@@ -177,7 +177,7 @@ class AbstractDataLayer
                 $categoryNames[] = $category->getName();
                 $number++;
             }
-            $result['category'] = implode('/', $categoryNames);
+            $result['category'] = implode(',', $categoryNames);
 
         }
 
