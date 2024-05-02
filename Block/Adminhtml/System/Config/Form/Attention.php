@@ -24,7 +24,7 @@ class Attention extends \Magefan\Community\Block\Adminhtml\System\Config\Form\In
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        return '<div style="padding:10px;background-color:#ffe5e5;border:1px solid #ddd;margin-bottom:7px;">
+        return '<div style="padding:10px;background-color:#fffbbb;border:1px solid #ddd;margin-bottom:7px;">
             <strong>Attention!</strong> Once you change and save the "Web/Server Container", "Google Analytics 4" or "Google Ads" settings,
             please don\'t forget to scroll down to the "Export Container" section
             and click the "Generate JSON Container & Download File" button to export container data.
