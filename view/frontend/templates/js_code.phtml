@@ -126,7 +126,7 @@ if (!isset($escaper)) {
         mfLoadGtm();
     <?php } ?>
 
-    if (!window.MagefanRocketJsCustomOptimization)
+    if (!window.MagefanRocketJsCustomOptimization && window.require))
     require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
         function updateMfGtmCustomerIdentifier(data) {
             if (data.mf_gtm_customer_identifier) {
