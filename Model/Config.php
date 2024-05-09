@@ -310,4 +310,31 @@ class Config
     {
         return (bool)$this->getConfig(self::XML_PATH_THIRD_PARTY_GA, $storeId);
     }
+
+    /**
+     * @param $ip
+     * @return mixed|string
+     */
+    public function anonymizeIpAddress($ip) {
+        if ($ip && is_string($ip)) {
+
+            if (strpos($ip, '.')) {
+                $delimiter = '.';
+            } else {
+                $delimiter = ':';
+            }
+
+            $ipComponents = explode($delimiter, $ip);
+
+            if (count($ipComponents) > 1) {
+                $lastIndex = count($ipComponents) - 1;
+                $ipComponents[$lastIndex] = ($delimiter === '.') ? '0' : '0000';
+            }
+
+            $anonymizedIp = implode($delimiter, $ipComponents);
+
+            return $anonymizedIp;
+        }
+        return $ip;
+    }
 }

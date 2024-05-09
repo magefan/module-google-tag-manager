@@ -66,6 +66,7 @@ abstract class AbstractOrder extends AbstractDataLayer
                 'shipping_description' => $order->getShippingDescription(),
                 'customer_is_guest' => (bool)$order->getCustomerIsGuest(),
                 'customer_identifier' => hash('sha256', (string)$order->getCustomerEmail()),
+                'anonymize_ip' => $this->config->anonymizeIpAddress($order->getRemoteIp())
             ]);
         }
 
