@@ -180,26 +180,27 @@ $scriptString .= <<<script
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
     script;
-
-if ('use_public_id' === $block->getConfig()->getInstallGtm()) {
-    $scriptString .= <<<script
-            (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src ='https:' + '/' + '/' + 'www.googletagmanager.com/gtm.js?id='+ i + dl;
-            f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','{$escaper->escapeHtml($block->getPublicId())}');
-    script;
-} elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) {
-    $scriptString .= <<<script
-         {$block->getGtmScript()}
-         script;
+if ($block->getPublicId()) {
+    if ('use_public_id' === $block->getConfig()->getInstallGtm()) {
+        $scriptString .= <<<script
+                (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src ='https:' + '/' + '/' + 'www.googletagmanager.com/gtm.js?id='+ i + dl;
+                f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','{$escaper->escapeHtml($block->getPublicId())}');
+        script;
+    } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) {
+        $scriptString .= <<<script
+             {$block->getGtmScript()}
+             script;
+    }
 }
 $scriptString .= <<<script
      }
