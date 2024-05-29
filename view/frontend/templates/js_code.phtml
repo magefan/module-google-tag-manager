@@ -5,16 +5,18 @@
  */
 /** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
 /** @var \Magento\Framework\Escaper $escaper */
+/** @var Magefan\Community\View\Helper\SecureHtmlRenderer $mfSecureRenderer */
 ?>
 <?php
 if (!isset($escaper)) {
     /* Compatability fix for old Magento versions */
     $escaper = $block;
 }
-?>
-<!-- Google Tag Manager -->
-<script>
-    <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
+
+$scriptString = <<<script
+script;
+if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') {
+    $scriptString .= <<<script
         document.addEventListener('scroll', mfGtmUserActionDetect);
         document.addEventListener('mousemove', mfGtmUserActionDetect);
         document.addEventListener('touchstart', mfGtmUserActionDetect);
@@ -25,108 +27,119 @@ if (!isset($escaper)) {
             document.removeEventListener('touchstart', mfGtmUserActionDetect);
             window.mfGtmUserActionDetected = true;
             mfLoadGtm();
-        }
-    <?php } else { ?>
+        } 
+     script;
+} else {
+    $scriptString .= <<<script
         window.mfGtmUserActionDetected = true;
-    <?php } ?>
-
-    <?php if ($block->isProtectCustomerDataEnabled()) { ?>
+    
+    script;
+}
+if ($block->isProtectCustomerDataEnabled()) {
+    $scriptString .= <<<script
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+        function gtag() { 
+            dataLayer.push(arguments); 
+        }
         gtag('consent', 'default', {
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'ad_storage': 'denied',
-            'analytics_storage': 'denied',
-            <?php /* cookieyes.com start */ ?>
-
-            'functionality_storage': 'denied',
-            'personalization_storage': 'denied',
-            'security_storage': 'granted',
-            <?php /* cookieyes.com end */ ?>
-
-            'wait_for_update': 2000
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        /* cookieyes.com start */ 
+        
+        'functionality_storage': 'denied',
+        'personalization_storage': 'denied',
+        'security_storage': 'granted',
+        /* cookieyes.com end */ 
+        
+        'wait_for_update': 2000
         });
-        <?php /* cookieyes.com start */ ?>
-
+         /* cookieyes.com start */ 
+        
         gtag("set", "ads_data_redaction", true);
         gtag("set", "url_passthrough", true);
-        <?php /* cookieyes.com end */ ?>
+        /* cookieyes.com end */ 
+    script;
 
-        <?php if ($block->isLoadBeforeConsent()) { ?>
-
+    if ($block->isLoadBeforeConsent()) {
+        $scriptString .= <<<script
             window.mfGtmLoadBeforeCookieAllowed = true;
             mfLoadGtm();
-        <?php } ?>
+            script;
+    }
+    if ($block->isCookieRestrictionModeEnabled()) {
 
-        <?php if ($block->isCookieRestrictionModeEnabled()) { ?>
-        (function () {
-            function getCookieValue(cookieName) {
-                let name = cookieName + '=';
-                let cookieSplit = document.cookie.split(';');
+        $scriptString .= <<<script
+            (function () {
+                function getCookieValue(cookieName) {
+                    let name = cookieName + '=';
+                    let cookieSplit = document.cookie.split(';');
+                    for (let i = 0; i < cookieSplit.length; i++) {
+                        let a = cookieSplit[i];
 
-                for (let i = 0; i < cookieSplit.length; i++) {
-                    let a = cookieSplit[i];
+                        while (a.charAt(0) === ' ') {
+                            a = a.substring(1);
+                        }
 
-                    while (a.charAt(0) === ' ') {
-                        a = a.substring(1);
+                        if (a.indexOf(name) === 0) {
+                            return a.substring(name.length, a.length);
+                        }
                     }
-
-                    if (a.indexOf(name) === 0) {
-                        return a.substring(name.length, a.length);
-                    }
+                    return '';
                 }
-                return '';
-            }
-
-            function customerDataAllowed() {
-                let cookie = getCookieValue(
-                    '<?= $escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE) ?>'
-                );
-                if (cookie) {
-                    cookie = JSON.parse(decodeURIComponent(cookie));
-                    if (cookie[<?= $escaper->escapeHtml($block->getWebsiteId()) ?>]) {
-                        return true;
+    
+                function customerDataAllowed() {
+                    let cookie = getCookieValue(
+                        '{$escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE)}'
+                    );
+                    if (cookie) {
+                        cookie = JSON.parse(decodeURIComponent(cookie));
+                        if (cookie[{$escaper->escapeHtml($block->getWebsiteId())}]) {
+                            return true;
+                        }
                     }
+    
+                    return false
                 }
-
-                return false
-            }
-
-            function grantConsent()
-            {
-                window.mfGtmUserCookiesAllowed = true;
-                gtag('consent', 'update', {
-                    'ad_user_data': 'granted',
-                    'ad_personalization': 'granted',
-                    'ad_storage': 'granted',
-                    'analytics_storage': 'granted',
-                    'functionality_storage': 'granted',
-                    'personalization_storage': 'granted',
-                    'security_storage': 'granted'
-                });
-            }
-
-            if (customerDataAllowed()) {
-                grantConsent();
-                mfLoadGtm();
-            } else {
-                let interval = setInterval(function () {
-                    if (!customerDataAllowed()) return;
-                    clearInterval(interval);
+    
+                function grantConsent()
+                {
+                    window.mfGtmUserCookiesAllowed = true;
+                    gtag('consent', 'update', {
+                        'ad_user_data': 'granted',
+                        'ad_personalization': 'granted',
+                        'ad_storage': 'granted',
+                        'analytics_storage': 'granted',
+                        'functionality_storage': 'granted',
+                        'personalization_storage': 'granted',
+                        'security_storage': 'granted'
+                    });
+                }
+                
+                if (customerDataAllowed()) {
                     grantConsent();
                     mfLoadGtm();
-                }, 1000);
-            }
-        })();
-        <?php } ?>
+                } else {
+                    let interval = setInterval(function () {
+                        if (!customerDataAllowed()) return;
+                        clearInterval(interval);
+                        grantConsent();
+                        mfLoadGtm();
+                    }, 1000);
+                }
+            })();
+            script;
+    }
 
-    <?php } else { ?>
+} else {
+    $scriptString .= <<<script
         window.mfGtmUserCookiesAllowed = true;
         mfLoadGtm();
-    <?php } ?>
-
-    if (!window.MagefanRocketJsCustomOptimization)
+       script;
+}
+$scriptString .= <<<script
+    if (!window.MagefanRocketJsCustomOptimization) 
     require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
         function updateMfGtmCustomerIdentifier(data) {
             if (data.mf_gtm_customer_identifier) {
@@ -134,13 +147,13 @@ if (!isset($escaper)) {
             }
         }
         let customerData = customer.get('customer');
-
+    
         customerData.subscribe(function (data) {
             updateMfGtmCustomerIdentifier(data);
         }.bind(this));
         updateMfGtmCustomerIdentifier(customerData());
     });
-
+    
     /* Hyva code */
     function mfHyvaGtmSetCustomerIdentifier(event) {
         let data, j;
@@ -155,29 +168,43 @@ if (!isset($escaper)) {
     }
     window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
     /* End Hyva code */
-
+    
     function getMfGtmCustomerIdentifier() {
         return localStorage.getItem("mf_gtm_customer_identifier") ? localStorage.getItem("mf_gtm_customer_identifier") : null;
     }
-
+    
     function mfLoadGtm() {
         if (!window.mfGtmUserActionDetected) return false;
         if (!window.mfGtmLoadBeforeCookieAllowed && !window.mfGtmUserCookiesAllowed) return false;
-
+    
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
+    script;
 
-        <?php if ($block->getPublicId()) { ?>
-            <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https:<?= '/' . '/' ?>www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','<?= $escaper->escapeHtml($block->getPublicId()) ?>');
-            <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
-                <?= $block->getGtmScript(); ?>
-            <?php } ?>
-        <?php } ?>
-    }
-</script>
-<!-- End Google Tag Manager -->
+if ('use_public_id' === $block->getConfig()->getInstallGtm()) {
+    $scriptString .= <<<script
+            (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src ='https:' + '/' + '/' + 'www.googletagmanager.com/gtm.js?id='+ i + dl;
+            f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{$escaper->escapeHtml($block->getPublicId())}');
+    script;
+} elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) {
+    $scriptString .= <<<script
+         {$block->getGtmScript()}
+         script;
+}
+$scriptString .= <<<script
+     }
+     script;
+?>
+
+
+<?= /* @noEscape */$mfSecureRenderer->renderTag('script', [], $scriptString, false) ?>
