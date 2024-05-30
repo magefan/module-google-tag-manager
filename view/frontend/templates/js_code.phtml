@@ -27,39 +27,39 @@ if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName(
             document.removeEventListener('touchstart', mfGtmUserActionDetect);
             window.mfGtmUserActionDetected = true;
             mfLoadGtm();
-        } 
+        }
      script;
 } else {
     $scriptString .= <<<script
         window.mfGtmUserActionDetected = true;
-    
+
     script;
 }
 if ($block->isProtectCustomerDataEnabled()) {
     $scriptString .= <<<script
         window.dataLayer = window.dataLayer || [];
-        function gtag() { 
-            dataLayer.push(arguments); 
+        function gtag() {
+            dataLayer.push(arguments);
         }
         gtag('consent', 'default', {
         'ad_user_data': 'denied',
         'ad_personalization': 'denied',
         'ad_storage': 'denied',
         'analytics_storage': 'denied',
-        /* cookieyes.com start */ 
-        
+        /* cookieyes.com start */
+
         'functionality_storage': 'denied',
         'personalization_storage': 'denied',
         'security_storage': 'granted',
-        /* cookieyes.com end */ 
-        
+        /* cookieyes.com end */
+
         'wait_for_update': 2000
         });
-         /* cookieyes.com start */ 
-        
+         /* cookieyes.com start */
+
         gtag("set", "ads_data_redaction", true);
         gtag("set", "url_passthrough", true);
-        /* cookieyes.com end */ 
+        /* cookieyes.com end */
     script;
 
     if ($block->isLoadBeforeConsent()) {
@@ -88,7 +88,7 @@ if ($block->isProtectCustomerDataEnabled()) {
                     }
                     return '';
                 }
-    
+
                 function customerDataAllowed() {
                     let cookie = getCookieValue(
                         '{$escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE)}'
@@ -99,10 +99,10 @@ if ($block->isProtectCustomerDataEnabled()) {
                             return true;
                         }
                     }
-    
+
                     return false
                 }
-    
+
                 function grantConsent()
                 {
                     window.mfGtmUserCookiesAllowed = true;
@@ -116,7 +116,7 @@ if ($block->isProtectCustomerDataEnabled()) {
                         'security_storage': 'granted'
                     });
                 }
-                
+
                 if (customerDataAllowed()) {
                     grantConsent();
                     mfLoadGtm();
@@ -139,44 +139,14 @@ if ($block->isProtectCustomerDataEnabled()) {
        script;
 }
 $scriptString .= <<<script
-    if (!window.MagefanRocketJsCustomOptimization) 
-    require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
-        function updateMfGtmCustomerIdentifier(data) {
-            if (data.mf_gtm_customer_identifier) {
-                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
-            }
-        }
-        let customerData = customer.get('customer');
-    
-        customerData.subscribe(function (data) {
-            updateMfGtmCustomerIdentifier(data);
-        }.bind(this));
-        updateMfGtmCustomerIdentifier(customerData());
-    });
-    
-    /* Hyva code */
-    function mfHyvaGtmSetCustomerIdentifier(event) {
-        let data, j;
-        let sections = event.detail.data;
-        for (j in sections) {
-            data = sections[j];
-            if (data.mf_gtm_customer_identifier) {
-                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
-                return;
-            }
-        }
-    }
-    window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
-    /* End Hyva code */
-    
     function getMfGtmCustomerIdentifier() {
         return localStorage.getItem("mf_gtm_customer_identifier") ? localStorage.getItem("mf_gtm_customer_identifier") : null;
     }
-    
+
     function mfLoadGtm() {
         if (!window.mfGtmUserActionDetected) return false;
         if (!window.mfGtmLoadBeforeCookieAllowed && !window.mfGtmUserCookiesAllowed) return false;
-    
+
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
     script;
@@ -205,7 +175,45 @@ if ($block->getPublicId()) {
 $scriptString .= <<<script
      }
      script;
+
+$script2String = <<<script
+
+    if (!window.MagefanRocketJsCustomOptimization && window.require) {
+        require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
+            function updateMfGtmCustomerIdentifier(data) {
+                if (data.mf_gtm_customer_identifier) {
+                    localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                }
+            }
+            let customerData = customer.get('customer');
+
+            customerData.subscribe(function (data) {
+                updateMfGtmCustomerIdentifier(data);
+            }.bind(this));
+            updateMfGtmCustomerIdentifier(customerData());
+        });
+    }
+ script;
+
+/* Hyva code */
+$script2String .= <<<script
+
+    function mfHyvaGtmSetCustomerIdentifier(event) {
+        let data, j;
+        let sections = event.detail.data;
+        for (j in sections) {
+            data = sections[j];
+            if (data.mf_gtm_customer_identifier) {
+                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                return;
+            }
+        }
+    }
+    window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
+
+script;
+/* End Hyva code */
 ?>
 
-
 <?= /* @noEscape */$mfSecureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?= /* @noEscape */$mfSecureRenderer->renderTag('script', [], $script2String, false) ?>
