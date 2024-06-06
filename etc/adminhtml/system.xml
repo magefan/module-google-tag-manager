@@ -345,6 +345,9 @@ To create a new secret, navigate in the
             </group>
             <group id="server_side_tracking" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Server Side Tracking (GTM Extra)</label>
+                <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoServerSideTracking</frontend_model>
+                </field>
                 <field id="headless_storefront" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Headless Storefront</label>
                     <comment><![CDATA[ Please select "Yes" if you have a PWA storefront.]]>
@@ -389,6 +392,13 @@ To create a new secret, navigate in the
                     <field id="tax_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Include Tax In Purchase Value</label>
                         <comment>If enabled, TAX price amount will be included into purchase value (the monetary value of the event).</comment>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoTrackAdminOrders</frontend_model>
+                    </field>
+                    <field id="track_admin_orders" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Track Admin Orders (GTM Extra) </label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
                 </group>

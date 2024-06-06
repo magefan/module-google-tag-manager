@@ -71,6 +71,7 @@
                 <purchase>
                     <shipping_enabled>1</shipping_enabled>
                     <tax_enabled>1</tax_enabled>
+                    <track_admin_orders>1</track_admin_orders>
                 </purchase>
             </events>
             <page_speed_optimization>
