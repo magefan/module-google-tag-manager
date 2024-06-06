@@ -42,12 +42,16 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
         $html .= $this->getText() . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
         $html .= '</div>';
 
-        $html .= '<script>
+        $optionAvailableInText = ($this->getMinPlan() == 'Extra')
+            ? 'This option is available in <strong>Extra</strong> plan only.'
+            : 'This option is available in <strong>Plus or Extra</strong> plans only.';
+
+        $script = <<<script
                 require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                     setInterval(function(){
-                        var $plusSection = $("#' . $this->getSectionId() . '-state").parent(".section-config");
-                        $plusSection.find(".use-default").css("visibility", "hidden");
-                        $plusSection.find("input,select").each(function(){
+                        var plusSection = $("#{$this->getSectionId()}-state").parent(".section-config");
+                        plusSection.find(".use-default").css("visibility", "hidden");
+                        plusSection.find("input,select").each(function(){
                             $(this).attr("readonly", "readonly");
                             $(this).removeAttr("disabled");
                             if ($(this).data("gtmdisabled")) return;
@@ -55,13 +59,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                             $(this).click(function(){
                                 alert({
                                     title: "You cannot change this option.",
-                                    content: "' .
-                                    (
-                                        ($this->getMinPlan() == 'Extra')
-                                        ? 'This option is available in <strong>Extra</strong> plan only.'
-                                        : 'This option is available in <strong>Plus or Extra</strong> plans only.'
-                                    )
-                                    . '",
+                                    content: "{$optionAvailableInText}",
                                     buttons: [{
                                         text: "Upgrade Plan Now",
                                         class: "action primary accept",
@@ -74,7 +72,9 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                         });
                     }, 1000);
                 });
-            </script>';
+            script;
+
+        $html .= $this->mfSecureRenderer->renderTag('script', [], $script, false);
 
         return $html;
     }

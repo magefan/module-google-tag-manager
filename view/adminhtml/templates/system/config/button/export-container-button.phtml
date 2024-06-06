@@ -5,6 +5,7 @@
  */
 /** @var \Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Button $block */
 /** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magefan\Community\Api\SecureHtmlRendererInterface $mfSecureRenderer */
 // phpcs:ignoreFile
 ?>
 <?php
@@ -21,18 +22,17 @@ if (!isset($escaper)) {
         <br/>
         <?= __('Once the JSON file is downloaded, upload it to %1 > Choose %2 Container > Admin > Import Container.', '<a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a>', ucfirst($block->getConteinderType())) ?>
     </p>
-    <script>
+    <?php $script = <<<script
         require([
             'jquery',
             'domReady!'
         ], function ($) {
-            $('#mf_download_<?= $block->escapeHtml($block->getConteinderType()) ?>').on('click', function(event) {
+            $('#mf_download_{$block->escapeHtml($block->getConteinderType())}').on('click', function(event) {
                 event.preventDefault;
-                window.location='<?= $escaper->escapeUrl(
-                    $block->getContainerGenerateUrl()
-                )?>';
+                window.location='{$escaper->escapeUrl($block->getContainerGenerateUrl())}';
             });
         });
-    </script>
+    script; ?>
+    <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 </div>
 

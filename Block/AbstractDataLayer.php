@@ -10,7 +10,9 @@ namespace Magefan\GoogleTagManager\Block;
 
 use Magento\Framework\View\Element\AbstractBlock;
 use Magento\Framework\View\Element\Context;
+use Magefan\Community\Api\SecureHtmlRendererInterface;
 use Magefan\GoogleTagManager\Model\Config;
+
 
 abstract class AbstractDataLayer extends AbstractBlock
 {
@@ -20,18 +22,25 @@ abstract class AbstractDataLayer extends AbstractBlock
     protected $config;
 
     /**
-     * AbstractDataLayer constructor.
-     *
+     * @var SecureHtmlRendererInterface
+     */
+    protected $mfSecureRenderer;
+
+    /**
      * @param Context $context
      * @param Config $config
      * @param array $data
+     * @param SecureHtmlRendererInterface|null $mfSecureRenderer
      */
     public function __construct(
         Context $context,
         Config $config,
-        array $data = []
+        array $data = [],
+        SecureHtmlRendererInterface $mfSecureRenderer = null
     ) {
         $this->config = $config;
+        $this->mfSecureRenderer = $mfSecureRenderer ?: \Magento\Framework\App\ObjectManager::getInstance()
+            ->get(SecureHtmlRendererInterface::class);
         parent::__construct($context, $data);
     }
 
@@ -54,11 +63,11 @@ abstract class AbstractDataLayer extends AbstractBlock
             if ($dataLayer) {
                 $json = json_encode($dataLayer);
                 $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
-                //style always should be displayed none, since some sliders add a class that makes the script display flex/block
-                return '<script style="display: none;">
+                $script = <<<script
                     window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push(' . $json . ');
-                </script>';
+                    window.dataLayer.push({$json});
+                script;
+                return $this->mfSecureRenderer->renderTag('script', ['style' => 'display:none'], $script, false);
             }
         }
 
