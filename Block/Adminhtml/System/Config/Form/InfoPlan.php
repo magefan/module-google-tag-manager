@@ -38,9 +38,12 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
         }
 
         $html = '';
-        $html .= '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">';
-        $html .= $this->getText() . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
-        $html .= '</div>';
+
+        if ($text = $this->getText()) {
+            $html .= '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">';
+            $html .= $text . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
+            $html .= '</div>';
+        }
 
         $optionAvailableInText = ($this->getMinPlan() == 'Extra')
             ? 'This option is available in <strong>Extra</strong> plan only.'
@@ -50,6 +53,9 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                 require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                     setInterval(function(){
                         var plusSection = $("#{$this->getSectionId()}-state").parent(".section-config");
+                        if (!plusSection.length) {
+                            plusSection = $("#{$this->getSectionId()}").parents("tr:first");
+                        }
                         plusSection.find(".use-default").css("visibility", "hidden");
                         plusSection.find("input,select").each(function(){
                             $(this).attr("readonly", "readonly");
@@ -58,7 +64,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                             $(this).data("gtmdisabled", 1);
                             $(this).click(function(){
                                 alert({
-                                    title: "You cannot change this option.",
+                                    title: "You cannot use this option.",
                                     content: "{$optionAvailableInText}",
                                     buttons: [{
                                         text: "Upgrade Plan Now",

@@ -10,7 +10,6 @@ namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form;
 
 class InfoServerSideTracking extends InfoPlan
 {
-
     /**
      * @return string
      */
