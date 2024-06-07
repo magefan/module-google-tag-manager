@@ -65,7 +65,7 @@ abstract class AbstractDataLayer extends AbstractBlock
                 $script = <<<script
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push({$json});
-                script;
+script;
                 return $this->mfSecureRenderer->renderTag('script', ['style' => 'display:none'], $script, false);
             }
         }
