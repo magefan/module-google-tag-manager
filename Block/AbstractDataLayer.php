@@ -13,7 +13,6 @@ use Magento\Framework\View\Element\Context;
 use Magefan\Community\Api\SecureHtmlRendererInterface;
 use Magefan\GoogleTagManager\Model\Config;
 
-
 abstract class AbstractDataLayer extends AbstractBlock
 {
     /**
