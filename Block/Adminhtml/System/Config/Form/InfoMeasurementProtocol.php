@@ -57,7 +57,7 @@ class InfoMeasurementProtocol extends InfoPlan
                     }
                 }, 1000);
             });
-        script;
+script;
 
         $html .= $this->mfSecureRenderer->renderTag('script', [], $script, false);
 
