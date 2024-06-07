@@ -28,6 +28,8 @@
                 <account_id/>
                 <container_id/>
                 <tag_server_url/>
+                <headless_storefront>0</headless_storefront>
+                <track_missing_purchase_events_only>0</track_missing_purchase_events_only>
                 <preview>
                     <enabled>0</enabled>
                     <secret/>
@@ -58,10 +60,6 @@
                     <conversion_label/>
                 </remarketing>
             </ads>
-            <server_side_tracking>
-                <headless_storefront>0</headless_storefront>
-                <track_missing_purchase_events_only>1</track_missing_purchase_events_only>
-            </server_side_tracking>
             <attributes>
                 <product>sku</product>
                 <brand/>
