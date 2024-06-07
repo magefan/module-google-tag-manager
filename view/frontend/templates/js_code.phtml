@@ -3,9 +3,11 @@
  * Copyright © Magefan (support@magefan.com). All rights reserved.
  * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
  */
-/** @var \Magefan\GoogleTagManager\Block\GtmCode $block */
-/** @var \Magento\Framework\Escaper $escaper */
-/** @var \Magefan\Community\Api\SecureHtmlRendererInterface $mfSecureRenderer */
+/**
+ * @var $block \Magefan\GoogleTagManager\Block\GtmCode
+ * @var $mfSecureRenderer \Magefan\Community\Api\SecureHtmlRendererInterface
+ * @var $mfHyvaThemeDetection \Magefan\Community\Api\HyvaThemeDetectionInterface
+ */
 ?>
 <?php
 if (!isset($escaper)) {
@@ -168,37 +170,41 @@ $script = '';
     script; ?>
 <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 
-<?php $script = <<<script
-    if (!window.MagefanRocketJsCustomOptimization && window.require)
-    require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
-        function updateMfGtmCustomerIdentifier(data) {
-            if (data.mf_gtm_customer_identifier) {
-                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+<?php if (!$mfHyvaThemeDetection->execute()) { ?>
+    <?php $script = <<<script
+        if (!window.MagefanRocketJsCustomOptimization && window.require)
+        require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
+            function updateMfGtmCustomerIdentifier(data) {
+                if (data.mf_gtm_customer_identifier) {
+                    localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                }
+            }
+            let customerData = customer.get('customer');
+    
+            customerData.subscribe(function (data) {
+                updateMfGtmCustomerIdentifier(data);
+            }.bind(this));
+            updateMfGtmCustomerIdentifier(customerData());
+        });
+    script; ?>
+    <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
+<?php } else { ?>
+    <?php $script = <<<script
+        /* Hyva code */
+        function mfHyvaGtmSetCustomerIdentifier(event) {
+            let data, j;
+            let sections = event.detail.data;
+            for (j in sections) {
+                data = sections[j];
+                if (data.mf_gtm_customer_identifier) {
+                    localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
+                    return;
+                }
             }
         }
-        let customerData = customer.get('customer');
-
-        customerData.subscribe(function (data) {
-            updateMfGtmCustomerIdentifier(data);
-        }.bind(this));
-        updateMfGtmCustomerIdentifier(customerData());
-    });
-
-    /* Hyva code */
-    function mfHyvaGtmSetCustomerIdentifier(event) {
-        let data, j;
-        let sections = event.detail.data;
-        for (j in sections) {
-            data = sections[j];
-            if (data.mf_gtm_customer_identifier) {
-                localStorage.setItem("mf_gtm_customer_identifier", data.mf_gtm_customer_identifier);
-                return;
-            }
-        }
-    }
-    window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
-    /* End Hyva code */
-script; ?>
-<?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
-
+        window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
+        /* End Hyva code */
+    script; ?>
+    <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
+<?php } ?>
 <!-- End Google Tag Manager -->
