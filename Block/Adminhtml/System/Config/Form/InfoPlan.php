@@ -78,7 +78,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                         });
                     }, 1000);
                 });
-            script;
+script;
 
         $html .= $this->mfSecureRenderer->renderTag('script', [], $script, false);
 
