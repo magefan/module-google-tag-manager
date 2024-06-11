@@ -31,11 +31,13 @@ $script = '';
             window.mfGtmUserActionDetected = true;
             mfLoadGtm();
         }
-        script; ?>
+script;
+?>
     <?php } else { ?>
         <?php $script .= <<<script
         window.mfGtmUserActionDetected = true;
-        script; ?>
+script;
+?>
     <?php } ?>
 
     <?php if ($block->isProtectCustomerDataEnabled()) { ?>
@@ -60,13 +62,15 @@ $script = '';
         gtag("set", "ads_data_redaction", true);
         gtag("set", "url_passthrough", true);
         /* cookieyes.com end */
-        script; ?>
+script;
+?>
 
         <?php if ($block->isLoadBeforeConsent()) { ?>
             <?php $script .= <<<script
             window.mfGtmLoadBeforeCookieAllowed = true;
             mfLoadGtm();
-            script; ?>
+script;
+?>
         <?php } ?>
 
         <?php if ($block->isCookieRestrictionModeEnabled()) { ?>
@@ -130,14 +134,16 @@ $script = '';
                 }, 1000);
             }
         })();
-        script; ?>
+script;
+?>
         <?php } ?>
 
     <?php } else { ?>
         <?php $script .= <<<script
         window.mfGtmUserCookiesAllowed = true;
         mfLoadGtm();
-        script; ?>
+script;
+?>
     <?php } ?>
     <?php $script .= <<<script
     
@@ -151,7 +157,8 @@ $script = '';
 
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
-    script; ?>
+script;
+?>
         <?php if ($block->getPublicId()) { ?>
             <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
             <?php $script .= <<<script
@@ -160,14 +167,16 @@ $script = '';
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 'https:' + '/' + '/' + 'www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','{$escaper->escapeHtml($block->getPublicId())}');
-            script; ?>
+script;
+?>
             <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
                 <?php $script .= $block->getGtmScript(); ?>
             <?php } ?>
         <?php } ?>
     <?php $script .= <<<script
     }
-    script; ?>
+script;
+?>
 <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 
 <?php if (!$mfHyvaThemeDetection->execute()) { ?>
@@ -186,7 +195,8 @@ $script = '';
             }.bind(this));
             updateMfGtmCustomerIdentifier(customerData());
         });
-    script; ?>
+script;
+?>
     <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 <?php } else { ?>
     <?php $script = <<<script
@@ -204,7 +214,8 @@ $script = '';
         }
         window.addEventListener("private-content-loaded", mfHyvaGtmSetCustomerIdentifier);
         /* End Hyva code */
-    script; ?>
+script;
+?>
     <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 <?php } ?>
 <!-- End Google Tag Manager -->

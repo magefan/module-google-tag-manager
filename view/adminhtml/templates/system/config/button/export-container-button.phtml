@@ -32,7 +32,8 @@ if (!isset($escaper)) {
                 window.location='{$escaper->escapeUrl($block->getContainerGenerateUrl())}';
             });
         });
-    script; ?>
+script;
+?>
     <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 </div>
 
