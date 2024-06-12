@@ -62,10 +62,10 @@ abstract class AbstractDataLayer extends AbstractBlock
             if ($dataLayer) {
                 $json = json_encode($dataLayer);
                 $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
-                $script = <<<script
+                $script = '
                     window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({$json});
-script;
+                    window.dataLayer.push(' . $json . ');
+                ';
                 return $this->mfSecureRenderer->renderTag('script', ['style' => 'display:none'], $script, false);
             }
         }

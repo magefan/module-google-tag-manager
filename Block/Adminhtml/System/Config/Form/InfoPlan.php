@@ -49,7 +49,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
             ? 'This option is available in <strong>Extra</strong> plan only.'
             : 'This option is available in <strong>Plus or Extra</strong> plans only.';
 
-        $script = <<<script
+        $script = '
                 require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                     setInterval(function(){
                         var plusSection = $("#{$this->getSectionId()}-state").parent(".section-config");
@@ -78,7 +78,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                         });
                     }, 1000);
                 });
-script;
+        ';
 
         $html .= $this->mfSecureRenderer->renderTag('script', [], $script, false);
 

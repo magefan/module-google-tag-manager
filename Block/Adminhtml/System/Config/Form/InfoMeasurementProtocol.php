@@ -47,7 +47,7 @@ class InfoMeasurementProtocol extends InfoPlan
         $html .= 'GA4 Measurement Protocol is not available while <a href="#mfgoogletagmanager_server_container-head">GTM Server Container</a> is enabled.';
         $html .= '</div>';
 
-        $script = <<<script
+        $script = '
             require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                 setInterval(function(){
                     if (parseInt($("#mfgoogletagmanager_server_container_enabled").val())) {
@@ -57,7 +57,7 @@ class InfoMeasurementProtocol extends InfoPlan
                     }
                 }, 1000);
             });
-script;
+        ';
 
         $html .= $this->mfSecureRenderer->renderTag('script', [], $script, false);
 
