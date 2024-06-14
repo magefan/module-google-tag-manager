@@ -88,7 +88,7 @@ $script = '';
                     }
                 }
                 return '';
-            }
+            };
 
             function customerDataAllowed() {
                 let cookie = getCookieValue(
@@ -101,8 +101,8 @@ $script = '';
                     }
                 }
 
-                return false
-            }
+                return false;
+            };
 
             function grantConsent()
             {
@@ -116,7 +116,7 @@ $script = '';
                     'personalization_storage': 'granted',
                     'security_storage': 'granted'
                 });
-            }
+            };
 
             if (customerDataAllowed()) {
                 grantConsent();
@@ -128,7 +128,7 @@ $script = '';
                     grantConsent();
                     mfLoadGtm();
                 }, 1000);
-            }
+            };
         })();
         "; ?>
     <?php } ?>
@@ -143,7 +143,7 @@ $script = '';
     
     function getMfGtmCustomerIdentifier() {
         return localStorage.getItem('mf_gtm_customer_identifier') ? localStorage.getItem('mf_gtm_customer_identifier') : null;
-    }
+    };
 
     function mfLoadGtm() {
         if (!window.mfGtmUserActionDetected) return false;
@@ -166,7 +166,7 @@ $script = '';
     <?php } ?>
 <?php } ?>
 <?php $script .= "
-    }
+    };
     "; ?>
 <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 
@@ -201,7 +201,7 @@ $script = '';
                     return;
                 }
             }
-        }
+        };
         window.addEventListener('private-content-loaded', mfHyvaGtmSetCustomerIdentifier);
         /* End Hyva code */
     "; ?>
