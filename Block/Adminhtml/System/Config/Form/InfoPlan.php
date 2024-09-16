@@ -64,7 +64,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                             if ($(this).data("mffdisabled")) return;
                             $(this).data("mffdisabled", 1);
                             $(this).click(function(){
-                                $(this).val($(this).data("mfOldValue"));     
+                                $(this).val($(this).data("mfOldValue")).trigger("change");     
                                 alert({
                                     title: "You cannot use this option.",
                                     content: "' . $optionAvailableInText . '",
