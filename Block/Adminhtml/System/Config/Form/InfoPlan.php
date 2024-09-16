@@ -52,20 +52,22 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
         $script = '
                 require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                     setInterval(function(){
-                        var plusSection = $("#{$this->getSectionId()}-state").parent(".section-config");
-                        if (!plusSection.length) {
-                            plusSection = $("#{$this->getSectionId()}").parents("tr:first");
+                        var $section = $("#' . $this->getSectionId() . '-state").parent(".section-config");
+                        if (!$section.length) {
+                            $section = $("#' . $this->getSectionId() . '").parents("tr:first");
                         }
-                        plusSection.find(".use-default").css("visibility", "hidden");
-                        plusSection.find("input,select").each(function(){
+                        
+                        $section.find(".use-default").css("visibility", "hidden");
+                        $section.find("input,select").each(function(){
                             $(this).attr("readonly", "readonly");
                             $(this).removeAttr("disabled");
-                            if ($(this).data("gtmdisabled")) return;
-                            $(this).data("gtmdisabled", 1);
+                            if ($(this).data("mffdisabled")) return;
+                            $(this).data("mffdisabled", 1);
                             $(this).click(function(){
+                                $(this).val($(this).data("mfOldValue"));     
                                 alert({
                                     title: "You cannot use this option.",
-                                    content: "{$optionAvailableInText}",
+                                    content: "' . $optionAvailableInText . '",
                                     buttons: [{
                                         text: "Upgrade Plan Now",
                                         class: "action primary accept",
@@ -74,6 +76,8 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
                                         }
                                     }]
                                 });
+                            }).on("focus", function() {
+                                $(this).data("mfOldValue", $(this).val());
                             });
                         });
                     }, 1000);
