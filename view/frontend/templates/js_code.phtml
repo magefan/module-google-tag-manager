@@ -140,7 +140,7 @@ $script = '';
         "; ?>
 <?php } ?>
 <?php $script .= "
-    
+
     function getMfGtmCustomerIdentifier() {
         return localStorage.getItem('mf_gtm_customer_identifier') ? localStorage.getItem('mf_gtm_customer_identifier') : null;
     };
@@ -152,7 +152,7 @@ $script = '';
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
         "; ?>
-<?php if ($block->getPublicId()) { ?>
+<?php if ($block->getConfig()->webContainerEnabled() && $block->getPublicId()) { ?>
     <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
         <?php $script .= "
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -180,7 +180,7 @@ $script = '';
                 }
             }
             let customerData = customer.get('customer');
-    
+
             customerData.subscribe(function (data) {
                 updateMfGtmCustomerIdentifier(data);
             }.bind(this));

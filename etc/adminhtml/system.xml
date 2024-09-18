@@ -33,14 +33,15 @@
             <group id="web_container" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" >
                 <label>Web Container</label>
                 <attribute type="expanded">1</attribute>
-                <!--
-                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Web Container</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                -->
                 <field id="install_gtm" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Google Tag Manager Installation Method</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                     <source_model>Magefan\GoogleTagManager\Model\Config\Source\InstallGtmOptions</source_model>
                 </field>
                 <field id="public_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -68,12 +69,14 @@
                         ]]>
                     </comment>
                     <depends>
+                        <field id="enabled">1</field>
                         <field id="mfgoogletagmanager/web_container/install_gtm">use_public_id</field>
                     </depends>
                 </field>
                 <field id="script_content" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Head Script</label>
                     <depends>
+                        <field id="enabled">1</field>
                         <field id="mfgoogletagmanager/web_container/install_gtm">use_head_and_body_script</field>
                     </depends>
                     <comment>
@@ -95,6 +98,7 @@
                 <field id="noscript_content" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Body Noscript</label>
                     <depends>
+                        <field id="enabled">1</field>
                         <field id="mfgoogletagmanager/web_container/install_gtm">use_head_and_body_script</field>
                     </depends>
                     <comment>
@@ -112,6 +116,9 @@
                 </field>
                 <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Account ID</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                     <comment>
                         <![CDATA[
                             <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> account ID from the GTM Workspace URL path. E.g.<br/>
@@ -121,6 +128,9 @@
                 </field>
                 <field id="container_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Container ID</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
                     <comment>
                         <![CDATA[
                             <p>Please get the <a href="https://tagmanager.google.com/" title="Google Tag Manager" target="_blank">Google Tag Manager</a> container ID from the GTM Workspace URL path. E.g.<br/>
@@ -449,6 +459,9 @@ To create a new secret, navigate in the
             </group>
             <group id="container" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Export Web Container</label>
+                <depends>
+                    <field id="mfgoogletagmanager/web_container/enabled">1</field>
+                </depends>
                 <field id="export" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\ExportWebContainerButton</frontend_model>
                 </field>
