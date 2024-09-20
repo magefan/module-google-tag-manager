@@ -94,7 +94,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function webContainerEnabled(string $storeId = null): bool
+    public function isWebContainerEnabled(string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_WEB_CONTAINER_ENABLED, $storeId);
     }

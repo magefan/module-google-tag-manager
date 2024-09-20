@@ -152,7 +152,7 @@ $script = '';
         if (window.mfGTMTriedToLoad) return;
         window.mfGTMTriedToLoad = true;
         "; ?>
-<?php if ($block->getConfig()->webContainerEnabled() && $block->getPublicId()) { ?>
+<?php if ($block->getConfig()->isWebContainerEnabled() && $block->getPublicId()) { ?>
     <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
         <?php $script .= "
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
