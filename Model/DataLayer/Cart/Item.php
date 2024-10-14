@@ -42,6 +42,9 @@ class Item extends AbstractDataLayer implements ItemInterface
     {
         if ($this->config->isPurchaseTaxEnabled()) {
             $value = (float)$quoteItem->getPriceInclTax();
+            if (!$value) {
+                $value = (float)$quoteItem->getPrice();    
+            }
         } else {
             $value = (float)$quoteItem->getPrice();
         }
