@@ -66,7 +66,7 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             'event' => 'view_cart',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
-                'value' => $this->formatPrice($value),
+                'value' => $this->formatPrice((float)$value),
                 'items' => $items
             ],
             'items_count' => count($items),

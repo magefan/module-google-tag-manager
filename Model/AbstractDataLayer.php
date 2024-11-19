@@ -258,7 +258,7 @@ class AbstractDataLayer
     {
         $priceInfo = $product->getPriceInfo()->getPrice('final_price')->getAmount();
         $price = $priceInfo->getValue();
-        return $this->formatPrice($price);
+        return $this->formatPrice((float)$price);
     }
 
     /**
@@ -274,7 +274,7 @@ class AbstractDataLayer
             $value = $priceInfo->getValue();
         }
 
-        return $this->formatPrice($value);
+        return $this->formatPrice((float)$value);
     }
 
     /**
