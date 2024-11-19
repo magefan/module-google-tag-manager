@@ -45,6 +45,6 @@ class Item extends AbstractDataLayer implements ItemInterface
             $value = (float)$orderItem->getPrice();
         }
 
-        return $this->formatPrice($value);
+        return $this->formatPrice((float)$value);
     }
 }

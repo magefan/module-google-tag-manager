@@ -88,7 +88,7 @@ abstract class AbstractOrder extends AbstractDataLayer
             $orderValue -= $order->getShippingAmount();
         }
 
-        return $this->formatPrice($orderValue);
+        return $this->formatPrice((float)$orderValue);
     }
 
     /**
