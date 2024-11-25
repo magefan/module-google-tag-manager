@@ -104,6 +104,11 @@ class GtmCode extends Template
         return $this->config->isCookieRestrictionModeEnabled();
     }
 
+    /**
+     * Retrieve true if mf cookie consent extension is enabled
+     *
+     * @return bool
+     */
     public function isMfCookieConsentExtensionEnabled()
     {
         return $this->config->isMfCookieConsentExtensionEnabled();
