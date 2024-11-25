@@ -17,6 +17,9 @@ if (!isset($escaper)) {
 
 $script = '';
 ?>
+
+<?= $block->getLayout()->createBlock(\Magefan\Community\Block\JsScript::class)->setMethod('getCookie')->toHtml() ?>
+
 <!-- Google Tag Manager -->
 <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
     <?php $script .= "
@@ -39,28 +42,35 @@ $script = '';
 <?php } ?>
 
 <?php if ($block->isProtectCustomerDataEnabled()) { ?>
-    <?php $script .= "
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('consent', 'default', {
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'ad_storage': 'denied',
-            'analytics_storage': 'denied',
-            /* cookieyes.com start */
+    <?php
+        $script .= "
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+        ";
 
-            'functionality_storage': 'denied',
-            'personalization_storage': 'denied',
-            'security_storage': 'granted',
-            /* cookieyes.com end */
-
-            'wait_for_update': 2000
-        });
-        /* cookieyes.com start */
-        gtag('set', 'ads_data_redaction', true);
-        gtag('set', 'url_passthrough', true);
-        /* cookieyes.com end */
-        "; ?>
+        if (!$block->isMfCookieConsentExtensionEnabled()) {
+            $script .= "
+                gtag('consent', 'default', {
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'ad_storage': 'denied',
+                'analytics_storage': 'denied',
+                /* cookieyes.com start */
+    
+                'functionality_storage': 'denied',
+                'personalization_storage': 'denied',
+                'security_storage': 'granted',
+                /* cookieyes.com end */
+    
+                'wait_for_update': 2000
+                });
+                /* cookieyes.com start */
+                gtag('set', 'ads_data_redaction', true);
+                gtag('set', 'url_passthrough', true);
+                /* cookieyes.com end */
+            ";
+        }
+    ?>
 
     <?php if ($block->isLoadBeforeConsent()) { ?>
         <?php $script .= "
@@ -91,6 +101,10 @@ $script = '';
             };
 
             function customerDataAllowed() {
+                if (MagefanJs.getCookie('mf_cookie_consent') === '1') {
+                    return true;
+                }
+            
                 let cookie = getCookieValue(
                     '{$escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE)}'
                 );
@@ -107,7 +121,10 @@ $script = '';
             function grantConsent()
             {
                 window.mfGtmUserCookiesAllowed = true;
-                gtag('consent', 'update', {
+            ";
+
+            if (!$block->isMfCookieConsentExtensionEnabled()) {
+                $script .= "gtag('consent', 'update', {
                     'ad_user_data': 'granted',
                     'ad_personalization': 'granted',
                     'ad_storage': 'granted',
@@ -115,7 +132,10 @@ $script = '';
                     'functionality_storage': 'granted',
                     'personalization_storage': 'granted',
                     'security_storage': 'granted'
-                });
+                });";
+            }
+
+            $script .= "
             };
 
             if (customerDataAllowed()) {
