@@ -18,6 +18,8 @@ Improve store performance tracking with no-effort.
   * [Change Log](https://magefan.com/magento-2-google-tag-manager/change-log)
   * [FAQs](https://magefan.com/magento-2-google-tag-manager#pattr-faq)
 
+## 🇺🇦 Stand with Ukraine! [How can you help?](https://magefan.com/blog/join-our-donations)
+
 ## Requirements
   * Magento Community 2.3.0-2.4.x (CE, EE, ECE, B2B)
   * [Magefan Community Extension](https://github.com/magefan/module-community) >= v2.1.20. Please install this extension first if you use installation via FTP.
