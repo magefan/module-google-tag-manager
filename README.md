@@ -1,11 +1,7 @@
-# [Magento 2 Google Tag Manager and Google Analytics 4](https://magefan.com/magento-2-google-tag-manager) by Magefan
+# [Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager) by Magefan
 
 [![Total Downloads](https://poser.pugx.org/magefan/module-google-tag-manager/downloads)](https://packagist.org/packages/magefan/module-google-tag-manager)
 [![Latest Stable Version](https://poser.pugx.org/magefan/module-google-tag-manager/v/stable)](https://packagist.org/packages/magefan/module-google-tag-manager)
-
-<a href="https://savelife.in.ua/en/donate-en/#donate-army-card-monthly"><img width="830" height="208" src="https://cm.magefan.com/blog/support-ukraine.png"></a>
-
-<img width="150" height="100" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg">
 
 <img align="right" width="120" height="120" src="https://cm.magefan.com/catalog/product/cache/28b407cef1668fd0bdd6f36db3e8e2f0/i/c/icon-google-tag-manager.jpg">
 
@@ -13,7 +9,14 @@
 
 Improve store performance tracking with no-effort. 
 
-<a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a><a href="https://magefan.com/magento-2-google-tag-manager#live-demo"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/magefan-live-demo.png"></a>
+<img  align="right" width="120" height="70" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg">
+
+<a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a><a href="https://magefan.com/contact?question=request-free-trial&product_id=1934#contact-form-fields"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/free-trial.png">
+
+## Useful Links
+  * [User Guide](https://magefan.com/magento-2-google-tag-manager/documentation)
+  * [Change Log](https://magefan.com/magento-2-google-tag-manager/change-log)
+  * [FAQs](https://magefan.com/magento-2-google-tag-manager#pattr-faq)
 
 ## Requirements
   * Magento Community 2.3.0-2.4.x (CE, EE, ECE, B2B)
@@ -29,10 +32,13 @@ Improve store performance tracking with no-effort.
         </a>
         
 ## Benefits
-* No source code editing 
-* Easier GTM tags implementation
-* Tracking tags export/import
-* Better website performance tracking
+* [Implement tracking tags easier](https://github.com/magefan/module-google-tag-manager#features)
+* [Import/export tracking tags](https://github.com/magefan/module-google-tag-manager#importexport-tracking-tags)
+* [Monitor customer behaviour](https://github.com/magefan/module-google-tag-manager#monitor-customer-behaviour)
+* [Track checkout performance](https://github.com/magefan/module-google-tag-manager#track-checkout-performance)
+* [Track product performance](https://github.com/magefan/module-google-tag-manager#track-product-performance)
+* [Enable dynamic remarketing](https://github.com/magefan/module-google-tag-manager#enable-dynamic-remarketing)
+* [Monitor custom blocks](https://github.com/magefan/module-google-tag-manager#monitor-custom-blocks)
 
 ## Features
 
@@ -114,8 +120,8 @@ Try out our open demo and if you like our extension **please give us some star o
       <td align="center" valign="middle">
         <a href="https://gtm.demo.magefan.top/admin/admin/system_config/edit/section/mfgoogletagmanager/">
           <img
-            src="https://magefan.com/static/version1520969775/frontend/Magefan/new/en_US/images/product-tab-demo-2.jpg"
-            alt="Magento 2 Google Tag manager Admin Panel Demo"
+            src="https://cs.magefan.com/version1732118579/frontend/Magefan/next/en_US/Magefan_CssOptimizer/images/product-tab-demo-2.jpg"
+            alt="Magento 2 Google Tag Manager Admin Panel Demo"
             height="220"
           >
         </a>
