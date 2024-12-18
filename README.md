@@ -154,14 +154,6 @@ https://magefan.com/contact
 ## License
 The code is licensed under [EULA](https://magefan.com/end-user-license-agreement).
 
-## Documentation
-
-**General**
-* [How to install Magento 2 Google Tag Manager Extension?](https://magefan.com/magento-2-google-tag-manager/installation)
-* [How to update Magento 2 Google Tag Manager Extension?](https://magefan.com/magento-2-google-tag-manager/updating)
-* [How to uninstall Magento 2 Google Tag Manager Extension?](https://magefan.com/magento-2-google-tag-manager/uninstalling)
-
-
 ## [Magento 2 Extensions](https://magefan.com/magento-2-extensions) by Magefan
 
 ### [Magento 2 Google Extensions](https://magefan.com/magento-2-extensions/google-extensions)
