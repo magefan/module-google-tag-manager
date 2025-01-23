@@ -53,7 +53,7 @@ class Item extends AbstractDataLayer implements ItemInterface
         if (!$value && ($quoteItemProduct = $quoteItem->getProduct())) {
             return $this->getProductValue($quoteItemProduct);
         } else {
-            return $this->formatPrice($value);
+            return $this->formatPrice((float)$value);
         }
     }
 }
