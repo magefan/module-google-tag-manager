@@ -105,6 +105,16 @@ class GtmCode extends Template
     }
 
     /**
+     * Retrieve true if mf cookie consent extension is enabled
+     *
+     * @return bool
+     */
+    public function isMfCookieConsentExtensionEnabled()
+    {
+        return $this->config->isMfCookieConsentExtensionEnabled();
+    }
+
+    /**
      * Get current website ID
      *
      * @return int
