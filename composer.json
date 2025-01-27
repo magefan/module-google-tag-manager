@@ -9,9 +9,9 @@
             "email": "support@magefan.com"
         }
     ],
-    "version": "2.6.5",
+    "version": "2.6.6",
     "require": {
-        "magefan/module-community" : ">=2.1.30"
+        "magefan/module-community" : ">=2.2.4"
     },
     "autoload": {
         "files": [
