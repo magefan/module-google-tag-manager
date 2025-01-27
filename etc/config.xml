@@ -72,11 +72,6 @@
                     <tax_enabled>1</tax_enabled>
                     <track_admin_orders>1</track_admin_orders>
                 </purchase>
-                <track_scroll>
-                    <enabled>0</enabled>
-                    <scroll_direction>vertical</scroll_direction>
-                    <scroll_units>percent</scroll_units>
-                </track_scroll>
             </events>
             <page_speed_optimization>
                 <enabled>0</enabled>
