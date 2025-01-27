@@ -43,26 +43,23 @@ $script = '';
 
 <?php if ($block->isProtectCustomerDataEnabled()) { ?>
     <?php
-        $script .= "
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-        ";
-
         if (!$block->isMfCookieConsentExtensionEnabled()) {
             $script .= "
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
                 gtag('consent', 'default', {
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'ad_storage': 'denied',
-                'analytics_storage': 'denied',
-                /* cookieyes.com start */
-    
-                'functionality_storage': 'denied',
-                'personalization_storage': 'denied',
-                'security_storage': 'granted',
-                /* cookieyes.com end */
-    
-                'wait_for_update': 2000
+                    'ad_user_data': 'denied',
+                    'ad_personalization': 'denied',
+                    'ad_storage': 'denied',
+                    'analytics_storage': 'denied',
+                    /* cookieyes.com start */
+        
+                    'functionality_storage': 'denied',
+                    'personalization_storage': 'denied',
+                    'security_storage': 'granted',
+                    /* cookieyes.com end */
+        
+                    'wait_for_update': 2000
                 });
                 /* cookieyes.com start */
                 gtag('set', 'ads_data_redaction', true);
@@ -82,30 +79,12 @@ $script = '';
     <?php if ($block->isCookieRestrictionModeEnabled()) { ?>
         <?php $script .= "
         (function () {
-            function getCookieValue(cookieName) {
-                let name = cookieName + '=';
-                let cookieSplit = document.cookie.split(';');
-
-                for (let i = 0; i < cookieSplit.length; i++) {
-                    let a = cookieSplit[i];
-
-                    while (a.charAt(0) === ' ') {
-                        a = a.substring(1);
-                    }
-
-                    if (a.indexOf(name) === 0) {
-                        return a.substring(name.length, a.length);
-                    }
-                }
-                return '';
-            };
 
             function customerDataAllowed() {
-                if (MagefanJs.getCookie('mf_cookie_consent') === '1') {
+                if (MagefanJs.getCookie('mf_cookie_consent')) {
                     return true;
-                }
-            
-                let cookie = getCookieValue(
+                };
+                let cookie = MagefanJs.getCookie(
                     '{$escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE)}'
                 );
                 if (cookie) {
