@@ -17,9 +17,6 @@ if (!isset($escaper)) {
 
 $script = '';
 ?>
-
-<?= $block->getLayout()->createBlock(\Magefan\Community\Block\JsScript::class)->setMethod('getCookie')->toHtml() ?>
-
 <!-- Google Tag Manager -->
 <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
     <?php $script .= "
@@ -43,8 +40,8 @@ $script = '';
 
 <?php if ($block->isProtectCustomerDataEnabled()) { ?>
     <?php
-        if (!$block->isMfCookieConsentExtensionEnabled()) {
-            $script .= "
+    if (!$block->isMfCookieConsentExtensionEnabled()) {
+        $script .= "
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('consent', 'default', {
@@ -66,7 +63,7 @@ $script = '';
                 gtag('set', 'url_passthrough', true);
                 /* cookieyes.com end */
             ";
-        }
+    }
     ?>
 
     <?php if ($block->isLoadBeforeConsent()) { ?>
@@ -79,12 +76,29 @@ $script = '';
     <?php if ($block->isCookieRestrictionModeEnabled()) { ?>
         <?php $script .= "
         (function () {
+            function getCookieValue(cookieName) {
+                let name = cookieName + '=';
+                let cookieSplit = document.cookie.split(';');
+
+                for (let i = 0; i < cookieSplit.length; i++) {
+                    let a = cookieSplit[i];
+
+                    while (a.charAt(0) === ' ') {
+                        a = a.substring(1);
+                    }
+
+                    if (a.indexOf(name) === 0) {
+                        return a.substring(name.length, a.length);
+                    }
+                }
+                return '';
+            };
 
             function customerDataAllowed() {
-                if (MagefanJs.getCookie('mf_cookie_consent')) {
+                if (getCookieValue('mf_cookie_consent')) {
                     return true;
                 };
-                let cookie = MagefanJs.getCookie(
+                let cookie = getCookieValue(
                     '{$escaper->escapeHtml(\Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE)}'
                 );
                 if (cookie) {
@@ -102,8 +116,8 @@ $script = '';
                 window.mfGtmUserCookiesAllowed = true;
             ";
 
-            if (!$block->isMfCookieConsentExtensionEnabled()) {
-                $script .= "gtag('consent', 'update', {
+        if (!$block->isMfCookieConsentExtensionEnabled()) {
+            $script .= "gtag('consent', 'update', {
                     'ad_user_data': 'granted',
                     'ad_personalization': 'granted',
                     'ad_storage': 'granted',
@@ -112,9 +126,9 @@ $script = '';
                     'personalization_storage': 'granted',
                     'security_storage': 'granted'
                 });";
-            }
+        }
 
-            $script .= "
+        $script .= "
             };
 
             if (customerDataAllowed()) {
