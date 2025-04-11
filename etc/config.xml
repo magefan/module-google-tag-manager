@@ -71,6 +71,7 @@
                     <shipping_enabled>1</shipping_enabled>
                     <tax_enabled>1</tax_enabled>
                     <track_admin_orders>1</track_admin_orders>
+                    <allowed_order_status>any</allowed_order_status>
                 </purchase>
             </events>
             <page_speed_optimization>
