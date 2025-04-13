@@ -417,7 +417,6 @@ To create a new secret, navigate in the
                         <source_model>Magefan\GoogleTagManager\Model\Config\Source\OrderStatuses</source_model>
                         <comment><![CDATA[
                             <p>Only orders with this status will be tracked.</p>
-                            <p><strong>Note:</strong> This option will be ignored if the GTM Server Container or the Measurement Protocol is disabled.</p>
                         ]]>
                         </comment>
                     </field>
