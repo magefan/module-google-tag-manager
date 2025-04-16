@@ -60,6 +60,7 @@
                 <value id="mg-google-nl" type="host">*.google.nl</value>
                 <value id="mg-google-be" type="host">*.google.be</value>
                 <value id="mg-google-de" type="host">*.google.de</value>
+                <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
             </values>
         </policy>
     </policies>
