@@ -45,6 +45,7 @@
                 <value id="mg-google-de" type="host">*.google.de</value>
                 <value id="mg-gstatic-com" type="host">*.gstatic.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
+                <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
             </values>
         </policy>
         <policy id="font-src">
