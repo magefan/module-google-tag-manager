@@ -406,14 +406,14 @@ To create a new secret, navigate in the
                         <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoTrackAdminOrders</frontend_model>
                     </field>
                     <field id="track_admin_orders" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Track Admin Orders (GTM Extra) </label>
+                        <label>Track Admin Orders (GTM Extra)</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
                     <field id="info_allowed_order_status" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                         <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoAllowedOrderStatus</frontend_model>
                     </field>
                     <field id="allowed_order_status" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Allowed Order Status (Extra) </label>
+                        <label>Allowed Order Status (GTM Extra)</label>
                         <source_model>Magefan\GoogleTagManager\Model\Config\Source\OrderStatuses</source_model>
                         <comment><![CDATA[
                             <p>Only orders with this status will be tracked.</p>
