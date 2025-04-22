@@ -282,7 +282,7 @@ class Config
     public function isMfCookieConsentExtensionEnabled(string $storeId = null)
     {
         return $this->moduleManager->isEnabled('Magefan_CookieConsent')
-            && $this->getConfig(self::XML_PATH_MF_COOKIE_CONSENT_EXTENSION_ENABLED , $storeId);
+            && $this->getConfig(self::XML_PATH_MF_COOKIE_CONSENT_EXTENSION_ENABLED, $storeId);
     }
 
     /*
