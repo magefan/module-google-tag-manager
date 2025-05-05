@@ -78,10 +78,10 @@ class AbstractDataLayer
         Config                      $config,
         StoreManagerInterface       $storeManager,
         CategoryRepositoryInterface $categoryRepository,
-        RequestInterface            $request = null,
-        Registry                    $registry = null,
-        Session                     $session = null,
-        GroupRepository             $groupRepository = null
+        ?RequestInterface            $request = null,
+        ?Registry                    $registry = null,
+        ?Session                     $session = null,
+        ?GroupRepository             $groupRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;

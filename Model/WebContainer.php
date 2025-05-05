@@ -54,7 +54,7 @@ class WebContainer implements ContainerInterface
      * @return array
      * @throws NoSuchEntityException
      */
-    public function generate(string $storeId = null): array
+    public function generate(?string $storeId = null): array
     {
         $store = $this->storeManager->getStore($storeId);
         $timestamp = (string)$this->dateTime->timestamp();
@@ -192,7 +192,7 @@ class WebContainer implements ContainerInterface
         string $accountId,
         string $containerId,
         string $timestamp,
-        string $storeId = null
+        ?string $storeId = null
     ): array {
         return [
             [
@@ -300,7 +300,7 @@ class WebContainer implements ContainerInterface
         string $accountId,
         string $containerId,
         string $timestamp,
-        string $storeId = null
+        ?string $storeId = null
     ): array {
         return [
             [
