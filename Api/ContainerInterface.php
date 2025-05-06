@@ -19,5 +19,5 @@ interface ContainerInterface
      * @return array
      * @throws NoSuchEntityException
      */
-    public function generate(string $storeId = null): array;
+    public function generate(?string $storeId = null): array;
 }

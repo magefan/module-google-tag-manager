@@ -35,7 +35,7 @@ abstract class AbstractDataLayer extends AbstractBlock
         Context $context,
         Config $config,
         array $data = [],
-        SecureHtmlRendererInterface $mfSecureRenderer = null
+        ?SecureHtmlRendererInterface $mfSecureRenderer = null
     ) {
         $this->config = $config;
         $this->mfSecureRenderer = $mfSecureRenderer ?: \Magento\Framework\App\ObjectManager::getInstance()

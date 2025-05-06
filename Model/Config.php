@@ -97,7 +97,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isEnabled(string $storeId = null): bool
+    public function isEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EXTENSION_ENABLED, $storeId);
     }
@@ -108,7 +108,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isWebContainerEnabled(string $storeId = null): bool
+    public function isWebContainerEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_WEB_CONTAINER_ENABLED, $storeId);
     }
@@ -119,7 +119,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getAccountId(string $storeId = null): string
+    public function getAccountId(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ACCOUNT_ID, $storeId));
     }
@@ -130,7 +130,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getContainerId(string $storeId = null): string
+    public function getContainerId(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_CONTAINER_ID, $storeId));
     }
@@ -139,7 +139,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getPublicId(string $storeId = null): string
+    public function getPublicId(?string $storeId = null): string
     {
         if ('use_public_id' === $this->getInstallGtm()) {
             return trim((string)$this->getConfig(self::XML_PATH_WEB_PUBLIC_ID, $storeId));
@@ -162,7 +162,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getGtmScript(string $storeId = null): string
+    public function getGtmScript(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_SCRIPT_CONTENT, $storeId));
     }
@@ -171,7 +171,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getGtmNoScript(string $storeId = null): string
+    public function getGtmNoScript(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_NO_SCRIPT_CONTENT, $storeId));
     }
@@ -182,7 +182,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isAnalyticsEnabled(string $storeId = null): bool
+    public function isAnalyticsEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_ANALYTICS_ENABLE, $storeId);
     }
@@ -193,7 +193,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getMeasurementId(string $storeId = null): string
+    public function getMeasurementId(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ANALYTICS_MEASUREMENT_ID, $storeId));
     }
@@ -202,7 +202,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isPurchaseTaxEnabled(string $storeId = null): bool
+    public function isPurchaseTaxEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EVENTS_PURCHASE_TAX_ENABLED, $storeId);
     }
@@ -211,7 +211,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isPurchaseShippingEnabled(string $storeId = null): bool
+    public function isPurchaseShippingEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED, $storeId);
     }
@@ -222,7 +222,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getProductAttribute(string $storeId = null): string
+    public function getProductAttribute(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ATTRIBUTES_PRODUCT, $storeId));
     }
@@ -233,7 +233,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getBrandAttribute(string $storeId = null): string
+    public function getBrandAttribute(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ATTRIBUTES_BRAND, $storeId));
     }
@@ -244,7 +244,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isProtectCustomerDataEnabled(string $storeId = null): bool
+    public function isProtectCustomerDataEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_PROTECT_CUSTOMER_DATA, $storeId);
     }
@@ -255,7 +255,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isLoadBeforeConsent(string $storeId = null): bool
+    public function isLoadBeforeConsent(?string $storeId = null): bool
     {
         return $this->getConfig(self::XML_PATH_LOAD_BEFORE_CONSENT, $storeId) ||
             !$this->isCookieRestrictionModeEnabled($storeId);
@@ -268,7 +268,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isCookieRestrictionModeEnabled(string $storeId = null)
+    public function isCookieRestrictionModeEnabled(?string $storeId = null)
     {
         return (bool)$this->getConfig(Custom::XML_PATH_WEB_COOKIE_RESTRICTION, $storeId);
     }
@@ -279,7 +279,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isMfCookieConsentExtensionEnabled(string $storeId = null)
+    public function isMfCookieConsentExtensionEnabled(?string $storeId = null)
     {
         return $this->moduleManager->isEnabled('Magefan_CookieConsent')
             && $this->getConfig(self::XML_PATH_MF_COOKIE_CONSENT_EXTENSION_ENABLED, $storeId);
@@ -291,7 +291,7 @@ class Config
      * @param string|null $storeId
      * @return string
      */
-    public function getCategoriesAttribute(string $storeId = null): string
+    public function getCategoriesAttribute(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ATTRIBUTES_CATEGORIES, $storeId));
     }
@@ -300,7 +300,7 @@ class Config
      * @param string|null $storeId
      * @return int
      */
-    public function getInstallGtm(string $storeId = null): string
+    public function getInstallGtm(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_INSTALL_GTM, $storeId));
     }
@@ -312,7 +312,7 @@ class Config
      * @param string|null $storeId
      * @return mixed
      */
-    public function getConfig(string $path, string $storeId = null)
+    public function getConfig(string $path, ?string $storeId = null)
     {
         return $this->scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE, $storeId);
     }
@@ -323,7 +323,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isSpeedOptimizationEnabled(string $storeId = null): bool
+    public function isSpeedOptimizationEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_SPEED_OPTIMIZATION_ENABLED, $storeId);
     }
@@ -332,7 +332,7 @@ class Config
      * @param string|null $storeId
      * @return bool
      */
-    public function isThirdPartyGaEnabled(string $storeId = null): bool
+    public function isThirdPartyGaEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_THIRD_PARTY_GA, $storeId);
     }
