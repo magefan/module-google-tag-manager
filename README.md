@@ -185,11 +185,13 @@ The code is licensed under [EULA](https://magefan.com/end-user-license-agreement
 
   ### [Magento 2 Admin Panel Extensions](https://magefan.com/magento-2-extensions/admin-extensions)
 
+  
+  * [Magento 2 Size Chart Extension](https://magefan.com/magento-2-size-chart)
   * [Magento 2 Security Extension](https://magefan.com/magento-2-security-extension)
   * [Magento 2 Admin Action Log](https://magefan.com/magento-2-admin-action-log)
   * [Magento 2 Order Editor](https://magefan.com/magento-2-edit-order-extension)
   * [Magento 2 Better Order Grid](https://magefan.com/magento-2-better-order-grid-extension)
-  * [Magento 2 Extended Proruct Grid](https://magefan.com/magento-2-product-grid-inline-editor)
+  * [Magento 2 Extended Product Grid](https://magefan.com/magento-2-product-grid-inline-editor)
   * [Magento 2 Product Tabs](https://magefan.com/magento-2/extensions/product-tabs)
   * [Magento 2 Facebook Pixel](https://magefan.com/magento-2-facebook-pixel-extension)
   * [Magento 2 Email Attachments](https://magefan.com/magento-2-email-attachments)
