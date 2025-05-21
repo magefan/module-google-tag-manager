@@ -62,9 +62,18 @@ abstract class AbstractDataLayer extends AbstractBlock
             if ($dataLayer) {
                 $json = json_encode($dataLayer);
                 $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
+                $intervalSuffix = md5($this->getNameInLayout()) . rand();
                 $script = '
                     window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push(' . $json . ');
+                    const mfDataLayerPushInterval' . $intervalSuffix . ' = setInterval(function() {
+                        if (!window.dataLayer) return;
+            
+                        const cookieConsentUpdated = window.dataLayer.some(entry => entry.event === "cookie_consent_update");
+                        if (cookieConsentUpdated) { 
+                            clearInterval(mfDataLayerPushInterval' . $intervalSuffix . ');
+                            window.dataLayer.push(' . $json . ');
+                        }
+                    }, 200);
                 ';
                 return $this->mfSecureRenderer->renderTag('script', ['style' => 'display:none'], $script, false);
             }
