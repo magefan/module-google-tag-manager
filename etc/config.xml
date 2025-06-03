@@ -16,6 +16,9 @@
             <web_container>
                 <enabled>1</enabled>
                 <install_gtm>use_public_id</install_gtm>
+                <gtg_container>
+                    <enabled>1</enabled>
+                </gtg_container>
                 <script_content/>
                 <noscript_content/>
                 <enable>1</enable>

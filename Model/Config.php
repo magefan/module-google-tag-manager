@@ -30,6 +30,7 @@ class Config
     public const XML_PATH_WEB_PUBLIC_ID = 'mfgoogletagmanager/web_container/public_id';
     public const XML_PATH_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/script_content';
     public const XML_PATH_NO_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/noscript_content';
+    public const XML_PATH_GOOGLE_TAG_GATEWAY = 'mfgoogletagmanager/web_container/gtg_container/enabled';
 
     /**
      * Analytics config
@@ -335,5 +336,18 @@ class Config
     public function isThirdPartyGaEnabled(?string $storeId = null): bool
     {
         return (bool)$this->getConfig(self::XML_PATH_THIRD_PARTY_GA, $storeId);
+    }
+
+    /**
+     * @param string|null $storeId
+     * @return bool
+     */
+    public function isGoogleTagGatewayEnabled(?string $storeId = null): bool
+    {
+        if ($this->moduleManager->isEnabled('Magefan_GoogleTagManagerExtra')) {
+            return (bool)$this->getConfig(self::XML_PATH_GOOGLE_TAG_GATEWAY, $storeId);
+        }
+
+        return false;
     }
 }
