@@ -68,10 +68,6 @@
                             If you want to paste the GTM script and noscript manually please use the "Head Script and Body Noscript" option as Google Tag Manager Installation Method.
                         ]]>
                     </comment>
-                    <depends>
-                        <field id="enabled">1</field>
-                        <field id="mfgoogletagmanager/web_container/install_gtm">use_public_id</field>
-                    </depends>
                 </field>
                 <field id="script_content" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Head Script</label>
@@ -138,6 +134,26 @@
                         ]]>
                     </comment>
                 </field>
+                <group id="gtg_container" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" >
+                    <label>Google Tag Gateway</label>
+                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\GoogleTagGateway</frontend_model>
+                    </field>
+                    <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[
+                        <p>Enable server-side tagging via
+                        <a href="https://developers.google.com/tag-platform/tag-manager/gateway/setup-guide?setup=manual" title="Google Tag Gateway" target="_blank">Google Tag Gateway</a>
+                         to improve data accuracy, user privacy, and performance by routing measurement data
+                         through your server instead of the client.</p>]]>
+                        </comment>
+                        <depends>
+                            <field id="mfgoogletagmanager/web_container/enabled">1</field>
+                            <field id="mfgoogletagmanager/web_container/install_gtm">use_public_id</field>
+                        </depends>
+                    </field>
+                </group>
             </group>
             <group id="server_container" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1" >
                 <label>Server Container (GTM Extra)</label>

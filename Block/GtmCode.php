@@ -127,6 +127,15 @@ class GtmCode extends Template
 
     /**
      * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getBaseUrl(): string
+    {
+        return (string)$this->_storeManager->getStore()->getBaseUrl();
+    }
+
+    /**
+     * @return string
      */
     protected function _toHtml(): string
     {
@@ -154,5 +163,24 @@ class GtmCode extends Template
     public function isSpeedOptimizationEnabled(): bool
     {
         return (bool)$this->config->isSpeedOptimizationEnabled();
+    }
+
+    /**
+     * @return string
+     * @throws NoSuchEntityException
+     */
+    public function getGtmJs(): string
+    {
+        $response = '';
+        if ($this->getConfig()->isGoogleTagGatewayEnabled()) {
+            $baseUrl = $this->getBaseUrl();
+            if ($baseUrl) {
+                $response = $baseUrl . "/mfgtmproxy/";
+            }
+        } else {
+            $response .="https://www.googletagmanager.com/gtm.js";
+        }
+
+        return (string)$response;
     }
 }
