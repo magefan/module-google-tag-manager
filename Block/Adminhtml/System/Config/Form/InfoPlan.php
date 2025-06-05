@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form;
 
+use Magefan\Community\Api\SecureHtmlRendererInterface;
+
 abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config\Form\Info
 {
     /**
@@ -18,7 +20,7 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
     /**
      * @return string
      */
-    abstract protected function getSectionId(): string;
+    abstract protected function getSectionsJson(): string;
 
     /**
      * @return string
@@ -40,9 +42,9 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
         $html = '';
 
         if ($text = $this->getText()) {
-            $html .= '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">';
-            $html .= $text . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
-            $html .= '</div>';
+            $textHtml = '<div style="padding:10px;background-color:#f8f8f8;border:1px solid #ddd;margin-bottom:7px;">';
+            $textHtml .= $text . ' <a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular" target="_blank">Read more</a>.';
+            $textHtml .= '</div>';
         }
 
         $optionAvailableInText = ($this->getMinPlan() == 'Extra')
@@ -52,32 +54,42 @@ abstract class InfoPlan extends \Magefan\Community\Block\Adminhtml\System\Config
         $script = '
                 require(["jquery", "Magento_Ui/js/modal/alert", "domReady!"], function($, alert){
                     setInterval(function(){
-                        var $section = $("#' . $this->getSectionId() . '-state").parent(".section-config");
-                        if (!$section.length) {
-                            $section = $("#' . $this->getSectionId() . '").parents("tr:first");
-                        }
+                        var sections = ' . $this->getSectionsJson() . ';
                         
-                        $section.find(".use-default").css("visibility", "hidden");
-                        $section.find("input,select").each(function(){
-                            $(this).attr("readonly", "readonly");
-                            $(this).removeAttr("disabled");
-                            if ($(this).data("mffdisabled")) return;
-                            $(this).data("mffdisabled", 1);
-                            $(this).click(function(){
-                                $(this).val($(this).data("mfOldValue")).trigger("change");     
-                                alert({
-                                    title: "You cannot use this option.",
-                                    content: "' . $optionAvailableInText . '",
-                                    buttons: [{
-                                        text: "Upgrade Plan Now",
-                                        class: "action primary accept",
-                                        click: function () {
-                                            window.open("https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular");
-                                        }
-                                    }]
+                        sections.forEach(function(sectionId) {
+                            var $section = $("#" + sectionId + "-state").parent(".section-config");
+                            if (!$section.length) {
+                                $section = $("#" + sectionId).parents("tr:first");
+                            } else {
+                                var $fieldset = $section.find("fieldset:first");
+                                if (!$fieldset.data("mfftext")) {
+                                    $fieldset.data("mfftext", 1);
+                                    $fieldset.prepend(\'' . $textHtml . '\');
+                                }
+                            }
+                            
+                            $section.find(".use-default").css("visibility", "hidden");
+                            $section.find("input,select").each(function(){
+                                $(this).attr("readonly", "readonly");
+                                $(this).removeAttr("disabled");
+                                if ($(this).data("mffdisabled")) return;
+                                $(this).data("mffdisabled", 1);
+                                $(this).click(function(){
+                                    $(this).val($(this).data("mfOldValue")).trigger("change");     
+                                    alert({
+                                        title: "You cannot use this option.",
+                                        content: "' . $optionAvailableInText . '",
+                                        buttons: [{
+                                            text: "Upgrade Plan Now",
+                                            class: "action primary accept",
+                                            click: function () {
+                                                window.open("https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=gtm_config&utm_medium=link&utm_campaign=regular");
+                                            }
+                                        }]
+                                    });
+                                }).on("focus", function() {
+                                    $(this).data("mfOldValue", $(this).val());
                                 });
-                            }).on("focus", function() {
-                                $(this).data("mfOldValue", $(this).val());
                             });
                         });
                     }, 1000);

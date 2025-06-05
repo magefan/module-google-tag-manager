@@ -8,29 +8,30 @@ declare(strict_types=1);
 
 namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form;
 
-class GoogleTagGateway extends InfoPlan
+class InfoPlanPlus extends InfoPlan
 {
+
     /**
      * @return string
      */
     protected function getMinPlan(): string
     {
-        return 'Extra';
+        return 'Plus';
     }
 
     /**
      * @return string
      */
-    protected function getSectionId(): string
+    protected function getSectionsJson(): string
     {
-        return 'mfgoogletagmanager_web_container_gtg_container';
+        $sections = json_encode([
+            'mfgoogletagmanager_ads',
+        ]);
+        return $sections;
     }
 
-    /**
-     * @return string
-     */
     protected function getText(): string
     {
-        return 'Google Tag Gateway option is available in <strong>Extra</strong> plan only.';
+        return (string)__("This option is available in <strong>Plus or Extra</strong> plans only.");
     }
 }

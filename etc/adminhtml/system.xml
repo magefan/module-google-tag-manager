@@ -18,6 +18,12 @@
                 <field id="version" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Info</frontend_model>
                 </field>
+                <field id="infoPlus" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoPlanPlus</frontend_model>
+                </field>
+                <field id="infoExtra" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoPlanExtra</frontend_model>
+                </field>
                 <field id="attention" translate="label comment" type="text" sortOrder="9999" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\Attention</frontend_model>
                 </field>
@@ -134,32 +140,21 @@
                         ]]>
                     </comment>
                 </field>
-                <group id="gtg_container" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" >
-                    <label>Google Tag Gateway</label>
-                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\GoogleTagGateway</frontend_model>
-                    </field>
-                    <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Enable</label>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <comment><![CDATA[
-                        <p>Enable server-side tagging via
-                        <a href="https://developers.google.com/tag-platform/tag-manager/gateway/setup-guide?setup=manual" title="Google Tag Gateway" target="_blank">Google Tag Gateway</a>
-                         to improve data accuracy, user privacy, and performance by routing measurement data
-                         through your server instead of the client.</p>]]>
-                        </comment>
-                        <depends>
-                            <field id="mfgoogletagmanager/web_container/enabled">1</field>
-                            <field id="mfgoogletagmanager/web_container/install_gtm">use_public_id</field>
-                        </depends>
-                    </field>
-                </group>
+                <field id="gtg_enabled" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Google Tag Gateway</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[
+                        We recommend Google tag gateway for the most durable tag configuration. Read more about  <a href="https://developers.google.com/tag-platform/tag-manager/gateway/setup-guide?setup=manual" title="Google Tag Gateway" target="_blank">Google tag gateway</a>.
+                        ]]>
+                    </comment>
+                    <depends>
+                        <field id="mfgoogletagmanager/web_container/enabled">1</field>
+                        <field id="mfgoogletagmanager/web_container/install_gtm">use_public_id</field>
+                    </depends>
+                </field>
             </group>
             <group id="server_container" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1" >
                 <label>Server Container (GTM Extra)</label>
-                <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoServerContainer</frontend_model>
-                </field>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Enable Server Container</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -279,11 +274,9 @@
                 <group id="measurement_protocol" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Measurement Protocol (GTM Extra)</label>
                     <attribute type="expanded">1</attribute>
-
                     <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                         <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoMeasurementProtocol</frontend_model>
                     </field>
-
                     <field id="measurement_enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Enabled</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -314,10 +307,6 @@ To create a new secret, navigate in the
             </group>
             <group id="ads" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Google Ads (GTM Plus)</label>
-                <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoGoogleAds</frontend_model>
-                </field>
-
                 <field id="tag_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Tag ID</label>
                     <comment><![CDATA[
@@ -418,15 +407,9 @@ To create a new secret, navigate in the
                         <comment>If enabled, TAX price amount will be included into purchase value (the monetary value of the event).</comment>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     </field>
-                    <field id="info" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoTrackAdminOrders</frontend_model>
-                    </field>
                     <field id="track_admin_orders" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Track Admin Orders (GTM Extra)</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                    </field>
-                    <field id="info_allowed_order_status" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\InfoAllowedOrderStatus</frontend_model>
                     </field>
                     <field id="allowed_order_status" translate="label" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Allowed Order Status (GTM Extra)</label>
