@@ -30,7 +30,7 @@ class Config
     public const XML_PATH_WEB_PUBLIC_ID = 'mfgoogletagmanager/web_container/public_id';
     public const XML_PATH_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/script_content';
     public const XML_PATH_NO_SCRIPT_CONTENT = 'mfgoogletagmanager/web_container/noscript_content';
-    public const XML_PATH_GOOGLE_TAG_GATEWAY = 'mfgoogletagmanager/web_container/gtg_container/enabled';
+    public const XML_PATH_GOOGLE_TAG_GATEWAY = 'mfgoogletagmanager/web_container/gtg_enabled';
 
     /**
      * Analytics config

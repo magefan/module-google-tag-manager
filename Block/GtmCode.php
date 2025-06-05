@@ -51,6 +51,8 @@ class GtmCode extends Template
                 $gtmScript = str_replace($part, '', $gtmScript);
             }
 
+            $gtmScript = str_replace($this->getGtmJsUrl(true), $this->getGtmJsUrl(), $gtmScript);
+
             return $gtmScript;
         }
 
@@ -127,15 +129,6 @@ class GtmCode extends Template
 
     /**
      * @return string
-     * @throws NoSuchEntityException
-     */
-    public function getBaseUrl(): string
-    {
-        return (string)$this->_storeManager->getStore()->getBaseUrl();
-    }
-
-    /**
-     * @return string
      */
     protected function _toHtml(): string
     {
@@ -165,22 +158,18 @@ class GtmCode extends Template
         return (bool)$this->config->isSpeedOptimizationEnabled();
     }
 
+
     /**
+     * @param $origin
      * @return string
      * @throws NoSuchEntityException
      */
-    public function getGtmJs(): string
+    public function getGtmJsUrl($origin = false): string
     {
-        $response = '';
-        if ($this->getConfig()->isGoogleTagGatewayEnabled()) {
-            $baseUrl = $this->getBaseUrl();
-            if ($baseUrl) {
-                $response = $baseUrl . "/mfgtmproxy/";
-            }
+        if (!$origin && $this->getConfig()->isGoogleTagGatewayEnabled()) {
+            return $this->_storeManager->getStore()->getBaseUrl()  . '/mfgtmproxy/';
         } else {
-            $response .="https://www.googletagmanager.com/gtm.js";
+            return 'https://www.googletagmanager.com/gtm.js';
         }
-
-        return (string)$response;
     }
 }
