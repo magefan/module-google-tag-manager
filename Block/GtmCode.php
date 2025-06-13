@@ -167,7 +167,8 @@ class GtmCode extends Template
     public function getGtmJsUrl($origin = false): string
     {
         if (!$origin && $this->getConfig()->isGoogleTagGatewayEnabled()) {
-            return $this->_storeManager->getStore()->getBaseUrl()  . '/mfgtmproxy/';
+            $code = strrev(str_replace('GTM-', '', $this->getPublicId()));
+            return rtrim($this->_storeManager->getStore()->getBaseUrl(), '/') . '/' . $code . '/mfgtmproxy/';
         } else {
             return 'https://www.googletagmanager.com/gtm.js';
         }

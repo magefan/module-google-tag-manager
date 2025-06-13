@@ -141,7 +141,7 @@
                     </comment>
                 </field>
                 <field id="gtg_enabled" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Enable Google Tag Gateway</label>
+                    <label>Enable Google Tag Gateway (GTM Extra)</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[
                         We recommend Google tag gateway for the most durable tag configuration. Read more about  <a href="https://developers.google.com/tag-platform/tag-manager/gateway/setup-guide?setup=manual" title="Google Tag Gateway" target="_blank">Google tag gateway</a>.
