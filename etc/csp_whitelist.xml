@@ -16,6 +16,8 @@
                 <value id="mg-google-nl" type="host">*.google.nl</value>
                 <value id="mg-google-be" type="host">*.google.be</value>
                 <value id="mg-google-de" type="host">*.google.de</value>
+                <value id="mg-google-it" type="host">*.google.it</value>
+                <value id="mg-google-fr" type="host">*.google.fr</value>
                 <value id="mg-gstatic" type="host">*.gstatic.com</value>
                 <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
@@ -33,6 +35,7 @@
                 <value id="mg-google-com" type="host">*.google.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
                 <value id="mg-googlesyndication-com" type="host">*.googlesyndication.com</value>
+                <value id="merchant-center-analytics" type="host">https://www.merchant-center-analytics.goog</value>
             </values>
         </policy>
         <policy id="img-src">
@@ -43,6 +46,8 @@
                 <value id="mg-google-nl" type="host">*.google.nl</value>
                 <value id="mg-google-be" type="host">*.google.be</value>
                 <value id="mg-google-de" type="host">*.google.de</value>
+                <value id="mg-google-it" type="host">*.google.it</value>
+                <value id="mg-google-fr" type="host">*.google.fr</value>
                 <value id="mg-gstatic-com" type="host">*.gstatic.com</value>
                 <value id="mg-doubleclick-net" type="host">*.doubleclick.net</value>
                 <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
@@ -61,6 +66,8 @@
                 <value id="mg-google-nl" type="host">*.google.nl</value>
                 <value id="mg-google-be" type="host">*.google.be</value>
                 <value id="mg-google-de" type="host">*.google.de</value>
+                <value id="mg-google-it" type="host">*.google.it</value>
+                <value id="mg-google-fr" type="host">*.google.fr</value>
                 <value id="mg-googletagmanager-com" type="host">*.googletagmanager.com</value>
             </values>
         </policy>
