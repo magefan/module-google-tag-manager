@@ -19,6 +19,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class AbstractDataLayer
 {
@@ -58,6 +59,11 @@ class AbstractDataLayer
     protected $groupRepository;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+
+    /**
      * @var string
      */
     protected $customerGroupCode;
@@ -81,7 +87,8 @@ class AbstractDataLayer
         ?RequestInterface            $request = null,
         ?Registry                    $registry = null,
         ?Session                     $session = null,
-        ?GroupRepository             $groupRepository = null
+        ?GroupRepository             $groupRepository = null,
+        ?ProductRepositoryInterface    $productRepository = null,
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -97,6 +104,9 @@ class AbstractDataLayer
         );
         $this->groupRepository = $groupRepository ?: ObjectManager::getInstance()->get(
             GroupRepository::class
+        );
+        $this->productRepository = $productRepository ?: ObjectManager::getInstance()->get(
+            ProductRepositoryInterface::class
         );
     }
 
@@ -182,6 +192,59 @@ class AbstractDataLayer
         }
 
         return $result;
+    }
+
+    /**
+     * Get item variant
+     *
+     * @param $item
+     * @return array
+     * @throws Exception
+     */
+    protected function getItemVariant($item): array
+    {
+        $product = $item->getProduct();
+
+        if (!$product || 'configurable' !== $product->getTypeId()) {
+            return [];
+        }
+
+        $itemVariant = [];
+
+        $productOptions = $item->getProductOptions();
+        if ($productOptions) {
+            if (isset($productOptions['attributes_info']) && is_array($productOptions['attributes_info'])) {
+                foreach ($productOptions['attributes_info'] as $attribute) {
+                    if (isset($attribute['label']) && $attribute['value']) {
+                        $itemVariant[] = $attribute['label'] . ': ' . $attribute['value'];
+                    }
+                }
+            }
+        } else {
+            $simpleProductOption = $item->getOptionByCode('simple_product');
+            if ($simpleProductOption) {
+                $simpleProduct = $simpleProductOption->getProduct();
+                if ($simpleProduct) {
+                    try {
+                        $simpleProduct = $this->productRepository->getById($simpleProduct->getId());
+
+                        $attributes = $product->getTypeInstance()
+                            ->getConfigurableAttributes($product);
+
+                        foreach ($attributes as $attribute) {
+                            $productAttribute = $attribute->getProductAttribute();
+                            $label = $productAttribute->getFrontendLabel();
+                            $value = $productAttribute->getFrontend()->getValue($simpleProduct);
+                            $itemVariant[] = $label . ': ' . $value;
+                        }
+                    } catch (Exception $e) { // phpcs:ignore
+                        /* Do nothing */
+                    }
+                }
+            }
+        }
+
+        return ['item_variant' => implode(',', $itemVariant)];
     }
 
     /**
