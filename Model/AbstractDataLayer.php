@@ -213,6 +213,7 @@ class AbstractDataLayer
 
         $productOptions = $item->getProductOptions();
         if ($productOptions) {
+            //Order Item
             if (isset($productOptions['attributes_info']) && is_array($productOptions['attributes_info'])) {
                 foreach ($productOptions['attributes_info'] as $attribute) {
                     if (isset($attribute['label']) && $attribute['value']) {
@@ -221,6 +222,7 @@ class AbstractDataLayer
                 }
             }
         } else {
+            //Quote Item
             $simpleProductOption = $item->getOptionByCode('simple_product');
             if ($simpleProductOption) {
                 $simpleProduct = $simpleProductOption->getProduct();
