@@ -216,7 +216,7 @@ class AbstractDataLayer
             //Order Item
             if (isset($productOptions['attributes_info']) && is_array($productOptions['attributes_info'])) {
                 foreach ($productOptions['attributes_info'] as $attribute) {
-                    if (isset($attribute['label']) && $attribute['value']) {
+                    if (isset($attribute['label']) && isset($attribute['value'])) {
                         $itemVariant[] = $attribute['label'] . ': ' . $attribute['value'];
                     }
                 }
