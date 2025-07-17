@@ -11,7 +11,7 @@ namespace Magefan\GoogleTagManager\Model\DataLayer\Cart;
 use Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface;
 use Magefan\GoogleTagManager\Model\AbstractDataLayer;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
-
+use Magento\Catalog\Model\Product;
 class Item extends AbstractDataLayer implements ItemInterface
 {
     /**
@@ -55,5 +55,30 @@ class Item extends AbstractDataLayer implements ItemInterface
         } else {
             return $this->formatPrice((float)$value);
         }
+    }
+
+    /**
+     * @param $quoteItem
+     * @return \Magento\Catalog\Api\Data\ProductInterface
+     */
+    protected function getProduct($quoteItem)
+    {
+        $product = $quoteItem->getProduct();
+        if ($product->getTypeId() === 'configurable') {
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $productRepository = $objectManager->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
+            $options = $quoteItem->getOptions();
+            foreach ($options as $option) {
+                if ($option->getCode() === 'simple_product') {
+                    try {
+                        $product = $productRepository->getById($option->getProductId());
+                    } catch (\Exception $e) {
+
+                    }
+                }
+
+            }
+        }
+        return $product;
     }
 }
