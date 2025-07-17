@@ -51,7 +51,7 @@ abstract class AbstractOrder extends AbstractDataLayer
                 $items[] = $this->gtmItem->get($item);
             }
 
-            return $this->eventWrap([
+            $data = [
                 'event' => $this->getEventName(),
                 'ecommerce' => [
                     'transaction_id' => $order->getIncrementId(),
@@ -66,7 +66,13 @@ abstract class AbstractOrder extends AbstractDataLayer
                 'shipping_description' => $order->getShippingDescription(),
                 'customer_is_guest' => (bool)$order->getCustomerIsGuest(),
                 'customer_identifier' => hash('sha256', (string)$order->getCustomerEmail()),
-            ]);
+            ];
+
+            if ($order->getCustomerId()) {
+                $data['customer_id'] = $order->getCustomerId();
+            }
+
+            return $this->eventWrap($data);
         }
 
         return [];

@@ -62,7 +62,7 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             $value += $item['price'] * $item['quantity'];
         }
 
-        return $this->eventWrap([
+        $data = [
             'event' => 'view_cart',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
@@ -73,6 +73,12 @@ class ViewCart extends AbstractDataLayer implements ViewCartInterface
             'items_qty' => $itemsQty,
             'coupon_code' => $quote->getCouponCode() ?: '',
             'customer_identifier' => $quote->getCustomerEmail() ? hash('sha256', (string)$quote->getCustomerEmail()) : ''
-        ]);
+        ];
+
+        if ($quote->getCustomerId()) {
+            $data['customer_id'] = $quote->getCustomerId();
+        }
+
+        return $this->eventWrap($data);
     }
 }

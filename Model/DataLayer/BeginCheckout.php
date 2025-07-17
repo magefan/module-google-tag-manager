@@ -60,7 +60,7 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
             $value += $item['price'] * $item['quantity'];
         }
 
-        return $this->eventWrap([
+        $data = [
             'event' => 'begin_checkout',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
@@ -69,6 +69,12 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
                 'items' => $items
             ],
             'customer_identifier' => $quote->getCustomerEmail() ? hash('sha256', (string)$quote->getCustomerEmail()) : ''
-        ]);
+        ];
+
+        if ($quote->getCustomerId()) {
+            $data['customer_id'] = $quote->getCustomerId();
+        }
+
+        return $this->eventWrap($data);
     }
 }
