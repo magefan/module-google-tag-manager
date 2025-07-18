@@ -10,16 +10,22 @@ namespace Magefan\GoogleTagManager\Model\DataLayer\Cart;
 
 use Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface;
 use Magefan\GoogleTagManager\Model\AbstractDataLayer;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
-use Magento\Catalog\Model\Product;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 class Item extends AbstractDataLayer implements ItemInterface
 {
+    /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+
     /**
      * @inheritDoc
      */
     public function get(QuoteItem $quoteItem): array
     {
-        $product = $quoteItem->getProduct();
+        $product = $this->getProduct($quoteItem);
         $categoryNames = $this->getCategoryNames($product);
         return array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')
@@ -50,7 +56,7 @@ class Item extends AbstractDataLayer implements ItemInterface
         }
 
         //fix for magento 2.3.2 - module-quote/Model/Quote/Item/Processor.php prepareItem does not set price to quote item
-        if (!$value && ($quoteItemProduct = $quoteItem->getProduct())) {
+        if (!$value && ($quoteItemProduct = $this->getProduct($quoteItem))) {
             return $this->getProductValue($quoteItemProduct);
         } else {
             return $this->formatPrice((float)$value);
@@ -64,21 +70,33 @@ class Item extends AbstractDataLayer implements ItemInterface
     protected function getProduct($quoteItem)
     {
         $product = $quoteItem->getProduct();
-        if ($product->getTypeId() === 'configurable') {
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $productRepository = $objectManager->get(\Magento\Catalog\Api\ProductRepositoryInterface::class);
+        if ('configurable' === $product->getTypeId()) {
             $options = $quoteItem->getOptions();
-            foreach ($options as $option) {
-                if ($option->getCode() === 'simple_product') {
-                    try {
-                        $product = $productRepository->getById($option->getProductId());
-                    } catch (\Exception $e) {
+            if ($options) {
+                foreach ($options as $option) {
+                    if ($option->getCode() === 'simple_product') {
+                        try {
+                            $product = $this->getProductRepository()->getById($option->getProductId());
+                            break;
+                        } catch (NoSuchEntityException $e) {
 
+                        }
                     }
                 }
-
             }
         }
         return $product;
+    }
+
+    /**
+     * @return ProductRepositoryInterface
+     */
+    protected function getProductRepository(): ProductRepositoryInterface
+    {
+        if (null === $this->productRepository) {
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $this->productRepository = $objectManager->get(ProductRepositoryInterface::class);
+        }
+        return $this->productRepository ;
     }
 }
