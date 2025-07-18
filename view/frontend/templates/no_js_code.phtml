@@ -15,7 +15,7 @@ if (!isset($escaper)) {
 <?php if ($block->getConfig()->isWebContainerEnabled()
     && $block->getPublicId()
     && (!$block->isProtectCustomerDataEnabled() || $block->isLoadBeforeConsent())
-    && !$this->getConfig()->isGoogleTagGatewayEnabled()
+    && !$block->getConfig()->isGoogleTagGatewayEnabled()
 ) { ?>
     <!-- Google Tag Manager (noscript) -->
     <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>

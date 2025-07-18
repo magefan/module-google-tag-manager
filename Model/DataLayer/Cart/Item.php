@@ -13,6 +13,7 @@ use Magefan\GoogleTagManager\Model\AbstractDataLayer;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+
 class Item extends AbstractDataLayer implements ItemInterface
 {
     /**
