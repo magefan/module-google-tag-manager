@@ -10,6 +10,7 @@ namespace Magefan\GoogleTagManager\Block\DataLayer;
 
 use Magefan\GoogleTagManager\Block\AbstractDataLayer;
 use Magefan\GoogleTagManager\Model\Config;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
@@ -35,6 +36,7 @@ class ViewItem extends AbstractDataLayer
      * @param Config $config
      * @param Registry $registry
      * @param ViewItemInterface $viewItem
+     * @param ProductRepositoryInterface $productRepository
      * @param array $data
      */
     public function __construct(
@@ -42,10 +44,12 @@ class ViewItem extends AbstractDataLayer
         Config $config,
         Registry $registry,
         ViewItemInterface $viewItem,
+        ProductRepositoryInterface $productRepository,
         array $data = []
     ) {
         $this->registry = $registry;
         $this->viewItem = $viewItem;
+        $this->productRepository = $productRepository;
         parent::__construct($context, $config, $data);
     }
 
@@ -67,6 +71,14 @@ class ViewItem extends AbstractDataLayer
      */
     private function getCurrentProduct(): Product
     {
-        return $this->registry->registry('current_product');
+        $product = $this->registry->registry('current_product');
+        if ($productId = $this->_request->getParam('mfpreselect')) {
+            try {
+                $product = $this->productRepository->getById($productId);
+            } catch (\Exception $e) {
+
+            }
+        }
+        return $product;
     }
 }
