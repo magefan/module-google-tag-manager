@@ -12,10 +12,12 @@ use Magefan\GoogleTagManager\Block\AbstractDataLayer;
 use Magefan\GoogleTagManager\Model\Config;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Visibility;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Context;
 use Magefan\GoogleTagManager\Api\DataLayer\ViewItemInterface;
+use Magento\Framework\Module\Manager as ModuleManager;
 
 class ViewItem extends AbstractDataLayer
 {
@@ -45,11 +47,13 @@ class ViewItem extends AbstractDataLayer
         Registry $registry,
         ViewItemInterface $viewItem,
         ProductRepositoryInterface $productRepository,
+        ModuleManager $moduleManager,
         array $data = []
     ) {
         $this->registry = $registry;
         $this->viewItem = $viewItem;
         $this->productRepository = $productRepository;
+        $this->moduleManager = $moduleManager;
         parent::__construct($context, $config, $data);
     }
 
@@ -61,7 +65,26 @@ class ViewItem extends AbstractDataLayer
      */
     protected function getDataLayer(): array
     {
-        return $this->viewItem->get($this->getCurrentProduct());
+        $data = $this->viewItem->get($this->getCurrentProduct());
+        if ($productId = $this->_request->getParam('mfpreselect')) {
+            try {
+                $child = $this->productRepository->getById($productId);
+                $childData = $this->viewItem->get($child);
+                if ($child->getVisibility() == Visibility::VISIBILITY_NOT_VISIBLE &&
+                    isset($data['ecommerce']['items'][0]['item_url'])) {
+                    $childUrl = $data['ecommerce']['items'][0]['item_url'];
+                    if ($this->moduleManager->isEnabled('Magefan_GoogleShoppingFeed')) {
+                        $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
+                        $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
+                    }
+                    $childData['ecommerce']['items'][0]['item_url'] = $childUrl;
+                    $data = $childData;
+                }
+            } catch (NoSuchEntityException $e) {
+
+            }
+        }
+        return $data;
     }
 
     /**
@@ -71,14 +94,6 @@ class ViewItem extends AbstractDataLayer
      */
     private function getCurrentProduct(): Product
     {
-        $product = $this->registry->registry('current_product');
-        if ($productId = $this->_request->getParam('mfpreselect')) {
-            try {
-                $product = $this->productRepository->getById($productId);
-            } catch (NoSuchEntityException $e) {
-
-            }
-        }
-        return $product;
+        return  $this->registry->registry('current_product');
     }
 }
