@@ -31,6 +31,11 @@ class ViewItem extends AbstractDataLayer
     private $viewItem;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
+    /**
      * ViewItem constructor.
      *
      * @param Context $context
