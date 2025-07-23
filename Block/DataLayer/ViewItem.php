@@ -17,7 +17,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Context;
 use Magefan\GoogleTagManager\Api\DataLayer\ViewItemInterface;
-use Magento\Framework\Module\Manager as ModuleManager;
 
 class ViewItem extends AbstractDataLayer
 {
@@ -47,13 +46,11 @@ class ViewItem extends AbstractDataLayer
         Registry $registry,
         ViewItemInterface $viewItem,
         ProductRepositoryInterface $productRepository,
-        ModuleManager $moduleManager,
         array $data = []
     ) {
         $this->registry = $registry;
         $this->viewItem = $viewItem;
         $this->productRepository = $productRepository;
-        $this->moduleManager = $moduleManager;
         parent::__construct($context, $config, $data);
     }
 
@@ -73,13 +70,13 @@ class ViewItem extends AbstractDataLayer
                 if ($child->getVisibility() == Visibility::VISIBILITY_NOT_VISIBLE &&
                     isset($data['ecommerce']['items'][0]['item_url'])) {
                     $childUrl = $data['ecommerce']['items'][0]['item_url'];
-                    if ($this->moduleManager->isEnabled('Magefan_GoogleShoppingFeed')) {
-                        $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
-                        $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
-                    }
+
+                    $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
+                    $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
+   
                     $childData['ecommerce']['items'][0]['item_url'] = $childUrl;
-                    $data = $childData;
                 }
+                $data = $childData;
             } catch (NoSuchEntityException $e) {
 
             }
