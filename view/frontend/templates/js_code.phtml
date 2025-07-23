@@ -126,8 +126,8 @@ $script = '';
 <?php } ?>
 <?php $script .= "
 
-    function getMfGtmCustomerIdentifier() {
-        return localStorage.getItem('mf_gtm_customer_identifier') ? localStorage.getItem('mf_gtm_customer_identifier') : null;
+    function getMfGtmCustomerData() {
+        return localStorage.getItem('mf_gtm_customer_data') ? JSON.parse(localStorage.getItem('mf_gtm_customer_data')) : {};
     };
 
     function mfLoadGtm() {
@@ -159,35 +159,35 @@ $script = '';
     <?php $script = "
         if (!window.MagefanRocketJsCustomOptimization && window.require)
         require(['jquery', 'Magento_Customer/js/customer-data'], function ($, customer) {
-            function updateMfGtmCustomerIdentifier(data) {
-                if (data.mf_gtm_customer_identifier) {
-                    localStorage.setItem('mf_gtm_customer_identifier', data.mf_gtm_customer_identifier);
+            function updateMfGtmCustomerData(data) {
+                if (data.mf_gtm_customer_data) {
+                    localStorage.setItem('mf_gtm_customer_data', JSON.stringify(data.mf_gtm_customer_data));
                 }
             }
             let customerData = customer.get('customer');
 
             customerData.subscribe(function (data) {
-                updateMfGtmCustomerIdentifier(data);
+                updateMfGtmCustomerData(data);
             }.bind(this));
-            updateMfGtmCustomerIdentifier(customerData());
+            updateMfGtmCustomerData(customerData());
         });
     "; ?>
     <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>
 <?php } else { ?>
     <?php $script = "
         /* Hyva code */
-        function mfHyvaGtmSetCustomerIdentifier(event) {
+        function mfHyvaGtmSetCustomerData(event) {
             let data, j;
             let sections = event.detail.data;
             for (j in sections) {
                 data = sections[j];
-                if (data.mf_gtm_customer_identifier) {
-                    localStorage.setItem('mf_gtm_customer_identifier', 'data.mf_gtm_customer_identifier');
+                if (data.mf_gtm_customer_data) {
+                    localStorage.setItem('mf_gtm_customer_data', JSON.stringify(data.mf_gtm_customer_data));
                     return;
                 }
             }
         };
-        window.addEventListener('private-content-loaded', mfHyvaGtmSetCustomerIdentifier);
+        window.addEventListener('private-content-loaded', mfHyvaGtmSetCustomerData);
         /* End Hyva code */
     "; ?>
     <?= /* @noEscape */ $mfSecureRenderer->renderTag('script', [], $script, false) ?>

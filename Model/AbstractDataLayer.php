@@ -387,7 +387,7 @@ class AbstractDataLayer
     protected function addCustomerIdentifier(array $data): array
     {
         if (empty($data['customer_identifier'])) {
-            $data['customer_identifier'] = 'getMfGtmCustomerIdentifier()';
+            $data['customer_identifier'] = 'getMfGtmCustomerData().identifier';
         }
         return $data;
     }
