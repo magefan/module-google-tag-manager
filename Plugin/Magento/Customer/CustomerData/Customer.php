@@ -42,6 +42,7 @@ class Customer
         \Magento\Customer\CustomerData\Customer $subject,
         $result
     ) {
+        return $result;
         if ($this->config->isEnabled()) {
             if ($this->session->getCustomerId()) {
                 $result['mf_gtm_customer_identifier'] = hash('sha256', (string)$this->session->getCustomer()->getEmail());

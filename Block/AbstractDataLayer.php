@@ -61,7 +61,7 @@ abstract class AbstractDataLayer extends AbstractBlock
             $dataLayer = $this->getDataLayer();
             if ($dataLayer) {
                 $json = json_encode($dataLayer);
-                $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
+                $json = preg_replace('/"((getMfGtmCustomerData\(\)\.[^"]+))"/', '$1', $json);
                 $script = '
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push(' . $json . ');
