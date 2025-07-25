@@ -47,6 +47,9 @@ abstract class AbstractOrder extends AbstractDataLayer
     {
         if ($order) {
             $items = [];
+
+            $this->setMfChildrenItem($order);
+
             foreach ($order->getAllVisibleItems() as $item) {
                 $items[] = $this->gtmItem->get($item);
             }
@@ -98,7 +101,26 @@ abstract class AbstractOrder extends AbstractDataLayer
     }
 
     /**
+     * @param $entity
+     * @return void
+     */
+    protected function setMfChildrenItem($entity)
+    {
+        foreach ($entity->getAllItems() as $childrenItem) {
+            if ($parentItemId = $childrenItem->getParentItemId()) {
+                foreach ($entity->getAllVisibleItems() as $parentItem) {
+                    if ($parentItem->getId() == $parentItemId) {
+                        $parentItem->setMfChildrenItem($childrenItem);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * @return string
      */
     abstract protected function getEventName(): string;
+
 }

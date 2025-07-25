@@ -12,21 +12,15 @@ use Magefan\GoogleTagManager\Api\DataLayer\Cart\ItemInterface;
 use Magefan\GoogleTagManager\Model\AbstractDataLayer;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class Item extends AbstractDataLayer implements ItemInterface
 {
-    /**
-     * @var ProductRepositoryInterface
-     */
-    protected $productRepository;
-
     /**
      * @inheritDoc
      */
     public function get(QuoteItem $quoteItem): array
     {
-        $product = $this->getProduct($quoteItem);
+        $product = $this->getItemProduct($quoteItem);
         $categoryNames = $this->getCategoryNames($product);
         return array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')
@@ -38,7 +32,7 @@ class Item extends AbstractDataLayer implements ItemInterface
             'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
             'price' => $this->getValue($quoteItem),
             'quantity' => $quoteItem->getQty() * 1
-        ], $categoryNames);
+        ], $categoryNames, $this->getItemVariant($quoteItem));
     }
 
     /**
@@ -57,7 +51,7 @@ class Item extends AbstractDataLayer implements ItemInterface
         }
 
         //fix for magento 2.3.2 - module-quote/Model/Quote/Item/Processor.php prepareItem does not set price to quote item
-        if (!$value && ($quoteItemProduct = $this->getProduct($quoteItem))) {
+        if (!$value && ($quoteItemProduct = $this->getItemProduct($quoteItem))) {
             return $this->getProductValue($quoteItemProduct);
         } else {
             return $this->formatPrice((float)$value);
@@ -68,7 +62,7 @@ class Item extends AbstractDataLayer implements ItemInterface
      * @param $quoteItem
      * @return \Magento\Catalog\Api\Data\ProductInterface
      */
-    protected function getProduct($quoteItem)
+    protected function getItemProduct($quoteItem)
     {
         $product = $quoteItem->getProduct();
         if ('configurable' === $product->getTypeId()) {
@@ -77,7 +71,7 @@ class Item extends AbstractDataLayer implements ItemInterface
                 foreach ($options as $option) {
                     if ($option->getCode() === 'simple_product') {
                         try {
-                            $product = $this->getProductRepository()->getById($option->getProductId());
+                            $product = $this->productRepository->getById($option->getProductId());
                             break;
                         } catch (NoSuchEntityException $e) {
 
@@ -90,14 +84,47 @@ class Item extends AbstractDataLayer implements ItemInterface
     }
 
     /**
-     * @return ProductRepositoryInterface
+     * Get item variant
+     *
+     * @param $item
+     * @return array
+     * @throws Exception
      */
-    protected function getProductRepository(): ProductRepositoryInterface
+    protected function getItemVariant($item): array
     {
-        if (null === $this->productRepository) {
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $this->productRepository = $objectManager->get(ProductRepositoryInterface::class);
+        $product = $item->getProduct();
+
+        if (!$product || 'configurable' !== $product->getTypeId()) {
+            return [];
         }
-        return $this->productRepository ;
+
+        $itemVariant = [];
+        $simpleProductOption = $item->getOptionByCode('simple_product');
+        if ($simpleProductOption) {
+            $simpleProduct = $simpleProductOption->getProduct();
+            if ($simpleProduct) {
+                try {
+                    $simpleProduct = $this->productRepository->getById($simpleProduct->getId());
+
+                    $attributes = $product->getTypeInstance()
+                        ->getConfigurableAttributes($product);
+
+                    foreach ($attributes as $attribute) {
+                        $productAttribute = $attribute->getProductAttribute();
+                        $label = $productAttribute->getFrontendLabel();
+                        $value = $productAttribute->getFrontend()->getValue($simpleProduct);
+                        $itemVariant[] = $label . ': ' . $value;
+                    }
+                } catch (NoSuchEntityException $e) { // phpcs:ignore
+                    /* Do nothing */
+                }
+            }
+        }
+
+        if ($itemVariant) {
+            return ['item_variant' => implode(',', $itemVariant)];
+        }
+
+        return [];
     }
 }

@@ -12,6 +12,7 @@ use Magefan\GoogleTagManager\Block\AbstractDataLayer;
 use Magefan\GoogleTagManager\Model\Config;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Visibility;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Context;
@@ -28,6 +29,11 @@ class ViewItem extends AbstractDataLayer
      * @var ViewItemInterface
      */
     private $viewItem;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
 
     /**
      * ViewItem constructor.
@@ -61,7 +67,26 @@ class ViewItem extends AbstractDataLayer
      */
     protected function getDataLayer(): array
     {
-        return $this->viewItem->get($this->getCurrentProduct());
+        $data = $this->viewItem->get($this->getCurrentProduct());
+        if ($productId = $this->_request->getParam('mfpreselect')) {
+            try {
+                $child = $this->productRepository->getById($productId);
+                $childData = $this->viewItem->get($child);
+                if ($child->getVisibility() == Visibility::VISIBILITY_NOT_VISIBLE &&
+                    isset($data['ecommerce']['items'][0]['item_url'])) {
+                    $childUrl = $data['ecommerce']['items'][0]['item_url'];
+
+                    $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
+                    $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
+   
+                    $childData['ecommerce']['items'][0]['item_url'] = $childUrl;
+                }
+                $data = $childData;
+            } catch (NoSuchEntityException $e) {
+
+            }
+        }
+        return $data;
     }
 
     /**
@@ -71,14 +96,6 @@ class ViewItem extends AbstractDataLayer
      */
     private function getCurrentProduct(): Product
     {
-        $product = $this->registry->registry('current_product');
-        if ($productId = $this->_request->getParam('mfpreselect')) {
-            try {
-                $product = $this->productRepository->getById($productId);
-            } catch (NoSuchEntityException $e) {
-
-            }
-        }
-        return $product;
+        return  $this->registry->registry('current_product');
     }
 }

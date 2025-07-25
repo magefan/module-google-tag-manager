@@ -19,6 +19,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class AbstractDataLayer
 {
@@ -58,6 +59,11 @@ class AbstractDataLayer
     protected $groupRepository;
 
     /**
+     * @var ProductRepositoryInterface
+     */
+    protected $productRepository;
+
+    /**
      * @var string
      */
     protected $customerGroupCode;
@@ -81,7 +87,8 @@ class AbstractDataLayer
         ?RequestInterface            $request = null,
         ?Registry                    $registry = null,
         ?Session                     $session = null,
-        ?GroupRepository             $groupRepository = null
+        ?GroupRepository             $groupRepository = null,
+        ?ProductRepositoryInterface    $productRepository = null,
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -97,6 +104,9 @@ class AbstractDataLayer
         );
         $this->groupRepository = $groupRepository ?: ObjectManager::getInstance()->get(
             GroupRepository::class
+        );
+        $this->productRepository = $productRepository ?: ObjectManager::getInstance()->get(
+            ProductRepositoryInterface::class
         );
     }
 
@@ -338,6 +348,8 @@ class AbstractDataLayer
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
 
+        $data['_clear'] = 'true';
+
         return $data;
     }
 
@@ -365,4 +377,5 @@ class AbstractDataLayer
 
         return $data;
     }
+
 }
