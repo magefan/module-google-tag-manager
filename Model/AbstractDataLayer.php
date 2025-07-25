@@ -195,61 +195,6 @@ class AbstractDataLayer
     }
 
     /**
-     * Get item variant
-     *
-     * @param $item
-     * @return array
-     * @throws Exception
-     */
-    protected function getItemVariant($item): array
-    {
-        $product = $item->getProduct();
-
-        if (!$product || 'configurable' !== $product->getTypeId()) {
-            return [];
-        }
-
-        $itemVariant = [];
-
-        $productOptions = $item->getProductOptions();
-        if ($productOptions) {
-            //Order Item
-            if (isset($productOptions['attributes_info']) && is_array($productOptions['attributes_info'])) {
-                foreach ($productOptions['attributes_info'] as $attribute) {
-                    if (isset($attribute['label']) && isset($attribute['value'])) {
-                        $itemVariant[] = $attribute['label'] . ': ' . $attribute['value'];
-                    }
-                }
-            }
-        } else {
-            //Quote Item
-            $simpleProductOption = $item->getOptionByCode('simple_product');
-            if ($simpleProductOption) {
-                $simpleProduct = $simpleProductOption->getProduct();
-                if ($simpleProduct) {
-                    try {
-                        $simpleProduct = $this->productRepository->getById($simpleProduct->getId());
-
-                        $attributes = $product->getTypeInstance()
-                            ->getConfigurableAttributes($product);
-
-                        foreach ($attributes as $attribute) {
-                            $productAttribute = $attribute->getProductAttribute();
-                            $label = $productAttribute->getFrontendLabel();
-                            $value = $productAttribute->getFrontend()->getValue($simpleProduct);
-                            $itemVariant[] = $label . ': ' . $value;
-                        }
-                    } catch (Exception $e) { // phpcs:ignore
-                        /* Do nothing */
-                    }
-                }
-            }
-        }
-
-        return ['item_variant' => implode(',', $itemVariant)];
-    }
-
-    /**
      * Get product category
      *
      * @param Product $product
@@ -458,4 +403,5 @@ class AbstractDataLayer
         }
         return $data;
     }
+
 }
