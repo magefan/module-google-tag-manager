@@ -67,8 +67,7 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
                 'value' => $this->formatPrice((float)$value),
                 'coupon' => $quote->getCouponCode() ?: '',
                 'items' => $items
-            ],
-            'customer_identifier' => $quote->getCustomerEmail() ? hash('sha256', (string)$quote->getCustomerEmail()) : ''
+            ]
         ];
 
         if ($quote->getCustomerId()) {

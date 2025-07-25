@@ -317,6 +317,7 @@ class AbstractDataLayer
      * @throws NoSuchEntityException
      * @throws \Magento\Framework\Exception\LocalizedException
      */
+    /*
     protected function getCustomerGroupCode(): string
     {
         if (null === $this->customerGroupCode) {
@@ -327,13 +328,14 @@ class AbstractDataLayer
                     $group = $this->groupRepository->getById($customerGroupId);
                     $this->customerGroupCode = (string)$group->getCode();
                 } catch (NoSuchEntityException $e) {
-                    /* Do nothing */
+                    /* Do nothing *
                 }
             }
         }
 
         return $this->customerGroupCode;
     }
+    */
 
     /**
      * @param array $data
