@@ -365,5 +365,4 @@ class AbstractDataLayer
 
         return $data;
     }
-
 }
