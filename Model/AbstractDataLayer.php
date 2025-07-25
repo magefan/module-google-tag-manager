@@ -329,29 +329,15 @@ class AbstractDataLayer
      * @param array $data
      * @return array
      */
-    protected function eventWrap(array $data): array
+    public function eventWrap(array $data): array
     {
         if (empty($data)) {
             return $data;
         }
 
-        $data = $this->addCustomerGroup($data);
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
-        $data = $this->addCustomerIdentifier($data);
 
-        return $data;
-    }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    protected function addCustomerGroup(array $data): array
-    {
-        if (!isset($data['customerGroup'])) {
-            $data['customerGroup'] = $this->getCustomerGroupCode();
-        }
         return $data;
     }
 
@@ -377,18 +363,6 @@ class AbstractDataLayer
             $data['ecomm_pagetype'] = $this->getEcommPageType();
         }
 
-        return $data;
-    }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    protected function addCustomerIdentifier(array $data): array
-    {
-        if (empty($data['customer_identifier'])) {
-            $data['customer_identifier'] = 'getMfGtmCustomerData().identifier';
-        }
         return $data;
     }
 }
