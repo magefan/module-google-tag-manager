@@ -405,6 +405,8 @@ class AbstractDataLayer
         $data = $this->addEcommPageType($data);
         $data = $this->addCustomerIdentifier($data);
 
+        $data['_clear'] = 'true';
+
         return $data;
     }
 
