@@ -67,7 +67,8 @@ class ViewItem extends AbstractDataLayer
      */
     protected function getDataLayer(): array
     {
-        $data = $this->viewItem->get($this->getCurrentProduct());
+        $product = $this->getCurrentProduct();
+        $data = $this->viewItem->get($product);
         if ($productId = $this->_request->getParam('mfpreselect')) {
             try {
                 $child = $this->productRepository->getById($productId);
@@ -78,7 +79,15 @@ class ViewItem extends AbstractDataLayer
 
                     $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
                     $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
-   
+
+                    $attributes = $product->getTypeInstance()->getConfigurableAttributes($product);
+                    foreach ($attributes as $attribute) {
+                        $attrCode = $attribute->getProductAttribute()->getAttributeCode();
+                        $value = $child->getData($attrCode);
+                        $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
+                        $childUrl .= $delimiter . $attrCode . '=' . $value;
+                    }
+
                     $childData['ecommerce']['items'][0]['item_url'] = $childUrl;
                 }
                 $data = $childData;
