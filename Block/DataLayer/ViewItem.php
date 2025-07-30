@@ -74,18 +74,21 @@ class ViewItem extends AbstractDataLayer
                 $child = $this->productRepository->getById($productId);
                 $childData = $this->viewItem->get($child);
                 if ($child->getVisibility() == Visibility::VISIBILITY_NOT_VISIBLE &&
-                    isset($data['ecommerce']['items'][0]['item_url'])) {
+                    isset($data['ecommerce']['items'][0]['item_url'])
+                ) {
                     $childUrl = $data['ecommerce']['items'][0]['item_url'];
 
                     $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
                     $childUrl .= $delimiter . 'mfpreselect=' . $child->getId();
 
-                    $attributes = $product->getTypeInstance()->getConfigurableAttributes($product);
-                    foreach ($attributes as $attribute) {
-                        $attrCode = $attribute->getProductAttribute()->getAttributeCode();
-                        $value = $child->getData($attrCode);
-                        $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
-                        $childUrl .= $delimiter . $attrCode . '=' . $value;
+                    if ('configurable' == $product->getTypeId()) {
+                        $attributes = $product->getTypeInstance()->getConfigurableAttributes($product);
+                        foreach ($attributes as $attribute) {
+                            $attrCode = $attribute->getProductAttribute()->getAttributeCode();
+                            $value = $child->getData($attrCode);
+                            $delimiter = (false === strpos($childUrl, '?')) ? '?' : '&';
+                            $childUrl .= $delimiter . $attrCode . '=' . $value;
+                        }
                     }
 
                     $childData['ecommerce']['items'][0]['item_url'] = $childUrl;
