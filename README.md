@@ -29,7 +29,7 @@ Improve store performance tracking with no-effort.
   
 <a href="https://magefan.com/magento-2-google-tag-manager/pricing">
           <img
-            src="https://cm.magefan.com/wysiwyg/products/google-tag-manager-pricing-min.png"
+            src="https://cm.magefan.com/wysiwyg/products/gtm-pricing-plans.png"
             alt="Editions and Pricing for Magento 2 Google Tag Manager" />
         </a>
         
