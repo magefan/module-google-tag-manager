@@ -23,6 +23,6 @@ if (!isset($escaper)) {
                           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
     <?php } elseif ('use_head_and_body_script' === $block->getConfig()->getInstallGtm()) { ?>
-        <?= $block->getGtmNoScript() ?>
+        <?= /* @noEscape */ $block->getGtmNoScript() ?>
     <?php } ?>
 <?php } ?>
