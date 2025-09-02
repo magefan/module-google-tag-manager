@@ -88,7 +88,7 @@ class AbstractDataLayer
         ?Registry                    $registry = null,
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
-        ?ProductRepositoryInterface    $productRepository = null,
+        ?ProductRepositoryInterface    $productRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
