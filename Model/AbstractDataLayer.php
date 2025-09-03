@@ -361,8 +361,7 @@ class AbstractDataLayer
      */
     protected function addMfUniqueEventId(array $data): array
     {
-
-        $hash = md5(json_encode($data) . microtime());
+        $hash = hash('sha256', json_encode($data) . microtime());
         $event = isset($data['event']) ? $data['event'] : 'event';
         $eventId = $event . '_' . $hash;
 
