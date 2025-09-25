@@ -61,10 +61,10 @@ abstract class AbstractDataLayer extends AbstractBlock
             $dataLayer = $this->getDataLayer();
             if ($dataLayer) {
                 $json = json_encode($dataLayer);
-                $json = str_replace('"getMfGtmCustomerIdentifier()"', 'getMfGtmCustomerIdentifier()', $json);
+                $json = preg_replace('/"((getMfGtmCustomerData\(\)\.[^"]+))"/', '$1', $json);
                 $intervalSuffix = md5($this->getNameInLayout()) . rand();
                 $script = '
-                    window.dataLayer = window.dataLayer || [];
+                     window.dataLayer = window.dataLayer || [];
                     const mfDataLayerPushInterval' . $intervalSuffix . ' = setInterval(function() {
                         if (!window.dataLayer) return;
             
@@ -73,7 +73,7 @@ abstract class AbstractDataLayer extends AbstractBlock
                             clearInterval(mfDataLayerPushInterval' . $intervalSuffix . ');
                             window.dataLayer.push(' . $json . ');
                         }
-                    }, 200);
+                    }, 200)
                 ';
                 return $this->mfSecureRenderer->renderTag('script', ['style' => 'display:none'], $script, false);
             }
