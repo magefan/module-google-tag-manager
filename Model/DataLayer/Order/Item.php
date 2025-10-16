@@ -20,6 +20,9 @@ class Item extends AbstractDataLayer implements ItemInterface
     public function get(OrderItemInterface $orderItem): array
     {
         $product = $this->getItemProduct($orderItem);
+        if (!$product || !$product->getId()) {
+            return [];
+        }
         $categoryNames = $this->getCategoryNames($product);
         return array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')

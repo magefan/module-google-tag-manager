@@ -21,6 +21,9 @@ class Item extends AbstractDataLayer implements ItemInterface
     public function get(QuoteItem $quoteItem): array
     {
         $product = $this->getItemProduct($quoteItem);
+        if (!$product || !$product->getId()) {
+            return [];
+        }
         $categoryNames = $this->getCategoryNames($product);
         return array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')
