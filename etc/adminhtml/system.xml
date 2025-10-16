@@ -348,6 +348,51 @@ To create a new secret, navigate in the
                                 <field id="enable">1</field>
                             </depends>
                         </field>
+                        <group id="cart_data" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                            <attribute type="expanded">0</attribute>
+                            <label>Cart Data</label>
+                            <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Enable</label>
+                                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                                <comment><![CDATA[
+                                 You can submit cart data (sold products,their quantity, and price) for sale conversions to get cart conversions reporting in Google Ads.
+                                ]]>
+                                </comment>
+                            </field>
+                            <field id="merchant_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Merchant ID</label>
+                                <comment><![CDATA[
+                                    The Merchant Center ID where your items are uploaded.
+                                ]]>
+                                </comment>
+                                <depends>
+                                    <field id="enable">1</field>
+                                </depends>
+                            </field>
+                            <field id="feed_country" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Feed Country</label>
+                                <comment><![CDATA[
+                                    The country associated with the feed where your items are uploaded. <br> <a href="http://www.unicode.org/repos/cldr/tags/latest/common/main/en.xml" target="_blank">Use CLDR territory codes</a>.
+                                ]]>
+                                </comment>
+                                <depends>
+                                    <field id="enable">1</field>
+                                </depends>
+                            </field>
+                            <field id="feed_language" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                                <label>Feed Language</label>
+                                <comment><![CDATA[
+                                    The language associated with the feed where your items are uploaded. <br> <a href="http://www.unicode.org/repos/cldr/tags/latest/common/main/en.xml" target="_blank">Use CLDR territory codes</a>.
+                                ]]>
+                                </comment>
+                                <depends>
+                                    <field id="enable">1</field>
+                                </depends>
+                            </field>
+                            <depends>
+                                <field id="enable">1</field>
+                            </depends>
+                        </group>
                         <depends>
                             <field id="enable">1</field>
                         </depends>
