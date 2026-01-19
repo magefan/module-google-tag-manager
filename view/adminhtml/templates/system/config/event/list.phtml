@@ -46,9 +46,9 @@ $eventsExtra = [
 <br/>
 <div>
     <ul>
-        <li>
-            <?= $escaper->escapeHtml(implode('</li><li>', $events), ['li']) ?>
-        </li>
+        <?php foreach ($events as $event) { ?>
+            <li><?= $escaper->escapeHtml($event) ?></li>
+        <?php } ?>
     </ul>
     <p <?php if (!$block->isPlusEnabled()) { ?>style="color: #ef672f"<?php } ?>>
         <strong>
@@ -60,9 +60,9 @@ $eventsExtra = [
     </p>
     <div <?php if (!$block->isPlusEnabled()) { ?>style="opacity: 0.7; color: #ef672f"<?php } ?>>
         <ul>
-            <li>
-                <?= $escaper->escapeHtml(implode('</li><li>', $eventsPlus), ['li']) ?>
-            </li>
+            <?php foreach ($eventsPlus as $event) { ?>
+                <li><?= $escaper->escapeHtml($event) ?></li>
+            <?php } ?>
         </ul>
     </div>
     <p <?php if (!$block->isExtraEnabled()) { ?>style="color: #ef672f"<?php } ?>>
@@ -75,9 +75,9 @@ $eventsExtra = [
     </p>
     <div <?php if (!$block->isExtraEnabled()) { ?>style="opacity: 0.7; color: #ef672f"<?php } ?>>
         <ul>
-            <li>
-                <?= $escaper->escapeHtml(implode('</li><li>', $eventsExtra), ['li']) ?>
-            </li>
+            <?php foreach ($eventsExtra as $event) { ?>
+                <li><?= $escaper->escapeHtml($event) ?></li>
+            <?php } ?>
         </ul>
     </div>
     <?php if (!$block->isPlusEnabled() || !$block->isExtraEnabled()) { ?>
