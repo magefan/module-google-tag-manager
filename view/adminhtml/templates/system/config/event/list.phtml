@@ -54,7 +54,9 @@ $eventsExtra = [
         <strong>
             <?= $escaper->escapeHtml(__(!$block->isPlusEnabled() ? 'Available in Plus or Extra plans only' : 'GTM Plus')) ?>
             <?php if (!$block->isPlusEnabled()) { ?>
-                (<a style="color: #ef672f; text-decoration: underline;" href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">read more</a>):
+                (<a style="color: #ef672f; text-decoration: underline;"
+                    href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=admin&utm_medium=config&utm_campaign=upgrade-link"
+                    target="_blank">read more</a>):
             <?php } ?>
         </strong>
     </p>
@@ -69,7 +71,9 @@ $eventsExtra = [
         <strong>
             <?= $escaper->escapeHtml(__(!$block->isExtraEnabled() ? 'Available in Extra plan only' : 'GTM Extra')) ?>
             <?php if (!$block->isExtraEnabled()) { ?>
-                (<a style="color: #ef672f; text-decoration: underline;"  href="https://magefan.com/magento-2-google-tag-manager/pricing" target="_blank">read more</a>):
+                (<a style="color: #ef672f; text-decoration: underline;"
+                    href="https://magefan.com/magento-2-google-tag-manager/pricing?utm_source=admin&utm_medium=config&utm_campaign=upgrade-link"
+                    target="_blank">read more</a>):
             <?php } ?>
         </strong>
     </p>
