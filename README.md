@@ -5,27 +5,41 @@
 
 <img align="right" width="120" height="120" src="https://cm.magefan.com/catalog/product/cache/28b407cef1668fd0bdd6f36db3e8e2f0/i/c/icon-google-tag-manager.jpg">
 
-[Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager)  is a solution for better store performance tracking that eliminates any actions required with your website source code. It allows you to specify the GTM and GA4 tracking IDs in the admin panel, then export the preset tracking tags, import them into your GTM account and get better reporting on various actions in your store. 
+[Magento 2 Google Tag Manager](https://magefan.com/magento-2-google-tag-manager)  extension is a solution for better and easier store performance tracking. It connects your store with Google Tag Manager, Google Analytics, and Google Ads, and requires only a few minutes for setup.
 
-Improve store performance tracking with no-effort. 
+Enter your tracking IDs directly in the Magento admin panel and track every step customers take: from the moment they land on your website and up to the purchase.
 
-<img  align="right" width="120" height="70" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg">
+Magefan Google Tag Manager extension for Magento is a low-effort solution that ensures you collect accurate data and make efficient decisions. 
+
+<a href="https://magefan.com/blog/join-our-donations"><img  align="right" width="120" height="70" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg"></a>
 
 <a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a>
 
-## Useful Links
-  * [User Guide](https://magefan.com/magento-2-google-tag-manager/documentation)
-  * [Change Log](https://magefan.com/magento-2-google-tag-manager/change-log)
-  * [FAQs](https://magefan.com/magento-2-google-tag-manager#pattr-faq)
+## Do You Need a Google Tag Manager Extension in Magento?
 
-## 🇺🇦 Stand with Ukraine! [How can you help?](https://magefan.com/blog/join-our-donations)
+As an eCommerce store owner, you have numerous decisions to make, and you have to ensure they are justified and bring real value. You cannot rely on trial and error here. You must have accurate data to back you up.
 
-## Requirements
-  * Magento Community 2.3.0-2.4.x (CE, EE, ECE, B2B)
-  * [Magefan Community Extension](https://github.com/magefan/module-community) >= v2.1.20. Please install this extension first if you use installation via FTP.
-  * **Note** that the extension is free only for the Magento Community (Open Source) Edition. For Magento EE, ECE, and B2B you need to purchase the license  at magefan.com.
+If you don’t want to edit the code manually and create all the tags and triggers yourself, you do need a dedicated Magento 2 extension to help you.  With the Google Tag Manager extension, you can:
 
-## Editions & Pricing
+* Set up Google Tag Manager, Google Analytics, and Google Ads in a few clicks.
+* Track the most important eCommerce events without having to edit code.
+* Concentrate on the data and reports instead of figuring out technicalities.
+
+Magefan Google Tag Manager extension for Magento 2 can do just that. So, if you want to avoid the complications that manual setup usually brings, this tool is for you.
+
+## Key features of the Magento 2 Google Tag Manager 
+
+* Track 13+ eCommerce events
+* Client-side and server-side tracking (Measurement Protocol/GTM server container)
+* Ready-made datalayer with all tags, triggers, and variables
+* Enhanced Conversions / Dynamic Remarketing
+* GDPR and Google Consent Mode compliant
+* Supports Google Tag Gateway
+* No impact of the website speed
+* Easy setup with no code editing
+ 
+## Pricing of the Magento Google Tag Manager Extension
+Magefan offers three different pricing options for Magento Google Tag Manager, including free GTM plan. Each plan offers different features and events based on the size or your store, numebr of events you want to track and tracking methods. Check some of the following features below.
   
 <a href="https://magefan.com/magento-2-google-tag-manager/pricing">
           <img
@@ -33,68 +47,107 @@ Improve store performance tracking with no-effort.
             alt="Editions and Pricing for Magento 2 Google Tag Manager" />
         </a>
         
-## Benefits
-* [Implement tracking tags easier](https://github.com/magefan/module-google-tag-manager#features)
-* [Import/export tracking tags](https://github.com/magefan/module-google-tag-manager#importexport-tracking-tags)
-* [Monitor customer behaviour](https://github.com/magefan/module-google-tag-manager#monitor-customer-behaviour)
-* [Track checkout performance](https://github.com/magefan/module-google-tag-manager#track-checkout-performance)
-* [Track product performance](https://github.com/magefan/module-google-tag-manager#track-product-performance)
-* [Enable dynamic remarketing](https://github.com/magefan/module-google-tag-manager#enable-dynamic-remarketing)
-* [Monitor custom blocks](https://github.com/magefan/module-google-tag-manager#monitor-custom-blocks)
+## Benefits of the Magento Google Tag Manager
+The Magento 2 Google Tag Manager extension creates an uncomplicated environment for data tracking and brings multiple benefits:
 
-## Features
+### Implement tracking tags in a matter of minutes
+Enabling Google Tag Manager tags usually requires you to insert the GTM tracking script into your website's source code manually. That’s way too tedious a task that takes longer than you’d like.
 
-### Implement tracking tags easier
+With the Google Tag Manager extension, you won’t have to do any of that.
 
-Enabling Google Tag Manager tags in your Magento website usually requires you to get the GTM tracking code and implement it into your website source code. Not only is it hard for non-technical people, but time-consuming for developers. 
+Just enter the tracking IDs directly in the admin panel and generate the datalayer in one click. Then, import the GTM container with all the tags and triggers ready. 
 
-Magefan Google Tag Manager for Magento 2 allows you to insert tracking IDs in the admin panel and the extension will do the rest. No source code editing.
+No need to edit code and waste days setting up the events. We’ve got you fully covered.
 
 
 <p align="center">
-  <img width="853" height="425" src="https://cm.magefan.com/catalog/magento-2-google-tag-manager-extension.png">
+  <img width="853" height="425" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm/set-up-google-tag-manager-in-magento.webp">
 </p>
 
+### Monitor Every Customer Journey Step
+Tracking customers’ behaviour is essential for detecting patterns and spotting bottlenecks. What seems insignificant may be a real dealbreaker, and you have to know where exactly things don’t go as expected.
 
-### Import/export tracking tags
+With this Google Tag Manager extension for Magento, you get to track every step your customers take: from landing on your website to making a purchase or leaving your website without placing an order. 
 
-Once the tracking IDs are implemented in your website, you need to create different events and variables in the Google Tag Manager Account. But not with our Magento 2 Google Tag Manager Extension.
+This info gives you valuable insights into things that work and things that have to be optimized.
 
-You can generate JSON container with all the essential tags and then import it into your GTM account. Et Voila! You have all your tags created for you.
-
-### Monitor customer behaviour
-
-Tracking customers’ behaviour in your store allows you to see the patterns and bottlenecks that appear in the customer’s journey. Check what products customers view the most, add to their cart, purchase and abandon. 
-
-Once you have this data, you’ll be able to tweak your marketing strategy and improve the shopping experience in your store.
 
 <p align="center">
-  <img width="853" height="425" src="https://cm.magefan.com/catalog/magento-2-google-tag-manager-event-tracking.png">
+  <img width="853" height="425" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm/track-customer-journey-in-magento-2.webp">
 </p>
 
-### Track checkout performance
+### Know Exactly What Your Top-Performing Products Are
+What are your biggest traffic and revenue generators? What products do not perform as well as you expected? 
 
-Checkout step is one of the most important steps in the customers’ journey and, as it often appears, one where customers get stuck. Although you have implemented the best practices to improve checkout, our GTM Extension for Magento will make it better. 
+Use this Magento 2 Google Tag Manager extension to track what products get the most views, are purchased, added to the cart, wishlist, and removed from the cart the most often. 
 
-Get insights into the checkout performance by tracking vital events - begin_checkout, add_shipping_info, add_billing_info, and purchase.
+Stop guessing and cut right to the chase. Establish a strategy that allows you to increase conversions and promote products that are falling behind in sales.
 
-### Track product performance
+### Track Every Single Purchase
+Ad blockers, browser restrictions, and strict privacy settings often stand in the way of accurate data tracking. That’s where missing purchases start to seep in and disrupt the picture you have in Google Analytics.
 
-What are your biggest traffic and revenue generators? Use this Magento 2 Google Tag Manager extension to track data on what products get the most views, are purchased, added to the cart, wishlist and removed from the cart the most often. 
+This Magento 2 Google Tag Manager has a solution, though. Set up the server-side tracking using the Measurement Protocol or the GTM server container to not miss a single conversion.
 
-Establish a strategy that allows you to increase conversions and promote products that are falling behind in sales. 
+Track only missing purchases or opt for the fully server-side setup to close the gaps and get complete data.
 
 <p align="center">
-  <img width="853" height="425" src="https://cm.magefan.com/catalog/product-performance-report-in-google-analytics.png">
+  <img width="853" height="425" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm/track-ecommerce-events-in-magento-store.webp">
 </p>
 
-### Enable dynamic remarketing
+### Boost Your Google Ads Campaigns
+Google Ads campaigns are effective as long as you have relevant data to build them upon. That’s how you know exactly what products to promote and who your efforts have to be aimed at. 
 
-If you want to provide more personalized ads and drive people, who already visited your website, back, use Magento 2 Google Tag Manager extension for dynamic remarketing. Our Extension support dynamic remarketing to help you display products and service customers viewed the last time they visited your website.
+This Magento Google Tag Manager extension offers a low-effort solution with high-value results. Set up the tracking in a couple of clicks and get valuable insights into your ads’ performance and user engagement.
 
-### Monitor custom blocks
+Spot common patterns, see what’s working best, and retarget the campaigns that don’t work as expected.
 
-Have you implemented related, cross-sell and up-sell products but don’t know if they are performing as expected? Track product views in custom blocks with Magento 2 GTM extension and improve your sales strategy accordingly. 
+
+<p align="center">
+  <img width="853" height="425" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm/magento-google-ads-conversion-tracking.webp">
+</p>
+
+### Stay GDPR and Consent Mode Compliant 
+In the rush to track as much data as possible, it’s crucial to mind privacy regulations. They are obligatory in many countries, so you’d want to stay compliant.
+
+The Magento 2 Google Tag Manager extension effectively collects data while staying GDPR and Google Consent Mode-compliant. It also fully supports the Magento 2 Cookie Consent extension by Magefan and other consent solutions. 
+
+Thus, this extension ensures effective but safe data tracking.
+
+### Keep Your Website Speed Up to Mark
+Website speed matters as much as the versatile catalog and intuitive interface. So, it’s important to keep that aspect in check when adding more tracking scripts. 
+
+This is something the Magento 2 Google Tag Manager extension covers out of the box. It inserts the tracking scripts without a negative impact on your website speed and performance. 
+
+Why choose between performance and data tracking when you can have both?
+
+<p align="center">
+  <img width="853" height="425" src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm/google-tag-manager-script-loading-magento.webp">
+</p>
+
+### Set Up a Long-Lasting Solution
+When setting up a tracking solution, it’s important to ensure it’s flexible, reliable, and can stay with you for the time to come. 
+
+The Magento 2 Google Tag Manager extension supports your business growth and changes. It integrates seamlessly with custom GTM loaders, headless storefront, and Hyva frontend and checkout, leaving you space for future advancements. 
+
+Integrate this solution, knowing that it won’t cause you headaches in the future but will be a reliable tool to support your growth.
+        
+## Frequently Asked Questions about Magento 2 Google Tag Manager
+### Do I need to edit code to integrate Google Tag Manager on my website?
+No. With the Magefan Google Tag Manager extension for Magento 2, you just have to enter the tracing IDs in the admin panel, export the JSON file, and import it into the GTM container. No need to add code snippets or hire a developer.
+
+### What events does the Magento 2 Google Tag Manager extension track?
+The GTM extension tracks the most important eCommerce events, such as view item, add to wishlist, add to cart, remove from cart, view cart, begin checkout, add payment info, purchase, sign up, search, and other events.
+
+### Does the extension support server-side setup?
+Yes, the extension supports server-side tracking via the Measurement Protocol and the GTM server container. You can also set up server-side in a way to only cover the missing transactions and let the web container track the rest.
+
+### Does this extension support sending different tracking data to separate GTM accounts?
+Yes. The Magento 2 Google Tag Manager by Magefan is fully compatible with a multi-website setup. So, you can connect different containers and track data separately for each.
+
+## Requirements
+  * Magento Community 2.3.0-2.4.x (CE, EE, ECE, B2B)
+  * [Magefan Community Extension](https://github.com/magefan/module-community) >= v2.1.20. Please install this extension first if you use installation via FTP.
+  * **Note** that the extension is free only for the Magento Community (Open Source) Edition. For Magento EE, ECE, and B2B you need to purchase the license  at magefan.com.
 
 ## Demo
 
