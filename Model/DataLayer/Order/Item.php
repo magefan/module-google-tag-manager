@@ -57,7 +57,7 @@ class Item extends AbstractDataLayer implements ItemInterface
     protected function getItemProduct($orderItem)
     {
         $product = $orderItem->getProduct();
-        if ('configurable' === $product->getTypeId()) {
+        if ($product && 'configurable' === $product->getTypeId()) {
             if ($childItem = $orderItem->getMfChildrenItem()) {
                 $product =  $childItem->getProduct();
             }
