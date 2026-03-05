@@ -12,6 +12,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Config\Model\Config\Backend\Admin\Custom;
 use Magento\Framework\Module\Manager as ModuleManager;
+use Magento\Customer\Model\Session as CustomerSession;
 
 class Config
 {
@@ -69,6 +70,11 @@ class Config
     public const XML_PATH_MF_COOKIE_CONSENT_EXTENSION_ENABLED = 'mf_cookie_consent/general/enabled';
 
     /**
+     * Display Product Price For customer groups
+     */
+    public const XML_PATH_DISPLAY_PRODUCT_PRICE_FOR = 'mfgoogletagmanager/attributes/display_product_price_for';
+
+    /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
@@ -79,17 +85,45 @@ class Config
     protected $moduleManager;
 
     /**
+     * @var CustomerSession|null
+     */
+    private $customerSession;
+
+    /**
      * Config constructor.
      *
      * @param ScopeConfigInterface $scopeConfig
      * @param ModuleManager $moduleManager
+     * @param CustomerSession|null $customerSession
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
-        ModuleManager $moduleManager
+        ModuleManager $moduleManager,
+        ?CustomerSession $customerSession = null
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->moduleManager = $moduleManager;
+        $this->customerSession = $customerSession;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustomerGroupAllowedToSeeProductPrice(): bool
+    {
+        $allowedGroups = $this->getConfig(self::XML_PATH_DISPLAY_PRODUCT_PRICE_FOR);
+
+        if (!$allowedGroups) {
+            return false;
+        }
+
+        $allowedGroups = explode(',', $allowedGroups);
+
+        $session = $this->customerSession ?: \Magento\Framework\App\ObjectManager::getInstance()
+            ->get(CustomerSession::class);
+        $customerGroupId = (string)$session->getCustomerGroupId();
+
+        return in_array('all', $allowedGroups) || in_array($customerGroupId, $allowedGroups);
     }
 
     /**

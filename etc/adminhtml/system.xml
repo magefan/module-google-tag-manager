@@ -441,6 +441,10 @@ To create a new secret, navigate in the
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[<strong class="colorRed">Warning!</strong> Enabling this option may cause the performance impact.]]></comment>
                 </field>
+                <field id="display_product_price_for" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Display Product Price For</label>
+                    <source_model>Magefan\GoogleTagManager\Model\Config\Source\CustomerGroups</source_model>
+                </field>
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>

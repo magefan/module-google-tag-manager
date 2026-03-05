@@ -66,6 +66,7 @@
                 <product>sku</product>
                 <brand/>
                 <categories/>
+                <display_product_price_for>all</display_product_price_for>
             </attributes>
             <events>
                 <purchase>
