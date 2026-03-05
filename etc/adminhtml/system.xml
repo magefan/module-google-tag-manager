@@ -225,6 +225,14 @@
                         <field id="headless_storefront">0</field>
                     </depends>
                 </field>
+                <field id="ignore_ips" translate="label comment" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ignored IPs</label>
+                    <comment>Requests from these IP addresses will not be tracked via Server Container.</comment>
+                    <backend_model>Magento\Developer\Model\Config\Backend\AllowedIps</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
                 <group id="preview" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Debug View / Preview</label>
                     <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
