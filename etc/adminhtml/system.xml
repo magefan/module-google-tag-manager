@@ -441,6 +441,21 @@ To create a new secret, navigate in the
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[<strong class="colorRed">Warning!</strong> Enabling this option may cause the performance impact.]]></comment>
                 </field>
+                <field id="custom_dimensions" translate="label comment" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Item Dimensions</label>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[Map product attributes to GA4 custom item parameters (item-scoped). E.g. GA4 Parameter Name: <strong>custom_color</strong>, Product Attribute Code: <strong>color</strong>.]]></comment>
+                </field>
+            </group>
+            <group id="custom_dimensions" translate="label" type="text" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Custom Dimensions</label>
+                <field id="event_dimensions" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Event Parameters</label>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomEventDimensions</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[Add static key-value pairs to all GA4 events (event-scoped custom dimensions). E.g. GA4 Parameter Name: <strong>store_id</strong>, Value: <strong>1</strong>.]]></comment>
+                </field>
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>

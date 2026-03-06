@@ -349,8 +349,25 @@ class AbstractDataLayer
 
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
+        $data = $this->addCustomEventDimensions($data);
 
         $data['_clear'] = 'true';
+
+        return $data;
+    }
+
+    /**
+     * Merge configured event-level custom dimensions/metrics into event data
+     *
+     * @param array $data
+     * @return array
+     */
+    protected function addCustomEventDimensions(array $data): array
+    {
+        $customDimensions = $this->config->getCustomEventDimensions();
+        if ($customDimensions) {
+            $data = array_merge($customDimensions, $data);
+        }
 
         return $data;
     }
