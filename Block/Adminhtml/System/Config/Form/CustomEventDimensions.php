@@ -44,12 +44,10 @@ class CustomEventDimensions extends AbstractFieldArray
     {
         $this->addColumn('ga4_param', [
             'label' => __('GA4 Parameter Name'),
-            'style' => 'width:160px',
             'class' => 'required-entry',
         ]);
         $this->addColumn('value', [
             'label' => __('Custom Value'),
-            'style' => 'width:140px',
         ]);
         $this->_addAfter = false;
         $this->_addButtonLabel = __('Add');

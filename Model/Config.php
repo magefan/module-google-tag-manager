@@ -335,14 +335,11 @@ class Config
      */
     public function getCustomEventDimensions(?string $storeId = null): array
     {
-        $data = $this->getConfig(self::XML_PATH_CUSTOM_EVENT_DIMENSIONS, $storeId);
-        if (!$data) {
-            return [];
-        }
-        if (is_string($data)) {
-            $data = json_decode($data, true);
-        }
-        return is_array($data) ? array_values($data) : [];
+        return $this->parseSerializedDimensions(
+            $this->getConfig(self::XML_PATH_CUSTOM_EVENT_DIMENSIONS, $storeId),
+            'ga4_param',
+            'value'
+        );
     }
 
     /**

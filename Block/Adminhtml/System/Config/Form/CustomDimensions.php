@@ -43,7 +43,6 @@ class CustomDimensions extends AbstractFieldArray
     {
         $this->addColumn('ga4_param', [
             'label' => __('GA4 Parameter Name'),
-            'style' => 'width:180px',
             'class' => 'required-entry',
         ]);
         $this->addColumn('attribute_code', [
