@@ -74,6 +74,21 @@ abstract class AbstractOrder extends AbstractDataLayer
                 $data['customer_id'] = $order->getCustomerId();
             }
 
+            $customDimensions = $this->config->getCustomEventDimensions();
+            if ($customDimensions) {
+                foreach ($customDimensions as $param => $valueSource) {
+                    if (strpos($valueSource, 'order.') !== 0) {
+                        continue;
+                    }
+                    [$entity, $attribute] = explode('.', $valueSource, 2);
+
+                    $value = $order->getData($attribute);
+                    if ($value !== null && $value !== '') {
+                        $data[$param] = $value;
+                    }
+                }
+            }
+
             return $this->eventWrap($data);
         }
 

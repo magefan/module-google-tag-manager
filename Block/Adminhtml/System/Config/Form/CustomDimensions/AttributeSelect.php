@@ -81,7 +81,6 @@ class AttributeSelect extends Select
             ->setOrder('frontend_label', 'ASC');
 
         $attributeArray = [];
-
         foreach ($attributes as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
             $attributeArray[] = [

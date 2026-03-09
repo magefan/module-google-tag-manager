@@ -47,15 +47,11 @@ class Config
     public const XML_PATH_ATTRIBUTES_CUSTOM_DIMENSIONS = 'mfgoogletagmanager/attributes/custom_dimensions';
 
     /**
-     * Custom dimensions/metrics config
-     */
-    public const XML_PATH_CUSTOM_EVENT_DIMENSIONS = 'mfgoogletagmanager/custom_dimensions/event_dimensions';
-
-    /**
      * Events config
      */
     public const XML_PATH_EVENTS_PURCHASE_TAX_ENABLED = 'mfgoogletagmanager/events/purchase/tax_enabled';
     public const XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED = 'mfgoogletagmanager/events/purchase/shipping_enabled';
+    public const XML_PATH_CUSTOM_EVENT_DIMENSIONS = 'mfgoogletagmanager/events/custom_dimensions/event_dimensions';
 
     /**
      * Customer data protection regulation config

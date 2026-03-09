@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form;
 
-use Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomEventDimensions\CustomerAttributeSelect;
+use Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions\EventDimensionsAttributeSelect;
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
@@ -16,24 +16,24 @@ use Magento\Framework\Exception\LocalizedException;
 class CustomEventDimensions extends AbstractFieldArray
 {
     /**
-     * @var CustomerAttributeSelect|null
+     * @var EventDimensionsAttributeSelect|null
      */
-    private $customerAttributeRenderer = null;
+    private $attributeRenderer = null;
 
     /**
-     * @return CustomerAttributeSelect
+     * @return EventDimensionsAttributeSelect
      * @throws LocalizedException
      */
-    private function getCustomerAttributeRenderer(): CustomerAttributeSelect
+    private function getAttributeRenderer(): EventDimensionsAttributeSelect
     {
-        if ($this->customerAttributeRenderer === null) {
-            $this->customerAttributeRenderer = $this->getLayout()->createBlock(
-                CustomerAttributeSelect::class,
+        if ($this->attributeRenderer === null) {
+            $this->attributeRenderer = $this->getLayout()->createBlock(
+                EventDimensionsAttributeSelect::class,
                 '',
                 ['data' => ['is_render_to_js_template' => true]]
             );
         }
-        return $this->customerAttributeRenderer;
+        return $this->attributeRenderer;
     }
 
     /**
@@ -43,11 +43,12 @@ class CustomEventDimensions extends AbstractFieldArray
     protected function _prepareToRender(): void
     {
         $this->addColumn('ga4_param', [
-            'label' => __('GA4 Parameter Name'),
+            'label' => __('Dimension name'),
             'class' => 'required-entry',
         ]);
         $this->addColumn('value', [
-            'label' => __('Custom Value'),
+            'label'    => __('Parameter'),
+            'renderer' => $this->getAttributeRenderer(),
         ]);
         $this->_addAfter = false;
         $this->_addButtonLabel = __('Add');
@@ -58,7 +59,11 @@ class CustomEventDimensions extends AbstractFieldArray
      */
     protected function _prepareArrayRow(DataObject $row): void
     {
-        $optionExtraAttrs = [];
-        $row->setData('option_extra_attrs', $optionExtraAttrs);
+        $options = [];
+        $value = $row->getData('value');
+        if ($value) {
+            $options['option_' . $this->getAttributeRenderer()->calcOptionHash($value)] = 'selected="selected"';
+        }
+        $row->setData('option_extra_attrs', $options);
     }
 }

@@ -42,7 +42,7 @@ class CustomDimensions extends AbstractFieldArray
     protected function _prepareToRender(): void
     {
         $this->addColumn('ga4_param', [
-            'label' => __('GA4 Parameter Name'),
+            'label' => __('Dimension name'),
             'class' => 'required-entry',
         ]);
         $this->addColumn('attribute_code', [

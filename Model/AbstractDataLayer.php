@@ -365,11 +365,78 @@ class AbstractDataLayer
     protected function addCustomEventDimensions(array $data): array
     {
         $customDimensions = $this->config->getCustomEventDimensions();
-        if ($customDimensions) {
-            $data = array_merge($customDimensions, $data);
+        if (!$customDimensions) {
+            return $data;
+        }
+
+        foreach ($customDimensions as $param => $valueSource) {
+            if (str_starts_with($param, 'order.')) {
+                continue;
+            }
+            $value = $this->getDimensionValueBySource((string)$valueSource, $data);
+            if ($value !== null && $value !== '') {
+                $data[$param] = $value;
+            }
         }
 
         return $data;
+    }
+
+    /**
+     * Resolve a dimension value source string (e.g. "product.price") to its actual value
+     *
+     * @param string $source
+     * @param array $eventData
+     * @return string|null
+     */
+    protected function getDimensionValueBySource(string $source, array $eventData): ?string
+    {
+        if (strpos($source, '.') === false) {
+            return $source ?: null;
+        }
+
+        [$entity, $attribute] = explode('.', $source, 2);
+
+        switch ($entity) {
+            case 'product':
+                $product = $this->registry->registry('current_product');
+                if ($product) {
+                    return $this->getProductAttributeValue($product, $attribute) ?: null;
+                }
+                break;
+
+            case 'customer':
+                $customer = $this->session->getCustomer();
+                if ($customer && $customer->getId()) {
+                    return (string)($customer->getData($attribute) ?? '') ?: null;
+                }
+                break;
+
+            case 'address':
+                $customer = $this->session->getCustomer();
+                if ($customer && $customer->getId()) {
+                    $address = $customer->getDefaultBillingAddress();
+                    if ($address) {
+                        $value = $address->getData($attribute);
+                        return $value !== null ? (string)$value : null;
+                    }
+                }
+                break;
+            case 'store':
+                try {
+                    $store = $this->storeManager->getStore();
+                    if ($attribute == 'currency') {
+                        return $store->getCurrentCurrencyCode();
+                    }
+                    $value = $store->getData($attribute);
+                    return $value !== null ? (string)$value : null;
+                } catch (\Exception $e) { // phpcs:ignore
+                    /* Do nothing */
+                }
+                break;
+        }
+
+        return null;
     }
 
     /**
