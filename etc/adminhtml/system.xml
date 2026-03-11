@@ -331,7 +331,7 @@ To create a new secret, navigate in the
                         <field id="conversion_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                             <label>Conversion ID</label>
                             <comment><![CDATA[
-                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion ID">Where to find Conversion ID?</a>
+                                <a href="https://magefan.com/magento-2-google-tag-manager/conversion-tracking#step-2-get-conversion-id-and-conversion-label" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion ID">Where to find Conversion ID?</a>
                                 ]]>
                             </comment>
                             <depends>
@@ -341,7 +341,7 @@ To create a new secret, navigate in the
                         <field id="conversion_label" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                             <label>Conversion Label</label>
                             <comment><![CDATA[
-                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion Label">Where to find Conversion Label?</a>
+                                <a href="https://magefan.com/magento-2-google-tag-manager/conversion-tracking#step-2-get-conversion-id-and-conversion-label" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion Label">Where to find Conversion Label?</a>
                                 ]]>
                             </comment>
                             <depends>
