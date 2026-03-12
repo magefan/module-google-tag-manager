@@ -43,7 +43,7 @@ class CustomEventDimensions extends AbstractFieldArray
     protected function _prepareToRender(): void
     {
         $this->addColumn('ga4_param', [
-            'label' => __('Dimension name'),
+            'label' => __('Dimension Name'),
             'class' => 'required-entry',
         ]);
         $this->addColumn('value', [
