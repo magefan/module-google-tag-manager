@@ -12,6 +12,7 @@ use Exception;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\RequestInterface;
@@ -20,6 +21,8 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Customer\Model\CustomerFactory;
+use Magento\Sales\Model\Order;
 
 class AbstractDataLayer
 {
@@ -74,6 +77,21 @@ class AbstractDataLayer
     protected $ecommPageType = 'other';
 
     /**
+     * @var Product|null
+     */
+    protected $contextProduct = null;
+
+    /**
+     * @var int|null
+     */
+    protected $contextCustomer = null;
+
+    /**
+     * @var Order|null
+     */
+    protected $contextOrder = null;
+
+    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
@@ -88,7 +106,8 @@ class AbstractDataLayer
         ?Registry                    $registry = null,
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
-        ?ProductRepositoryInterface    $productRepository = null
+        ?ProductRepositoryInterface    $productRepository = null,
+
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -357,7 +376,7 @@ class AbstractDataLayer
     }
 
     /**
-     * Merge configured event-level custom dimensions/metrics into event data
+     * Merge configured event-level custom dimensions into event data using context entities.
      *
      * @param array $data
      * @return array
@@ -370,10 +389,57 @@ class AbstractDataLayer
         }
 
         foreach ($customDimensions as $param => $valueSource) {
-            if (str_starts_with($param, 'order.')) {
+            if (strpos($valueSource, '.') === false) {
                 continue;
             }
-            $value = $this->getDimensionValueBySource((string)$valueSource, $data);
+            [$entity, $attribute] = explode('.', $valueSource, 2);
+
+            $value = null;
+            if ($this->contextCustomer && is_int($this->contextCustomer)) {
+                $customerRepository = ObjectManager::getInstance()->get(
+                    \Magento\Customer\Api\CustomerRepositoryInterface::class
+                );
+                $this->contextCustomer = $customerRepository->getById($this->contextCustomer);
+            }
+            switch ($entity) {
+                case 'product':
+                    if ($this->contextProduct) {
+                        $value = $this->getProductAttributeValue($this->contextProduct, $attribute) ?: null;
+                    }
+                    break;
+
+                case 'customer':
+                    if ($this->contextCustomer && $this->contextCustomer->getId()) {
+                        $value = $this->getCustomerAttributeValue($attribute);
+                    }
+                    break;
+
+                case 'address':
+                    $value = $this->getAddressAttributeValue($attribute);
+                    break;
+
+                case 'order':
+                    if ($this->contextOrder) {
+                        $raw = $this->contextOrder->getData($attribute);
+                        $value = $raw !== null ? (string)$raw : null;
+                    }
+                    break;
+
+                case 'store':
+                    try {
+                        $store = $this->storeManager->getStore();
+                        if ($attribute === 'currency') {
+                            $value = $store->getCurrentCurrencyCode();
+                            break;
+                        }
+                        $raw = $store->getData($attribute);
+                        $value = $raw !== null ? (string)$raw : null;
+                    } catch (\Exception $e) { // phpcs:ignore
+                        /* Do nothing */
+                    }
+                    break;
+            }
+
             if ($value !== null && $value !== '') {
                 $data[$param] = $value;
             }
@@ -383,60 +449,66 @@ class AbstractDataLayer
     }
 
     /**
-     * Resolve a dimension value source string (e.g. "product.price") to its actual value
+     * Get address attribute value from order or customer context.
      *
-     * @param string $source
-     * @param array $eventData
+     * @param string $attribute
+     * @return string|null
+     * @throws LocalizedException
+     */
+    protected function getAddressAttributeValue(string $attribute): ?string
+    {
+        $address = null;
+        if ($this->contextOrder) {
+            $address = $this->contextOrder->getBillingAddress();
+        } elseif ($this->contextCustomer && $this->contextCustomer->getId()) {
+            $billingId = $this->contextCustomer->getDefaultBilling();
+            if ($billingId) {
+                $address = ObjectManager::getInstance()->get(
+                    \Magento\Customer\Model\AddressFactory::class
+                )->create()->load($billingId);
+            }
+        }
+        if ($address) {
+            $raw = $address->getData($attribute);
+            return $raw !== null ? (string)$raw : null;
+        }
+        return null;
+    }
+
+    /**
+     * Get customer attribute value by code, supporting both typed getters and custom attributes.
+     *
+     * @param string $attribute
      * @return string|null
      */
-    protected function getDimensionValueBySource(string $source, array $eventData): ?string
+    protected function getCustomerAttributeValue(string $attribute): ?string
     {
-        if (strpos($source, '.') === false) {
-            return $source ?: null;
+        $customer = $this->contextCustomer;
+        $getter = 'get' . str_replace('_', '', ucwords($attribute, '_'));
+        if (method_exists($customer, $getter)) {
+            $raw = $customer->$getter();
+        } else {
+            $attr = $customer->getCustomAttribute($attribute);
+            $raw = $attr ? $attr->getValue() : null;
         }
+        return $raw !== null && $raw !== '' ? (string)$raw : null;
+    }
 
-        [$entity, $attribute] = explode('.', $source, 2);
-
-        switch ($entity) {
-            case 'product':
-                $product = $this->registry->registry('current_product');
-                if ($product) {
-                    return $this->getProductAttributeValue($product, $attribute) ?: null;
-                }
-                break;
-
-            case 'customer':
-                $customer = $this->session->getCustomer();
-                if ($customer && $customer->getId()) {
-                    return (string)($customer->getData($attribute) ?? '') ?: null;
-                }
-                break;
-
-            case 'address':
-                $customer = $this->session->getCustomer();
-                if ($customer && $customer->getId()) {
-                    $address = $customer->getDefaultBillingAddress();
-                    if ($address) {
-                        $value = $address->getData($attribute);
-                        return $value !== null ? (string)$value : null;
-                    }
-                }
-                break;
-            case 'store':
-                try {
-                    $store = $this->storeManager->getStore();
-                    if ($attribute == 'currency') {
-                        return $store->getCurrentCurrencyCode();
-                    }
-                    $value = $store->getData($attribute);
-                    return $value !== null ? (string)$value : null;
-                } catch (\Exception $e) { // phpcs:ignore
-                    /* Do nothing */
-                }
-                break;
+    /**
+     * Add custom item dimensions to item data
+     *
+     * @param $product
+     * @param $data
+     * @return array
+     */
+    public function addCustomItemDimensions($product, $data): array
+    {
+        foreach ($this->config->getCustomItemDimensions() as $param => $attributeCode) {
+            if ($value = $this->getProductAttributeValue($product, $attributeCode)) {
+                $data[$param] = $value;
+            }
         }
-
-        return null;
+        return $data;
     }
 
     /**

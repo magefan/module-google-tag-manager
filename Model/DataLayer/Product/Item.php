@@ -28,10 +28,6 @@ class Item extends AbstractDataLayer implements ItemInterface
             'price' => $this->getProductValue($product)
         ], $categoryNames);
 
-        foreach ($this->config->getCustomItemDimensions() as $param => $attributeCode) {
-            $item[$param] = $this->getProductAttributeValue($product, $attributeCode);
-        }
-
-        return $item;
+        return $this->addCustomItemDimensions($product, $item);
     }
 }

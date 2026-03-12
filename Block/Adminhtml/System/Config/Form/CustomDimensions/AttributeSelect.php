@@ -83,6 +83,9 @@ class AttributeSelect extends Select
         $attributeArray = [];
         foreach ($attributes as $attribute) {
             $attributeCode = $attribute->getAttributeCode();
+            if (in_array($attributeCode, ['sku', 'entity_id'])) {
+                continue;
+            }
             $attributeArray[] = [
                 'label' => $attribute->getFrontendLabel(),
                 'value' => $attributeCode,

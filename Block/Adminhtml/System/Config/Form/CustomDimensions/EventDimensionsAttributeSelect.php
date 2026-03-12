@@ -91,20 +91,20 @@ class EventDimensionsAttributeSelect extends Select
                 'value' => $this->getProductOptions(),
             ],
             [
-                'label' => __('Customer'),
-                'value' => $this->getCustomerOptions(),
-            ],
-            [
-                'label' => __('Address'),
-                'value' => $this->getAddressOptions(),
-            ],
-            [
                 'label' => __('Order'),
                 'value' => $this->getOrderOptions(),
             ],
             [
                 'label' => __('Store'),
                 'value' => $this->getStoreOptions(),
+            ],
+            [
+                'label' => __('Customer'),
+                'value' => $this->getCustomerOptions(),
+            ],
+            [
+                'label' => __('Address'),
+                'value' => $this->getAddressOptions(),
             ],
         ];
     }
@@ -122,6 +122,9 @@ class EventDimensionsAttributeSelect extends Select
 
         $options = [];
         foreach ($collection as $attribute) {
+            if (in_array($attribute->getAttributeCode(), ['sku', 'entity_id'])) {
+                continue;
+            }
             $options[] = [
                 'label' => $attribute->getFrontendLabel(),
                 'value' => 'product.' . $attribute->getAttributeCode(),

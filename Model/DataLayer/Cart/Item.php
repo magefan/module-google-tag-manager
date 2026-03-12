@@ -25,7 +25,7 @@ class Item extends AbstractDataLayer implements ItemInterface
             return [];
         }
         $categoryNames = $this->getCategoryNames($product);
-        return array_merge([
+        $item = array_merge([
             'item_id' => ($this->config->getProductAttribute() == 'sku')
                 ? $quoteItem->getSku()
                 : $this->getProductAttributeValue($product, $this->config->getProductAttribute()),
@@ -36,6 +36,8 @@ class Item extends AbstractDataLayer implements ItemInterface
             'price' => $this->getValue($quoteItem),
             'quantity' => $quoteItem->getQty() * 1
         ], $categoryNames, $this->getItemVariant($quoteItem));
+
+        return $this->addCustomItemDimensions($product, $item);
     }
 
     /**
