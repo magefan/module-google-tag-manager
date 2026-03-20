@@ -61,7 +61,7 @@ abstract class AbstractOrder extends AbstractDataLayer
                     'value' => $this->getValue($order),
                     'tax' => $this->formatPrice((float)$order->getTaxAmount()),
                     'shipping' => $this->formatPrice((float)$order->getShippingAmount()),
-                    'currency' => $this->getCurrentCurrencyCode(),
+                    'currency' => $order->getOrderCurrencyCode(),
                     'coupon' => $order->getCouponCode() ?: '',
                     'items' => $items
                 ],
