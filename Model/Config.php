@@ -44,6 +44,7 @@ class Config
     public const XML_PATH_ATTRIBUTES_PRODUCT = 'mfgoogletagmanager/attributes/product';
     public const XML_PATH_ATTRIBUTES_BRAND = 'mfgoogletagmanager/attributes/brand';
     public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
+    public const XML_PATH_ATTRIBUTES_VIEW_ITEM_LIST_MAX_ITEMS = 'mfgoogletagmanager/attributes/view_item_list_max_items';
 
     /**
      * Events config
@@ -295,6 +296,17 @@ class Config
     public function getCategoriesAttribute(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_ATTRIBUTES_CATEGORIES, $storeId));
+    }
+
+    /**
+     * Retrieve max number of items for view_item_list event
+     *
+     * @param string|null $storeId
+     * @return int
+     */
+    public function getViewItemListMaxItems(?string $storeId = null): int
+    {
+        return (int)$this->getConfig(self::XML_PATH_ATTRIBUTES_VIEW_ITEM_LIST_MAX_ITEMS, $storeId);
     }
 
     /**
