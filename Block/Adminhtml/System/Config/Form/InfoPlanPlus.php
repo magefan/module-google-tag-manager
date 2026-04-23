@@ -25,7 +25,7 @@ class InfoPlanPlus extends InfoPlan
     protected function getSectionsJson(): string
     {
         $sections = json_encode([
-            'mfgoogletagmanager_ads',
+            'mfgoogletagmanager_ads', 'mfgoogletagmanager_events_view_item_list_max_items'
         ]);
         return $sections;
     }
