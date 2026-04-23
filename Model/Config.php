@@ -107,13 +107,14 @@ class Config
     }
 
     /**
+     * @param string|null $storeId
      * @return bool
      */
-    public function isCustomerGroupAllowedToSeeProductPrice(): bool
+    public function isCustomerGroupAllowedToSeeProductPrice(?string $storeId = null): bool
     {
-        $allowedGroups = $this->getConfig(self::XML_PATH_DISPLAY_PRODUCT_PRICE_FOR);
+        $allowedGroups = (string)$this->getConfig(self::XML_PATH_DISPLAY_PRODUCT_PRICE_FOR, $storeId);
 
-        if (!$allowedGroups) {
+        if ('' === $allowedGroups) {
             return false;
         }
 
@@ -123,7 +124,7 @@ class Config
             ->get(CustomerSession::class);
         $customerGroupId = (string)$session->getCustomerGroupId();
 
-        return in_array('all', $allowedGroups) || in_array($customerGroupId, $allowedGroups);
+        return (bool)array_intersect([$customerGroupId, 'all'], $allowedGroups);
     }
 
     /**

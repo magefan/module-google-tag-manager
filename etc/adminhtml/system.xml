@@ -444,6 +444,7 @@ To create a new secret, navigate in the
                 <field id="display_product_price_for" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Display Product Price For</label>
                     <source_model>Magefan\GoogleTagManager\Model\Config\Source\CustomerGroups</source_model>
+                    <can_be_empty>1</can_be_empty>
                 </field>
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -472,6 +473,7 @@ To create a new secret, navigate in the
                             <p><strong>Note:</strong> This option will be ignored if the GTM Server Container and the Measurement Protocol are disabled.</p>
                         ]]>
                         </comment>
+                        <can_be_empty>1</can_be_empty>
                     </field>
                 </group>
             </group>
