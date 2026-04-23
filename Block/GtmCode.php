@@ -160,6 +160,19 @@ class GtmCode extends Template
 
 
     /**
+     * @return string
+     */
+    public function getCspNonce(): string
+    {
+        if (!class_exists(\Magento\Csp\Helper\CspNonceProvider::class)) {
+            return '';
+        }
+        return \Magento\Framework\App\ObjectManager::getInstance()
+            ->get(\Magento\Csp\Helper\CspNonceProvider::class)
+            ->generateNonce();
+    }
+
+    /**
      * @param $origin
      * @return string
      * @throws NoSuchEntityException

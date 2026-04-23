@@ -16,6 +16,7 @@ if (!isset($escaper)) {
 }
 
 $script = '';
+$cspNonce = $block->getCspNonce();
 ?>
 <!-- Google Tag Manager -->
 <?php if ($block->isSpeedOptimizationEnabled() && $block->getRequest()->getModuleName() !== 'checkout') { ?>
@@ -139,10 +140,11 @@ $script = '';
         "; ?>
 <?php if ($block->getConfig()->isWebContainerEnabled() && $block->getPublicId()) { ?>
     <?php if ('use_public_id' === $block->getConfig()->getInstallGtm()) { ?>
+        <?php $nonceAttr = $cspNonce ? "j.nonce='" . $escaper->escapeJs($cspNonce) . "';" : ''; ?>
         <?php $script .= "
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.async=true;
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.setAttributeNode(d.createAttribute('data-ot-ignore'));j.async=true;{$nonceAttr}
                 j.src='" . $block->getGtmJsUrl() . "?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','{$escaper->escapeHtml($block->getPublicId())}');
         "; ?>
