@@ -25,7 +25,7 @@ class ProtectCustomerData extends Field
         $comment = '
             <strong>Note</strong>: this option works only when default Magento Cookie Restriction Mode is enabled at 
             <a href="' . $url . '" target="_blank">Stores > Configuration > General > Web > Default Cookie Settings</a>.
-            If Magento Cookie Restriction Mode is disabled, then GTM JavaScript will be loaded before consent ignoring the "Load GTM Script Before Consent" option.<br/><br/>
+            If you don't use Magento Cookie Restriction Mode, or use any other tool to collect cookies, then GTM JavaScript will be loaded before consent ignoring the "Load GTM Script Before Consent" option.<br/><br/>
             Even if GTM JavaScript is loaded before customer`s consent,
             GTM still waits for consent to send user data related to advertising and analytics.';
 
