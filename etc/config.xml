@@ -75,6 +75,9 @@
                     <track_admin_orders>1</track_admin_orders>
                     <allowed_order_status>any</allowed_order_status>
                 </purchase>
+                <view_item_list>
+                    <view_item_list_max_items>0</view_item_list_max_items>
+                </view_item_list>
             </events>
             <page_speed_optimization>
                 <enabled>0</enabled>

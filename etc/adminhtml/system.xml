@@ -476,6 +476,14 @@ To create a new secret, navigate in the
                         <can_be_empty>1</can_be_empty>
                     </field>
                 </group>
+                <group id="view_item_list" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>View item list</label>
+                    <field id="max_items" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Maximum Number of Items in View Item List</label>
+                        <validate>validate-digits</validate>
+                        <comment><![CDATA[Limits the number of products sent in the <strong>view_item_list</strong> event on category pages. Set to <strong>0</strong> or leave empty for no limit. Useful for preventing GA4 EVENT_TOO_LARGE errors on categories with many products.]]></comment>
+                    </field>
+                </group>
             </group>
             <group id="page_speed_optimization" translate="label" type="text" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Page Speed Optimization</label>
