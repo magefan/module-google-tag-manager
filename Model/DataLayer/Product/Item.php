@@ -20,17 +20,18 @@ class Item extends AbstractDataLayer implements ItemInterface
     public function get(Product $product): array
     {
         $categoryNames = $this->getCategoryNames($product);
-        $data = [
+        $item = array_merge([
             'item_id' => $this->getProductAttributeValue($product, $this->config->getProductAttribute()),
             'item_name' => $product->getName(),
             'item_url' => $product->getProductUrl(),
             'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
-        ];
+        ], $categoryNames);
+
 
         if ($this->config->isCustomerGroupAllowedToSeeProductPrice()) {
-            $data['price'] = $this->getProductValue($product);
+            $item['price'] = $this->getProductValue($product);
         }
 
-        return array_merge($data, $categoryNames);
+        return $this->addCustomItemDimensions($product, $item);
     }
 }

@@ -72,6 +72,7 @@ class BeginCheckout extends AbstractDataLayer implements BeginCheckoutInterface
 
         if ($quote->getCustomerId()) {
             $data['customer_id'] = $quote->getCustomerId();
+            $this->contextCustomer = (int)$quote->getCustomerId();
         }
 
         return $this->eventWrap($data);

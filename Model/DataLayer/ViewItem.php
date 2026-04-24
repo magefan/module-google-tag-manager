@@ -52,6 +52,7 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
     public function get(Product $product): array
     {
         $item = $this->gtmItem->get($product);
+        $this->contextProduct = $product;
         return $this->eventWrap([
             'event' => 'view_item',
             'ecommerce' => [

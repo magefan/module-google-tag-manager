@@ -454,6 +454,11 @@ To create a new secret, navigate in the
                     <source_model>Magefan\GoogleTagManager\Model\Config\Source\CustomerGroups</source_model>
                     <can_be_empty>1</can_be_empty>
                 </field>
+                <field id="custom_dimensions" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Item-scoped Dimensions</label>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>
@@ -490,6 +495,14 @@ To create a new secret, navigate in the
                         <label>Maximum Number of Items in View Item List</label>
                         <validate>validate-digits</validate>
                         <comment><![CDATA[Limits the number of products sent in the <strong>view_item_list</strong> event on category pages. Set to <strong>0</strong> or leave empty for no limit. Useful for preventing GA4 EVENT_TOO_LARGE errors on categories with many products.]]></comment>
+                    </field>
+                </group>
+                <group id="custom_dimensions" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Event-scoped Dimensions</label>
+                    <field id="event_dimensions" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Event-scoped Dimensions</label>
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomEventDimensions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
                 </group>
             </group>

@@ -45,12 +45,14 @@ class Config
     public const XML_PATH_ATTRIBUTES_PRODUCT = 'mfgoogletagmanager/attributes/product';
     public const XML_PATH_ATTRIBUTES_BRAND = 'mfgoogletagmanager/attributes/brand';
     public const XML_PATH_ATTRIBUTES_CATEGORIES = 'mfgoogletagmanager/attributes/categories';
+    public const XML_PATH_ATTRIBUTES_CUSTOM_DIMENSIONS = 'mfgoogletagmanager/attributes/custom_dimensions';
 
     /**
      * Events config
      */
     public const XML_PATH_EVENTS_PURCHASE_TAX_ENABLED = 'mfgoogletagmanager/events/purchase/tax_enabled';
     public const XML_PATH_EVENTS_PURCHASE_SHIPPING_ENABLED = 'mfgoogletagmanager/events/purchase/shipping_enabled';
+    public const XML_PATH_CUSTOM_EVENT_DIMENSIONS = 'mfgoogletagmanager/events/custom_dimensions/event_dimensions';
 
     /**
      * Customer data protection regulation config
@@ -341,6 +343,64 @@ class Config
     public function getInstallGtm(?string $storeId = null): string
     {
         return trim((string)$this->getConfig(self::XML_PATH_INSTALL_GTM, $storeId));
+    }
+
+    /**
+     * Retrieve item-level custom dimensions mapping (GA4 param => product attribute code)
+     *
+     * @param string|null $storeId
+     * @return array
+     */
+    public function getCustomItemDimensions(?string $storeId = null): array
+    {
+        return $this->parseSerializedDimensions(
+            $this->getConfig(self::XML_PATH_ATTRIBUTES_CUSTOM_DIMENSIONS, $storeId),
+            'ga4_param',
+            'attribute_code'
+        );
+    }
+
+    /**
+     * Retrieve event-level custom dimensions rows
+     *
+     * @param string|null $storeId
+     * @return array
+     */
+    public function getCustomEventDimensions(?string $storeId = null): array
+    {
+        return $this->parseSerializedDimensions(
+            $this->getConfig(self::XML_PATH_CUSTOM_EVENT_DIMENSIONS, $storeId),
+            'ga4_param',
+            'value'
+        );
+    }
+
+    /**
+     * Parse serialized AbstractFieldArray data into a flat key => value array
+     *
+     * @param mixed $data
+     * @param string $keyCol
+     * @param string $valueCol
+     * @return array
+     */
+    private function parseSerializedDimensions($data, string $keyCol, string $valueCol): array
+    {
+        if (!$data) {
+            return [];
+        }
+        if (is_string($data)) {
+            $data = json_decode($data, true);
+        }
+        if (!is_array($data)) {
+            return [];
+        }
+        $result = [];
+        foreach ($data as $row) {
+            if (is_array($row) && !empty($row[$keyCol]) && isset($row[$valueCol]) && $row[$valueCol] !== '') {
+                $result[trim($row[$keyCol])] = trim($row[$valueCol]);
+            }
+        }
+        return $result;
     }
 
     /**
