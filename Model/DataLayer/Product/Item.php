@@ -25,8 +25,12 @@ class Item extends AbstractDataLayer implements ItemInterface
             'item_name' => $product->getName(),
             'item_url' => $product->getProductUrl(),
             'item_brand' => $this->getProductAttributeValue($product, $this->config->getBrandAttribute()),
-            'price' => $this->getProductValue($product)
         ], $categoryNames);
+
+
+        if ($this->config->isCustomerGroupAllowedToSeeProductPrice()) {
+            $item['price'] = $this->getProductValue($product);
+        }
 
         return $this->addCustomItemDimensions($product, $item);
     }
