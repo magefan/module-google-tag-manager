@@ -52,7 +52,8 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
     public function get(Product $product): array
     {
         $item = $this->gtmItem->get($product);
-        $data = [
+        $this->contextProduct = $product;
+        return $this->eventWrap([
             'event' => 'view_item',
             'ecommerce' => [
                 'currency' => $this->getCurrentCurrencyCode(),
@@ -61,9 +62,6 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
                     $item
                 ]
             ]
-        ];
-
-        $this->contextProduct = $product;
-        return $this->eventWrap($data);
+        ]);
     }
 }

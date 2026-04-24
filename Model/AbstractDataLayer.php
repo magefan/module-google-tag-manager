@@ -23,6 +23,8 @@ use Magento\Customer\Model\ResourceModel\GroupRepository;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Sales\Model\Order;
+use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Customer\Model\AddressFactory;
 
 class AbstractDataLayer
 {
@@ -92,11 +94,28 @@ class AbstractDataLayer
     protected $contextOrder = null;
 
     /**
+     * @var CustomerRepositoryInterface
+     */
+    protected $customerRepository;
+
+    /**
+     * @var AddressFactory
+     */
+    protected $addressFactory;
+
+    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
      * @param StoreManagerInterface $storeManager
      * @param CategoryRepositoryInterface $categoryRepository
+     * @param RequestInterface|null $request
+     * @param Registry|null $registry
+     * @param Session|null $session
+     * @param GroupRepository|null $groupRepository
+     * @param ProductRepositoryInterface|null $productRepository
+     * @param CustomerRepositoryInterface|null $customerRepository
+     * @param AddressFactory|null $addressFactory
      */
     public function __construct(
         Config                      $config,
@@ -107,6 +126,8 @@ class AbstractDataLayer
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
         ?ProductRepositoryInterface    $productRepository = null,
+        ?CustomerRepositoryInterface $customerRepository = null,
+        ?AddressFactory              $addressFactory = null
 
     ) {
         $this->config = $config;
@@ -126,6 +147,12 @@ class AbstractDataLayer
         );
         $this->productRepository = $productRepository ?: ObjectManager::getInstance()->get(
             ProductRepositoryInterface::class
+        );
+        $this->customerRepository = $customerRepository ?: ObjectManager::getInstance()->get(
+            CustomerRepositoryInterface::class
+        );
+        $this->addressFactory = $addressFactory ?: ObjectManager::getInstance()->get(
+            AddressFactory::class
         );
     }
 
@@ -396,10 +423,11 @@ class AbstractDataLayer
 
             $value = null;
             if ($this->contextCustomer && is_int($this->contextCustomer)) {
-                $customerRepository = ObjectManager::getInstance()->get(
-                    \Magento\Customer\Api\CustomerRepositoryInterface::class
-                );
-                $this->contextCustomer = $customerRepository->getById($this->contextCustomer);
+                try {
+                    $this->contextCustomer = $this->customerRepository->getById($this->contextCustomer);
+                } catch (\Exception $e) {
+                    $this->contextCustomer = null;
+                }
             }
             switch ($entity) {
                 case 'product':
@@ -420,8 +448,7 @@ class AbstractDataLayer
 
                 case 'order':
                     if ($this->contextOrder) {
-                        $raw = $this->contextOrder->getData($attribute);
-                        $value = $raw !== null ? (string)$raw : null;
+                        $value = (string)$this->contextOrder->getData($attribute);
                     }
                     break;
 
@@ -432,15 +459,14 @@ class AbstractDataLayer
                             $value = $store->getCurrentCurrencyCode();
                             break;
                         }
-                        $raw = $store->getData($attribute);
-                        $value = $raw !== null ? (string)$raw : null;
+                        $value = (string)$store->getData($attribute);
                     } catch (\Exception $e) { // phpcs:ignore
                         /* Do nothing */
                     }
                     break;
             }
 
-            if ($value !== null && $value !== '') {
+            if ($value) {
                 $data[$param] = $value;
             }
         }
@@ -457,20 +483,19 @@ class AbstractDataLayer
      */
     protected function getAddressAttributeValue(string $attribute): ?string
     {
-        $address = null;
         if ($this->contextOrder) {
             $address = $this->contextOrder->getBillingAddress();
+            if ($address) {
+                return (string)$address->getData($attribute);
+            }
         } elseif ($this->contextCustomer && $this->contextCustomer->getId()) {
             $billingId = $this->contextCustomer->getDefaultBilling();
             if ($billingId) {
-                $address = ObjectManager::getInstance()->get(
-                    \Magento\Customer\Model\AddressFactory::class
-                )->create()->load($billingId);
+                $address = $this->addressFactory->create()->load($billingId);
+                if ($address->getId()) {
+                    return (string)$address->getData($attribute);
+                }
             }
-        }
-        if ($address) {
-            $raw = $address->getData($attribute);
-            return $raw !== null ? (string)$raw : null;
         }
         return null;
     }
