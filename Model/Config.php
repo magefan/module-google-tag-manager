@@ -122,10 +122,15 @@ class Config
 
         $allowedGroups = explode(',', $allowedGroups);
 
-        // Using ObjectManager instead of DI to avoid triggering  Circular dependency error
+        // Using ObjectManager instead of DI to avoid triggering Circular dependency error
         // due to GoogleTagManager\Plugin\Magento\Framework\App\Config\ScopeConfig
         $session = $this->customerSession ?: \Magento\Framework\App\ObjectManager::getInstance()
             ->get(CustomerSession::class);
+
+        if (!$session->isSessionExists()) {
+            return true;
+        }
+
         $customerGroupId = (string)$session->getCustomerGroupId();
 
         return (bool)array_intersect([$customerGroupId, 'all'], $allowedGroups);
