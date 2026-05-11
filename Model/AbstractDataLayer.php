@@ -12,7 +12,6 @@ use Exception;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\Product;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\RequestInterface;
@@ -21,10 +20,6 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Customer\Model\Session;
 use Magento\Customer\Model\ResourceModel\GroupRepository;
 use Magento\Catalog\Api\ProductRepositoryInterface;
-use Magento\Customer\Model\CustomerFactory;
-use Magento\Sales\Model\Order;
-use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Customer\Model\AddressFactory;
 
 class AbstractDataLayer
 {
@@ -79,31 +74,6 @@ class AbstractDataLayer
     protected $ecommPageType = 'other';
 
     /**
-     * @var Product|null
-     */
-    protected $contextProduct = null;
-
-    /**
-     * @var int|null
-     */
-    protected $contextCustomer = null;
-
-    /**
-     * @var Order|null
-     */
-    protected $contextOrder = null;
-
-    /**
-     * @var CustomerRepositoryInterface
-     */
-    protected $customerRepository;
-
-    /**
-     * @var AddressFactory
-     */
-    protected $addressFactory;
-
-    /**
      * AbstractDataLayer constructor.
      *
      * @param Config $config
@@ -114,8 +84,6 @@ class AbstractDataLayer
      * @param Session|null $session
      * @param GroupRepository|null $groupRepository
      * @param ProductRepositoryInterface|null $productRepository
-     * @param CustomerRepositoryInterface|null $customerRepository
-     * @param AddressFactory|null $addressFactory
      */
     public function __construct(
         Config                      $config,
@@ -125,10 +93,7 @@ class AbstractDataLayer
         ?Registry                    $registry = null,
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
-        ?ProductRepositoryInterface    $productRepository = null,
-        ?CustomerRepositoryInterface $customerRepository = null,
-        ?AddressFactory              $addressFactory = null
-
+        ?ProductRepositoryInterface  $productRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -147,12 +112,6 @@ class AbstractDataLayer
         );
         $this->productRepository = $productRepository ?: ObjectManager::getInstance()->get(
             ProductRepositoryInterface::class
-        );
-        $this->customerRepository = $customerRepository ?: ObjectManager::getInstance()->get(
-            CustomerRepositoryInterface::class
-        );
-        $this->addressFactory = $addressFactory ?: ObjectManager::getInstance()->get(
-            AddressFactory::class
         );
     }
 
@@ -395,7 +354,6 @@ class AbstractDataLayer
 
         $data = $this->addMfUniqueEventId($data);
         $data = $this->addEcommPageType($data);
-        $data = $this->addCustomEventDimensions($data);
 
         $data['_clear'] = 'true';
 
@@ -403,136 +361,14 @@ class AbstractDataLayer
     }
 
     /**
-     * Merge configured event-level custom dimensions into event data using context entities.
+     * Wrap item event data with additional product information if provided.
      *
      * @param array $data
+     * @param mixed $product
      * @return array
      */
-    protected function addCustomEventDimensions(array $data): array
+    public function itemEventWrap(array $data, $product = null): array
     {
-        $customDimensions = $this->config->getCustomEventDimensions();
-        if (!$customDimensions) {
-            return $data;
-        }
-
-        foreach ($customDimensions as $param => $valueSource) {
-            if (strpos($valueSource, '.') === false) {
-                continue;
-            }
-            [$entity, $attribute] = explode('.', $valueSource, 2);
-
-            $value = null;
-            if ($this->contextCustomer && is_int($this->contextCustomer)) {
-                try {
-                    $this->contextCustomer = $this->customerRepository->getById($this->contextCustomer);
-                } catch (\Exception $e) {
-                    $this->contextCustomer = null;
-                }
-            }
-            switch ($entity) {
-                case 'product':
-                    if ($this->contextProduct) {
-                        $value = $this->getProductAttributeValue($this->contextProduct, $attribute) ?: null;
-                    }
-                    break;
-
-                case 'customer':
-                    if ($this->contextCustomer && $this->contextCustomer->getId()) {
-                        $value = $this->getCustomerAttributeValue($attribute);
-                    }
-                    break;
-
-                case 'address':
-                    $value = $this->getAddressAttributeValue($attribute);
-                    break;
-
-                case 'order':
-                    if ($this->contextOrder) {
-                        $value = (string)$this->contextOrder->getData($attribute);
-                    }
-                    break;
-
-                case 'store':
-                    try {
-                        $store = $this->storeManager->getStore();
-                        if ($attribute === 'currency') {
-                            $value = $store->getCurrentCurrencyCode();
-                            break;
-                        }
-                        $value = (string)$store->getData($attribute);
-                    } catch (\Exception $e) { // phpcs:ignore
-                        /* Do nothing */
-                    }
-                    break;
-            }
-
-            if ($value) {
-                $data[$param] = $value;
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * Get address attribute value from order or customer context.
-     *
-     * @param string $attribute
-     * @return string|null
-     * @throws LocalizedException
-     */
-    protected function getAddressAttributeValue(string $attribute): ?string
-    {
-        if ($this->contextOrder) {
-            $address = $this->contextOrder->getBillingAddress();
-            if ($address) {
-                return (string)$address->getData($attribute);
-            }
-        } elseif ($this->contextCustomer && $this->contextCustomer->getId()) {
-            $billingId = $this->contextCustomer->getDefaultBilling();
-            if ($billingId) {
-                $address = $this->addressFactory->create()->load($billingId);
-                if ($address->getId()) {
-                    return (string)$address->getData($attribute);
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Get customer attribute value by code, supporting both typed getters and custom attributes.
-     *
-     * @param string $attribute
-     * @return string|null
-     */
-    protected function getCustomerAttributeValue(string $attribute): ?string
-    {
-        $customer = $this->contextCustomer;
-        $getter = 'get' . str_replace('_', '', ucwords($attribute, '_'));
-        if (method_exists($customer, $getter)) {
-            $raw = $customer->$getter();
-        } else {
-            $attr = $customer->getCustomAttribute($attribute);
-            $raw = $attr ? $attr->getValue() : null;
-        }
-        return $raw !== null && $raw !== '' ? (string)$raw : null;
-    }
-
-    /**
-     * Add custom item dimensions to item data
-     *
-     * @param $product
-     * @param $data
-     * @return array
-     */
-    public function addCustomItemDimensions($product, $data): array
-    {
-        foreach ($this->config->getCustomItemDimensions() as $param => $attributeCode) {
-            if ($value = $this->getProductAttributeValue($product, $attributeCode)) {
-                $data[$param] = $value;
-            }
-        }
         return $data;
     }
 

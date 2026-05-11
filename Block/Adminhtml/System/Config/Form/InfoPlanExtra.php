@@ -29,7 +29,9 @@ class InfoPlanExtra extends InfoPlan
             'mfgoogletagmanager_analytics_measurement_protocol',
             'mfgoogletagmanager_server_container',
             'mfgoogletagmanager_events_purchase_track_admin_orders',
-            'mfgoogletagmanager_web_container_gtg_enabled'
+            'mfgoogletagmanager_web_container_gtg_enabled',
+            'mfgoogletagmanager_events_custom_dimensions-state',
+            'mfgoogletagmanager_attributes_custom_dimensions'
         ]);
         return $sections;
     }

@@ -72,12 +72,8 @@ abstract class AbstractOrder extends AbstractDataLayer
 
             if ($order->getCustomerId()) {
                 $data['customer_id'] = $order->getCustomerId();
-                if (!$order->getCustomerIsGuest()) {
-                    $this->contextCustomer = (int)$order->getCustomerId();
-                }
             }
 
-            $this->contextOrder = $order;
             return $this->eventWrap($data);
         }
 

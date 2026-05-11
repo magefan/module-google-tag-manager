@@ -32,6 +32,6 @@ class Item extends AbstractDataLayer implements ItemInterface
             $item['price'] = $this->getProductValue($product);
         }
 
-        return $this->addCustomItemDimensions($product, $item);
+        return $this->itemEventWrap($item, $product);
     }
 }
