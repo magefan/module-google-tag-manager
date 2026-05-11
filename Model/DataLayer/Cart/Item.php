@@ -37,7 +37,7 @@ class Item extends AbstractDataLayer implements ItemInterface
             'quantity' => $quoteItem->getQty() * 1
         ], $categoryNames, $this->getItemVariant($quoteItem));
 
-        return $this->addCustomItemDimensions($product, $item);
+        return $this->itemEventWrap($item, $product);
     }
 
     /**
