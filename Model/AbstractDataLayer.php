@@ -297,7 +297,7 @@ class AbstractDataLayer
      * @param string $attributeCode
      * @return string
      */
-    protected function getProductAttributeValue(Product $product, ?string $attributeCode): string
+    public function getProductAttributeValue(Product $product, ?string $attributeCode): string
     {
         if ($attributeCode) {
             $result = $product->getData($attributeCode);
