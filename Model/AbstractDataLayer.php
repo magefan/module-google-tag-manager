@@ -79,6 +79,11 @@ class AbstractDataLayer
      * @param Config $config
      * @param StoreManagerInterface $storeManager
      * @param CategoryRepositoryInterface $categoryRepository
+     * @param RequestInterface|null $request
+     * @param Registry|null $registry
+     * @param Session|null $session
+     * @param GroupRepository|null $groupRepository
+     * @param ProductRepositoryInterface|null $productRepository
      */
     public function __construct(
         Config                      $config,
@@ -88,7 +93,7 @@ class AbstractDataLayer
         ?Registry                    $registry = null,
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
-        ?ProductRepositoryInterface    $productRepository = null
+        ?ProductRepositoryInterface  $productRepository = null
     ) {
         $this->config = $config;
         $this->storeManager = $storeManager;
@@ -292,7 +297,7 @@ class AbstractDataLayer
      * @param string $attributeCode
      * @return string
      */
-    protected function getProductAttributeValue(Product $product, ?string $attributeCode): string
+    public function getProductAttributeValue(Product $product, ?string $attributeCode): string
     {
         if ($attributeCode) {
             $result = $product->getData($attributeCode);
@@ -352,6 +357,18 @@ class AbstractDataLayer
 
         $data['_clear'] = 'true';
 
+        return $data;
+    }
+
+    /**
+     * Wrap item event data with additional product information if provided.
+     *
+     * @param array $data
+     * @param mixed $product
+     * @return array
+     */
+    public function itemEventWrap(array $data, $product = null): array
+    {
         return $data;
     }
 

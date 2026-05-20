@@ -60,7 +60,8 @@ class ViewItem extends AbstractDataLayer implements ViewItemInterface
                 'items' => [
                     $item
                 ]
-            ]
+            ],
+            'product_id' => $product->getId(),
         ]);
     }
 }
