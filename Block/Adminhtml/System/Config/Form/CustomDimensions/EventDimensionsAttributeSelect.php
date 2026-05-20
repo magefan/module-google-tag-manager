@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions;
 
 use Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory as ProductAttributeCollectionFactory;
-use Magento\Customer\Model\ResourceModel\Attribute\Collection as CustomerAttributeCollection;
+use Magento\Customer\Model\ResourceModel\Attribute\CollectionFactory as CustomerAttributeCollectionFactory;
 use Magento\Framework\View\Element\Context;
 use Magento\Framework\View\Element\Html\Select;
 
@@ -18,28 +18,28 @@ class EventDimensionsAttributeSelect extends Select
     /**
      * @var ProductAttributeCollectionFactory
      */
-    private $productAttributes;
+    private $productAttributesFactory;
 
     /**
-     * @var CustomerAttributeCollection
+     * @var CustomerAttributeCollectionFactory
      */
-    private $customerAttributes;
+    private $customerAttributesFactory;
 
     /**
      * @param Context $context
-     * @param ProductAttributeCollectionFactory $productAttributes
-     * @param CustomerAttributeCollection $customerAttributes
+     * @param ProductAttributeCollectionFactory $productAttributesFactory
+     * @param CustomerAttributeCollectionFactory $customerAttributesFactory
      * @param array $data
      */
     public function __construct(
         Context $context,
-        ProductAttributeCollectionFactory $productAttributes,
-        CustomerAttributeCollection $customerAttributes,
+        ProductAttributeCollectionFactory $productAttributesFactory,
+        CustomerAttributeCollectionFactory $customerAttributesFactory,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->productAttributes = $productAttributes;
-        $this->customerAttributes = $customerAttributes;
+        $this->productAttributesFactory = $productAttributesFactory;
+        $this->customerAttributesFactory = $customerAttributesFactory;
     }
 
     /**
@@ -116,7 +116,7 @@ class EventDimensionsAttributeSelect extends Select
      */
     private function getProductOptions(): array
     {
-        $collection = $this->productAttributes->create()
+        $collection = $this->productAttributesFactory->create()
             ->addVisibleFilter()
             ->setOrder('frontend_label', 'ASC');
 
@@ -141,7 +141,7 @@ class EventDimensionsAttributeSelect extends Select
     private function getCustomerOptions(): array
     {
         $options = [];
-        foreach ($this->customerAttributes as $attribute) {
+        foreach ($this->customerAttributesFactory->create() as $attribute) {
             $options[] = [
                 'label' => $attribute->getFrontendLabel(),
                 'value' => 'customer.' . $attribute->getAttributeCode(),

@@ -17,20 +17,20 @@ class AttributeSelect extends Select
     /**
      * @var CollectionFactory
      */
-    private $attributes;
+    private $attributesFactory;
 
     /**
      * @param Context $context
-     * @param CollectionFactory $collectionAttributes
+     * @param CollectionFactory $attributesFactory
      * @param array $data
      */
     public function __construct(
         Context           $context,
-        CollectionFactory $collectionAttributes,
+        CollectionFactory $attributesFactory,
         array             $data = []
     ) {
         parent::__construct($context, $data);
-        $this->attributes = $collectionAttributes;
+        $this->attributesFactory = $attributesFactory;
     }
 
     /**
@@ -75,7 +75,7 @@ class AttributeSelect extends Select
      */
     private function getSourceOptions(): array
     {
-        $attributes = $this->attributes
+        $attributes = $this->attributesFactory
             ->create()
             ->addVisibleFilter()
             ->setOrder('frontend_label', 'ASC');
