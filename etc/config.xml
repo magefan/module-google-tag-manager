@@ -11,7 +11,6 @@
             <general>
                 <enabled>0</enabled>
                 <mfmodule>GoogleTagManager</mfmodule>
-                <mftype>1</mftype>
             </general>
             <web_container>
                 <enabled>1</enabled>
@@ -66,6 +65,7 @@
                 <product>sku</product>
                 <brand/>
                 <categories/>
+                <display_product_price_for>all</display_product_price_for>
             </attributes>
             <events>
                 <purchase>
@@ -74,6 +74,9 @@
                     <track_admin_orders>1</track_admin_orders>
                     <allowed_order_status>any</allowed_order_status>
                 </purchase>
+                <view_item_list>
+                    <max_items>50</max_items>
+                </view_item_list>
             </events>
             <page_speed_optimization>
                 <enabled>0</enabled>

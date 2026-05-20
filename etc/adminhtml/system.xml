@@ -225,6 +225,14 @@
                         <field id="headless_storefront">0</field>
                     </depends>
                 </field>
+                <field id="ignore_ips" translate="label comment" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ignored IPs (comma separated)</label>
+                    <comment>Requests from these IP addresses will not be tracked via Server Container.</comment>
+                    <backend_model>Magento\Developer\Model\Config\Backend\AllowedIps</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
                 <group id="preview" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1" >
                     <label>Debug View / Preview</label>
                     <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -331,7 +339,7 @@ To create a new secret, navigate in the
                         <field id="conversion_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                             <label>Conversion ID</label>
                             <comment><![CDATA[
-                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion ID">Where to find Conversion ID?</a>
+                                <a href="https://magefan.com/magento-2-google-tag-manager/conversion-tracking#step-2-get-conversion-id-and-conversion-label" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion ID">Where to find Conversion ID?</a>
                                 ]]>
                             </comment>
                             <depends>
@@ -341,7 +349,7 @@ To create a new secret, navigate in the
                         <field id="conversion_label" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                             <label>Conversion Label</label>
                             <comment><![CDATA[
-                                <a href="https://support.google.com/tagmanager/answer/6105160" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion Label">Where to find Conversion Label?</a>
+                                <a href="https://magefan.com/magento-2-google-tag-manager/conversion-tracking#step-2-get-conversion-id-and-conversion-label" target="_blank" rel="nofollow noopener" title="Where to find Google Ads Conversion Label">Where to find Conversion Label?</a>
                                 ]]>
                             </comment>
                             <depends>
@@ -441,6 +449,16 @@ To create a new secret, navigate in the
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[<strong class="colorRed">Warning!</strong> Enabling this option may cause the performance impact.]]></comment>
                 </field>
+                <field id="display_product_price_for" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Display Product Price For</label>
+                    <source_model>Magefan\GoogleTagManager\Model\Config\Source\CustomerGroups</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="custom_dimensions" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Item-scoped Dimensions</label>
+                    <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomDimensions</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
             </group>
             <group id="events" translate="label" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Events</label>
@@ -468,6 +486,23 @@ To create a new secret, navigate in the
                             <p><strong>Note:</strong> This option will be ignored if the GTM Server Container and the Measurement Protocol are disabled.</p>
                         ]]>
                         </comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                </group>
+                <group id="view_item_list" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>View item list</label>
+                    <field id="max_items" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Maximum Number of Items in View Item List</label>
+                        <validate>validate-digits</validate>
+                        <comment><![CDATA[Limits the number of products sent in the <strong>view_item_list</strong> event on category pages. Set to <strong>0</strong> or leave empty for no limit. Useful for preventing GA4 EVENT_TOO_LARGE errors on categories with many products.]]></comment>
+                    </field>
+                </group>
+                <group id="custom_dimensions" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Event-scoped Dimensions</label>
+                    <field id="event_dimensions" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Event-scoped Dimensions</label>
+                        <frontend_model>Magefan\GoogleTagManager\Block\Adminhtml\System\Config\Form\CustomEventDimensions</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     </field>
                 </group>
             </group>
