@@ -11,6 +11,9 @@ Enter your tracking IDs directly in the Magento admin panel and track every step
 
 Magefan Google Tag Manager extension for Magento is a low-effort solution that ensures you collect accurate data and make efficient decisions. 
 
+> **Notes:**
+>  * **ATTENTION!** Google Tag Manager Basic has become paid for Magento Open Source. Latest free version for Magento Open Source is Google Tag Manager v2.7.4
+
 <a href="https://magefan.com/blog/join-our-donations"><img  align="right" width="120" height="70" src="https://magefan.com/media/wysiwyg/made_in_ukraine.jpg"></a>
 
 <a href="https://magefan.com/magento-2-google-tag-manager"><img width="190" height="70" src="https://cm.magefan.com/wysiwyg/products/download-magefan-extensions.png"></a>
@@ -43,7 +46,7 @@ Magefan offers three different pricing options for Magento Google Tag Manager, i
   
 <a href="https://magefan.com/magento-2-google-tag-manager/pricing">
           <img
-            src="https://cm.magefan.com/wysiwyg/products/gtm-pricing-plans.png"
+            src="https://cm.magefan.com/mf_webp/png/media/wysiwyg/products/gtm-module-new-pricing.webp"
             alt="Editions and Pricing for Magento 2 Google Tag Manager" />
         </a>
         
