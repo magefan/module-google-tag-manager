@@ -133,6 +133,211 @@ When setting up a tracking solution, it’s important to ensure it’s flexible,
 The Magento 2 Google Tag Manager extension supports your business growth and changes. It integrates seamlessly with custom GTM loaders, headless storefront, and Hyva frontend and checkout, leaving you space for future advancements. 
 
 Integrate this solution, knowing that it won’t cause you headaches in the future but will be a reliable tool to support your growth.
+
+## Magefan Google Tag Manager Data Layer Attributes and Variables
+Magefan Magento GTM Extension provides a rich, GA4-native pre-built data layer with every vital Google Analytics 4 ecommerce event and a set of item, customer, and remarketing variables.
+
+> **Plans:**
+> Each variable and event is marked with * to specify the plan in which specific data is available. 
+> * *GoogleTagManager (Basic)
+> * **  GoogleTagManagerPlus (Plus)
+> * *** GoogleTagManagerExtra (Extra)
+
+
+### Triggered Events - Per Page
+
+#### All Page Events
+
+* page_view*
+* mf_gtm_customer_data**
+* scroll_depth_25***
+* scroll_depth_50***
+* scroll_depth_75***
+* scroll_depth_100***
+* user_engagement***
+
+#### Home Page (cms_index_index)
+
+* page_view*
+* view_item_list**
+
+#### Category Page (catalog_category_view)
+
+* page_view*
+* view_item_list**
+* select_item**
+
+#### Product Page (catalog_product_view)
+
+* page_view*
+* view_item*
+* view_item_list**
+* select_item**
+* add_to_cart**
+* add_to_wishlist**
+
+#### Shopping Cart Page  (checkout_cart_index)
+
+* page_view*
+* view_cart*
+* add_to_cart**
+* remove_from_cart**
+
+Checkout Page  (checkout_index_index)
+
+* page_view*
+* begin_checkout*
+* add_shipping_info**
+* add_payment_info**
+
+Order Confirmation Page  (checkout_onepage_success)
+
+* page_view*
+* purchase*
+
+Other Events
+
+* login***
+* sign_up***
+* search***
+* refund***
+* purchase***
+
+
+### Data Layer Variables
+
+#### Every Page
+Trigger: present on every event event
+
+* magefanUniqueEventId
+* ecomm_pagetype
+* _clear
+
+#### Customer
+Trigger: event equals page_view  (mf_gtm_customer_data, PII SHA-256 hashed for Enhanced Conversions / CAPI)
+
+* customer_identifier**
+* customer_email**
+* customer_firstname**
+* customer_lastname**
+* customer_telephone**
+* customer_dob**
+* customer_gender**
+* customer_city**
+* customer_postcode**
+* customer_region**
+* customer_country_id**
+* customerGroup**
+
+#### Item
+Trigger: present in ecommerce.items[] on every commerce event
+
+* ecommerce.items[].item_id
+* ecommerce.items[].item_name
+* ecommerce.items[].item_url
+* ecommerce.items[].item_brand
+* ecommerce.items[].item_category
+* ecommerce.items[].item_category2..N
+* ecommerce.items[].category
+* ecommerce.items[].price
+* ecommerce.items[].quantity
+* ecommerce.items[].discount
+* ecommerce.items[].coupon_code
+* ecommerce.items[].item_variant
+* ecommerce.items[].index
+
+#### Product
+Trigger: event equals view_item
+
+* ecommerce.currency*
+* ecommerce.value*
+* ecommerce.items[]*
+* product_id*
+
+#### Product List
+Trigger: event equals view_item_list, select_item
+
+* ecommerce.item_list_id**
+* ecommerce.item_list_name**
+* ecommerce.items[]**
+
+#### Cart
+Trigger: event equals view_cart, add_to_cart, remove_from_cart
+
+* ecommerce.currency*
+* ecommerce.value*
+* ecommerce.items[]*
+* ecommerce.items_count*
+* ecommerce.items_qty*
+* ecommerce.coupon_code*
+* product_id**
+* customer_id*
+
+#### Checkout
+Trigger: event equals begin_checkout, add_shipping_info, add_payment_info
+
+* ecommerce.currency*
+* ecommerce.value*
+* ecommerce.coupon*
+* ecommerce.items[]*
+* ecommerce.shipping_tier**
+* ecommerce.payment_type**
+* customer_id*
+
+#### Order
+Trigger: event equals purchase, refund
+
+* ecommerce.transaction_id*
+* ecommerce.value*
+* ecommerce.tax*
+* ecommerce.shipping*
+* ecommerce.currency*
+* ecommerce.coupon*
+* ecommerce.items[]*
+* is_virtual*
+* shipping_description*
+* customer_is_guest*
+* customer_id*
+
+#### Wishlist
+Trigger: event equals add_to_wishlist
+
+* ecommerce.currency**
+* ecommerce.value**
+* ecommerce.items[]**
+* product_id**
+* customer_id**
+
+#### Account
+Trigger: event equals login, sign_up
+
+* method***
+* customer_id***
+
+#### Search
+Trigger: event equals search
+
+* search_term***
+* ecomm_pagetype***
+
+#### Engagement
+Trigger: event equals scroll_depth_25/50/75/100, user_engagement
+
+* scrollDirection***
+* scrollThreshold***
+* scrollUnits***
+* _et***
+
+#### Remarketing (Google Ads)
+Trigger: google_tag_params on commerce pages
+
+* ecomm_pagetype**
+* ecomm_pcat**
+* ecomm_prodid**
+* ecomm_pname**
+* ecomm_currency**
+* ecomm_items_qty**
+* ecomm_totalvalue**
         
 ## Frequently Asked Questions about Magento 2 Google Tag Manager
 ### Do I need to edit code to integrate Google Tag Manager on my website?
