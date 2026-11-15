@@ -14,6 +14,8 @@ use Magefan\GoogleTagManager\Model\DataLayer\Purchase;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Exception\InputException;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 class DataLayer extends \Magento\Framework\App\Action\Action
 {
@@ -74,7 +76,7 @@ class DataLayer extends \Magento\Framework\App\Action\Action
             $orderId = $this->checkoutSession->getLastOrderId();
             try {
                 $order = $this->orderRepository->get($orderId);
-            } catch (\NoSuchElementException $e) {
+            } catch (InputException | NoSuchEntityException $e) {
                 $order = null;
             }
             if ($order && $order->getEntityId()) {
