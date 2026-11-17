@@ -12,6 +12,7 @@ use Exception;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\App\RequestInterface;
@@ -64,6 +65,11 @@ class AbstractDataLayer
     protected $productRepository;
 
     /**
+     * @var ProductResource|null
+     */
+    private $productResource;
+
+    /**
      * @var string
      */
     protected $customerGroupCode;
@@ -84,6 +90,7 @@ class AbstractDataLayer
      * @param Session|null $session
      * @param GroupRepository|null $groupRepository
      * @param ProductRepositoryInterface|null $productRepository
+     * @param ProductResource|null $productResource
      */
     public function __construct(
         Config                      $config,
@@ -93,8 +100,10 @@ class AbstractDataLayer
         ?Registry                    $registry = null,
         ?Session                     $session = null,
         ?GroupRepository             $groupRepository = null,
-        ?ProductRepositoryInterface  $productRepository = null
+        ?ProductRepositoryInterface  $productRepository = null,
+        ?ProductResource             $productResource = null
     ) {
+        $this->productResource = $productResource;
         $this->config = $config;
         $this->storeManager = $storeManager;
         $this->categoryRepository = $categoryRepository;
@@ -302,7 +311,10 @@ class AbstractDataLayer
         if ($attributeCode) {
             $result = $product->getData($attributeCode);
             if (is_numeric($result) && !in_array($attributeCode, ['sku', 'entity_id'])) {
-                $result = $product->getResource()->getAttribute($attributeCode)->getFrontend()->getValue($product);
+                if ($this->productResource === null) {
+                    $this->productResource = ObjectManager::getInstance()->get(ProductResource::class);
+                }
+                $result = $this->productResource->getAttribute($attributeCode)->getFrontend()->getValue($product);
             }
 
             if (is_array($result)) {

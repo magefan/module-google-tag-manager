@@ -54,6 +54,8 @@ class ChangePath implements SchemaPatchInterface
         }
 
         $this->schemaSetup->endSetup();
+
+        return $this;
     }
 
     /**

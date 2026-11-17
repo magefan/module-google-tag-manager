@@ -98,7 +98,7 @@ class Log implements LogInterface
     {
         $order = $this->getOrder($order);
 
-        $transactionsForRequesterByTransactionId = $this->transactionFactory->create()->getCollection()->addFieldToFilter(
+        $transactionsForRequesterByTransactionId = $this->transactionCollectionFactory->create()->addFieldToFilter(
             'requester',
             $requester
         )->addFieldToFilter(
