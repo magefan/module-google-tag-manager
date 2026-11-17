@@ -35,21 +35,10 @@ class EventList extends Field
         array $data = []
     ) {
         $this->moduleManager = $moduleManager;
-        parent::__construct($context, $data);
-    }
-
-    /**
-     * Set template to itself
-     *
-     * @return $this
-     */
-    protected function _prepareLayout(): EventList
-    {
-        parent::_prepareLayout();
-        if (!$this->getTemplate()) {
-            $this->setTemplate(static::EVENT_LIST_TEMPLATE);
-        }
-        return $this;
+        parent::__construct(
+            $context,
+            array_replace($data, ['template' => ($data['template'] ?? '') ?: static::EVENT_LIST_TEMPLATE])
+        );
     }
 
     /**
