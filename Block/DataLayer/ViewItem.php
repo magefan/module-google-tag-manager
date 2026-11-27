@@ -12,10 +12,12 @@ use Magefan\GoogleTagManager\Block\AbstractDataLayer;
 use Magefan\GoogleTagManager\Model\Config;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Catalog\Model\Product\Visibility;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Context;
+use Magento\Store\Model\StoreManagerInterface;
 use Magefan\GoogleTagManager\Api\DataLayer\ViewItemInterface;
 
 class ViewItem extends AbstractDataLayer
@@ -36,6 +38,11 @@ class ViewItem extends AbstractDataLayer
     private $productRepository;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * ViewItem constructor.
      *
      * @param Context $context
@@ -44,6 +51,7 @@ class ViewItem extends AbstractDataLayer
      * @param ViewItemInterface $viewItem
      * @param ProductRepositoryInterface $productRepository
      * @param array $data
+     * @param StoreManagerInterface|null $storeManager
      */
     public function __construct(
         Context $context,
@@ -51,11 +59,14 @@ class ViewItem extends AbstractDataLayer
         Registry $registry,
         ViewItemInterface $viewItem,
         ProductRepositoryInterface $productRepository,
-        array $data = []
+        array $data = [],
+        ?StoreManagerInterface $storeManager = null
     ) {
         $this->registry = $registry;
         $this->viewItem = $viewItem;
         $this->productRepository = $productRepository;
+        $this->storeManager = $storeManager ?: \Magento\Framework\App\ObjectManager::getInstance()
+            ->get(StoreManagerInterface::class);
         parent::__construct($context, $config, $data);
     }
 
@@ -69,9 +80,18 @@ class ViewItem extends AbstractDataLayer
     {
         $product = $this->getCurrentProduct();
         $data = $this->viewItem->get($product);
-        if ($productId = $this->_request->getParam('mfpreselect')) {
+        $productId = (int)$this->_request->getParam('mfpreselect');
+        if ($productId && 'configurable' === $product->getTypeId()
+            && in_array($productId, $product->getTypeInstance()->getUsedProductIds($product))
+        ) {
             try {
-                $child = $this->productRepository->getById($productId);
+                $store = $this->storeManager->getStore();
+                $child = $this->productRepository->getById($productId, false, $store->getId());
+                if ((int)$child->getStatus() !== Status::STATUS_ENABLED
+                    || !in_array($store->getWebsiteId(), $child->getWebsiteIds())
+                ) {
+                    return $data;
+                }
                 $childData = $this->viewItem->get($child);
                 if ($child->getVisibility() == Visibility::VISIBILITY_NOT_VISIBLE &&
                     isset($data['ecommerce']['items'][0]['item_url'])
